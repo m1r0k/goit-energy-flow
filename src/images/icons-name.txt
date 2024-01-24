@@ -1,4 +1,5 @@
 ** Довідничок назв**
+
 icon-arrow
 icon-burger
 icon-close
