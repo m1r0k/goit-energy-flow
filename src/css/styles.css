@@ -1,2 +1,9 @@
 @import url('./base/variables.css');
 @import url('./base/common.css');
+
+@import url('./header.css');
+@import url('./index/hero.css');
+@import url('./index/quote.css');
+@import url('./index/exercises.css');
+@import url('./index/motivation.css');
+@import url('./index/footer.css');
