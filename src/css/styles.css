@@ -1,2 +1,2 @@
-@import url('./variables.css');
-@import url('./base.css');
+@import url('./base/variables.css');
+@import url('./base/common.css');
