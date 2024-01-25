@@ -1,0 +1,58 @@
+.sport-image-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 375px;
+    width: 100%;
+}
+
+.sport-image {
+display: flex;
+max-width: auto;    
+border-radius: 30px;
+background: url(<path-to-image>), lightgray 6.659px 10.025px / 93.932% 155.972% no-repeat, #E8E8E8;
+}
+
+.norm-of-sports {
+    display: inline-flex;
+    flex-direction: column;
+    border-radius: 30px;
+    background: #1B1B1B;
+    }
+    
+    .article-title {
+        padding-left: 70px;
+        margin-top: 40px;
+        margin-bottom: auto;
+    color: #F6F6F6;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.4;
+    }
+    
+    .daily-norm {
+        margin-top: auto;
+        padding-left: 70px;
+        margin-bottom: auto;
+    color: rgba(246, 246, 246, 0.60);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.28; /* 128.571% */
+    }
+    
+    .daily-norm-text {
+        padding-left: 70px;
+        padding-right: 20px;
+        padding-bottom: 40px;
+    color: rgba(246, 246, 246, 0.60);
+    font-family: "DM Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px; /* 128.571% */
+    }
+    
+    
