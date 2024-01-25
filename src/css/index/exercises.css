@@ -1,0 +1,16 @@
+/* MOBILE */
+
+@media screen and (max-width: 767px) {
+  .exercises-container {
+    width: 335px;
+    height: 2252px;
+    flex-shrink: 0;
+    border-radius: 30px;
+    background: #e8e8e8;
+  }
+  .exercises-menu {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}
