@@ -63,7 +63,6 @@
 .footer-paragraph {
     font-size: 32px;
     line-height: 1;
-    letter-spacing: -0.02em;
     width: 279px;
     margin-bottom: 20px;
 }
@@ -188,6 +187,15 @@ screen and (max-device-pixel-ratio: 2) and (max-width: 767px) {
         height: 44px;
     }
 
+    .footer-social-icon {
+        width: 28px;
+        height: 28px;
+    }
+
+    .footer-paragraph {
+        letter-spacing: 0.02em;
+    }
+
     .subscribe-header {
         width: 352px;
         font-size: 18px;
@@ -301,8 +309,7 @@ screen and (max-device-pixel-ratio: 2) and (min-width: 768px) and (max-width: 14
     .footer-paragraph {
         font-size: 64px;
         line-height: 0.97;
-        width: 460px;
-        /* width: 488px; */
+        width: 480px;
         margin-bottom: 0;
     }
 
