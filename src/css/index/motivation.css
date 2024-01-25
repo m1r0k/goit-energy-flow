@@ -27,7 +27,6 @@ background: url(<path-to-image>), lightgray 6.659px 10.025px / 93.932% 155.972% 
     color: #F6F6F6;
     font-feature-settings: 'clig' off, 'liga' off;
     font-size: 20px;
-    font-style: normal;
     font-weight: 500;
     line-height: 1.4;
     }
@@ -38,9 +37,8 @@ background: url(<path-to-image>), lightgray 6.659px 10.025px / 93.932% 155.972% 
         margin-bottom: auto;
     color: rgba(246, 246, 246, 0.60);
     font-size: 14px;
-    font-style: normal;
     font-weight: 400;
-    line-height: 1.28; /* 128.571% */
+    line-height: 1.28;
     }
     
     .daily-norm-text {
@@ -50,9 +48,8 @@ background: url(<path-to-image>), lightgray 6.659px 10.025px / 93.932% 155.972% 
     color: rgba(246, 246, 246, 0.60);
     font-family: "DM Sans";
     font-size: 14px;
-    font-style: normal;
     font-weight: 400;
-    line-height: 18px; /* 128.571% */
+    line-height: 1.28;
     }
     
     
