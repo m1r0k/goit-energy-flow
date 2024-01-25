@@ -2,20 +2,23 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    max-width: 375px;
+    align-items: center;
+    
     width: 100%;
 }
 
 .sport-image {
-display: flex;
+    
+box-sizing: border-box;
 max-width: auto;    
 border-radius: 30px;
-background: url(<path-to-image>), lightgray 6.659px 10.025px / 93.932% 155.972% no-repeat, #E8E8E8;
+background:  #E8E8E8;
 }
 
 .norm-of-sports {
-    display: inline-flex;
+    display: flex;
     flex-direction: column;
+    max-width: 100%; 
     border-radius: 30px;
     background: #1B1B1B;
     }
@@ -53,6 +56,16 @@ background: url(<path-to-image>), lightgray 6.659px 10.025px / 93.932% 155.972% 
     font-style: normal;
     font-weight: 400;
     line-height: 18px; /* 128.571% */
+    }
+
+    .icon-dumbbell {
+        fill: aqua;
+        padding-top: 65px;
+        padding-left: 64px;
+        justify-content: center;
+        align-items: center;
+        border:  aqua;
+        border-radius: 50%;
     }
     
     
