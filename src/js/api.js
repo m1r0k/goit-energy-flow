@@ -4,7 +4,7 @@ const BASE_URL = 'https://energyflow.b.goit.study/api/';
 
 // фільтри для блоку з видами вправав
 export function filterExercises(value) {
-  axios(`${BASE_URL}filters`, {
+  return axios(`${BASE_URL}filters`, {
     method: 'get',
     params: {
       filter: value,
@@ -15,7 +15,7 @@ export function filterExercises(value) {
 
 // отримати вправи
 export function getExercises(bodyparts, muscles, equipment, keyword) {
-  axios(`${BASE_URL}exercises`, {
+  return axios(`${BASE_URL}exercises`, {
     method: 'get',
     params: {
       bodyparts,
@@ -29,7 +29,7 @@ export function getExercises(bodyparts, muscles, equipment, keyword) {
 
 // взяти одину вправу за айді
 export function getExercise(id) {
-  axios(`${BASE_URL}exercises`, {
+  return axios(`${BASE_URL}exercises`, {
     method: 'get',
     params: {
       id,
@@ -39,14 +39,14 @@ export function getExercise(id) {
 
 // отримати цититу
 export function getQuote() {
-  axios(`${BASE_URL}quote`, {
+  return axios(`${BASE_URL}quote`, {
     method: 'get',
   });
 }
 
 // підписатися на розсилку
 export function subscribe(email) {
-  axios.post(
+  return axios.post(
     `${BASE_URL}subscription`,
     {
       email,
