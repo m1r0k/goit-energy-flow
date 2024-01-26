@@ -53,7 +53,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 10000;
+  z-index: 9999999999999;
   display: none;
   transform: translateX(0);
   width: 375px;
@@ -133,7 +133,6 @@
 /* DESKTOP */
 
 @media screen and (min-width: 1158px) {
-<<<<<<< Updated upstream
   .navigation-item {
     display: flex;
     text-decoration: none;
@@ -158,42 +157,3 @@
 .header-link {
   fill: black;
 }
-=======
-  .navigation {
-    display: flex;
-    justify-content: space-between;
-  }
-  .page-header-container {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: row;
-  }
-  .logo {
-    margin-left: 48px;
-    color: #1b1b1b;
-    font-family: 'DM Sans';
-    font-size: 28px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 1em;
-    letter-spacing: -0.56px;
-  }
-  .navigation-container-menu {
-    width: 211px;
-    height: 52px;
-    border-radius: 60px;
-    background: #7e847f;
-  }
-  .navigation-list {
-    display: inline-flex;
-    flex-direction: row;
-  }
-  .header-social-links {
-    display: flex;
-    flex-direction: row;
-  }
-  .open-mobile-menu-btn {
-    display: none;
-  }
-}
->>>>>>> Stashed changes
