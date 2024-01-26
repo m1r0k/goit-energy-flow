@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    margin-bottom: 20px;
 }
 
 /* Foto */
@@ -11,7 +12,7 @@
 .foto-women-style {
     width: 335px;
     border-radius: 30px;
-    background: #E8E8E8;
+    background: var(--primary-color);
     max-height: 100%;
 }
 
@@ -23,13 +24,13 @@
     flex-direction: column;
     width: 335px;
     border-radius: 30px;
-    background: #1B1B1B;
+    background: var(--secondary-color);
 }
 
 .article-title {
     padding-left: 70px;
     padding-top: 40px;
-    color: #F6F6F6;
+    color: var(--light-accent-color);
     font-feature-settings: 'clig' off, 'liga' off;
     font-size: 20px;
     font-weight: 500;
@@ -44,7 +45,6 @@
     font-size: 14px;
     font-weight: 400;
     line-height: 1.28;
-    /* 128.571% */
 }
 
 .daily-norm-text {
@@ -55,7 +55,6 @@
     font-size: 14px;
     font-weight: 400;
     line-height: 18px;
-    /* 128.571% */
 }
 
 .icon-dumbbell {
@@ -63,11 +62,11 @@
     left: 36px;
     top: 46px;
     transform: translateX(-50%);
-    fill: #F6F6F6;
+    fill: var(--light-accent-color);
     display: flex;
     justify-content: center;
     align-items: center;
-    border: #F6F6F6;
+    border: var(--light-accent-color);
     border-radius: 50%;
 }
 
@@ -75,6 +74,10 @@
 /*tablet*/
 
 @media screen and (min-width: 768px) {
+    .sport-image-section {
+        margin-bottom: var(--primary-margin);
+    }
+
     .norm-of-sports {
         height: 302px;
         width: 736px;
