@@ -18,24 +18,5 @@ document.addEventListener("DOMContentLoaded", function() {
   closeMobileMenuBtn.addEventListener("click", closeMobileMenu);
   backdrop.addEventListener("click", closeMobileMenu);
 });
-  
-// HEADER SWITCHER BETWEEN HOME AND FAVORITES 
-const toggleSwitch = document.getElementById("toggleSwitch");
-const homeLink = document.getElementById("homeLink");
-const favoritesLink = document.getElementById("favoritesLink");
 
-toggleSwitch.addEventListener("change", function() {
-  if (toggleSwitch.checked) {
-    // If the switch is checked, change the href of Home to Favorites
-    homeLink.href = "./favorites/favorites.html";
-    homeLink.textContent = "Favorites";
-    favoritesLink.href = "./header.html";
-    favoritesLink.textContent = "Home";
-  } else {
-    // If the switch is not checked, revert the href back to the original
-    homeLink.href = "./header.html";
-    homeLink.textContent = "Home";
-    favoritesLink.href = "./favorites/favorites.html";
-    favoritesLink.textContent = "Favorites";
-  }
-});
+  

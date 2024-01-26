@@ -10,17 +10,22 @@
     line-height: 1.13em;
     letter-spacing: -0.32px;
     margin-left: 20px;
+    z-index: 9999;
   }
   .page-header-container {
     display: inline-flex;
     justify-content: space-between;
     margin-top: 20px;
   }
-  .navigation-container-menu {
+  .navigation {
     display: none;
   }
   .header-social-links {
     display: none;
+  }
+  .open-mobile-menu-btn {
+    width: 32px;
+    height: 16px;
   }
 }
 
@@ -130,6 +135,17 @@
 /* DESKTOP */
 
 @media screen and (min-width: 1158px) {
+  .logo {
+    color: #1b1b1b;
+    font-family: 'DM Sans';
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1em; /* 100% */
+    letter-spacing: -0.56px;
+    margin-top: 38px;
+    margin-left: 48px;
+  }
   .navigation-item {
     display: flex;
     text-decoration: none;
