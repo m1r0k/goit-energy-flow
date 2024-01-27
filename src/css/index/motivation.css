@@ -7,13 +7,29 @@
     margin-bottom: 20px;
 }
 
-/* Foto */
+/* Foto2 */
 
-.foto-women-style {
+.sport-image {
     width: 335px;
+    height: 269px;
+    flex-shrink: 0;
     border-radius: 30px;
-    background: var(--primary-color);
-    max-height: 100%;
+    background: url('../../images/img_motivation/mobile_1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50%, 50%;
+}
+
+/* 0px-767px-2x */
+
+@media screen and (min-resolution: 192dpi) and (max-width: 767px),
+screen and (min-resolution: 2dppx) and (max-width: 767px),
+screen and (min-device-pixel-ratio: 2) and (max-width: 767px) {
+    .sport-image {
+        background: url('../../images/img_motivation/mobile_@2x.jpg');
+        background-repeat: no-repeat;
+        background-size: 335px 269px;
+    }
 }
 
 /* 101 min */
@@ -22,9 +38,13 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 335px;
+    max-width: 335px;
+    height: 50%;
     border-radius: 30px;
     background: var(--secondary-color);
+    margin-left: auto;
+    margin-right: auto;
+
 }
 
 .article-title {
@@ -52,9 +72,11 @@
     padding-right: 20px;
     padding-bottom: 40px;
     color: rgba(246, 246, 246, 0.60);
+    font-family: "DM Sans";
     font-size: 14px;
     font-weight: 400;
     line-height: 18px;
+    /* 128.571% */
 }
 
 .icon-dumbbell {
@@ -73,18 +95,27 @@
 
 /*tablet*/
 
-@media screen and (min-width: 768px) {
-    .sport-image-section {
-        margin-bottom: var(--primary-margin);
+@media screen and (min-width: 768px) and (max-width: 1439px) {
+    .sport-image {
+        width: 736px;
+        height: 302px;
+        background: url('../../images/img_motivation/tablet_1.jpg');
+        background-size: cover;
+    }
+
+    @media screen and (min-resolution: 192dpi) and (min-width: 768px),
+    screen and (min-resolution: 2dppx) and (min-width: 768px),
+    screen and (min-device-pixel-ratio: 2) and (min-width: 768px) {
+        .sport-image {
+            background: url('../../images/img_motivation/tablet_@2x.jpg');
+            background-repeat: no-repeat;
+            background-size: 736px 302px;
+        }
     }
 
     .norm-of-sports {
         height: 302px;
-        width: 736px;
-    }
-
-    .foto-women-style {
-        width: 736px;
+        max-width: 736px;
     }
 
     .daily-norm {
@@ -115,26 +146,74 @@
     }
 }
 
+/* Desktop */
+
 @media screen and (min-width: 1440px) {
+    .sport-image {
+        width: 704px;
+        height: 302px;
+        background: url('../../images/img_motivation/desktop_1.jpg');
+        background-size: cover;
+    }
+
+    @media screen and (min-resolution: 192dpi) and (min-width: 1440px),
+    screen and (min-resolution: 2dppx) and (min-width: 1440px),
+    screen and (min-device-pixel-ratio: 2) and (min-width: 1440px) {
+        .sport-image {
+            background: url('../../images/img_motivation/desktop_@2x.jpg');
+            background-repeat: no-repeat;
+            background-size: 100% auto;
+            /* Используем относительные единицы */
+        }
+    }
+
     .sport-image-section {
         flex-direction: row;
         height: 302px;
-    }
-
-    .norm-of-sports {
-        width: 704px;
+        padding-left: 0px;
+        padding-right: 0px;
+        max-width: 1408px;
     }
 
     .foto-women-style {
-        width: 704px;
-        height: 100%;
-    }
+        width: auto;
+        max-height: 100%;
 
-    .sport-image {
-        height: auto;
     }
 
     .daily-norm-text {
         padding-right: 64px;
+    }
+
+    .norm-of-sports {
+        height: 302px;
+        max-width: 704px;
+    }
+
+    .daily-norm {
+        margin-top: 0;
+        margin-bottom: 25px;
+        padding-left: 114px;
+    }
+
+    .article-title {
+        padding-left: 114px;
+        padding-top: 64px;
+        font-size: 24px;
+        line-height: 1.33;
+    }
+
+    .daily-norm-text {
+        padding-left: 114px;
+        padding-right: 64px;
+        padding-bottom: 64px;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.5;
+    }
+
+    .icon-dumbbell {
+        left: 70px;
+        top: 71px;
     }
 }
