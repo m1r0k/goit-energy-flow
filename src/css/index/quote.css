@@ -22,7 +22,12 @@ margin-bottom: 14px;}
     margin-left: 46px;
     margin-bottom: 14px;
 }
-.box-icon-man{margin-right: 12px;}
+.box-icon-man{margin-right: 12px;
+    fill: rgba(246, 246, 246, 0.1);
+    border-radius: 50%;
+width: 34px;
+height: 32px;}
+
 .box-icon-quotes{position: absolute;
 right: 20px;
 top: 40px;}
@@ -76,7 +81,7 @@ top: 40px;}
                     }
     }
 
-    @media screen and (min-width: 1280px) {
+    @media screen and (min-width: 1440px) {
         
         .quot-block-section{display: flex;}
             .quot{
