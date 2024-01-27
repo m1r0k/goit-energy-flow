@@ -12,6 +12,11 @@
     margin-right: auto;
 }
 
+.page-footer-container {
+    margin-bottom: 60px;
+    width: 100%;
+}
+
 .footer-logo-container {
     margin-bottom: 42px;
 }
@@ -79,7 +84,6 @@
 
 .subscribe-container {
     width: 295px;
-    margin-bottom: 60px;
 }
 
 .subscribe-header {
@@ -90,6 +94,7 @@
 
 .footer-form {
     gap: 12px;
+    width: 295px;
 }
 
 .footer-form-input {
@@ -146,6 +151,7 @@
     font-size: 12px;
     line-height: 0.83;
     letter-spacing: -0.02em;
+    width: 100%;
 }
 
 .privacy {
@@ -170,6 +176,8 @@ screen and (max-device-pixel-ratio: 2) and (max-width: 767px) {
     .page-footer-container {
         display: flex;
         flex-direction: row;
+        margin-bottom: 120px;
+        padding-left: 48px;
     }
 
     .footer-logo-container {
@@ -211,6 +219,7 @@ screen and (max-device-pixel-ratio: 2) and (max-width: 767px) {
 
     .footer-form {
         gap: 20px;
+        width: 352px;
     }
 
     .footer-form-input {
@@ -248,7 +257,6 @@ screen and (max-device-pixel-ratio: 2) and (max-width: 767px) {
     .page-footer {
         padding-top: 64px;
         padding-bottom: 32px;
-        padding-left: 28px;
         background-image: url('../../images/footer/background_t@1.jpg');
         max-width: 736px;
         background-size: 736px;
@@ -272,7 +280,6 @@ screen and (max-device-pixel-ratio: 2) and (max-width: 767px) {
 
     .subscribe-container {
         width: 352px;
-        margin-bottom: 120px;
     }
 
     .footer-form-input {
@@ -304,6 +311,7 @@ screen and (max-device-pixel-ratio: 2) and (min-width: 768px) and (max-width: 14
 
     .page-footer-container {
         column-gap: 156px;
+        margin-bottom: 160px;
     }
 
     .footer-logo-container {
@@ -314,7 +322,6 @@ screen and (max-device-pixel-ratio: 2) and (min-width: 768px) and (max-width: 14
     .footer-subscribe {
         display: flex;
         column-gap: 160px;
-        margin-bottom: 126px;
     }
 
     .footer-paragraph {
