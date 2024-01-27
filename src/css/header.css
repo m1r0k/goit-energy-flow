@@ -1,4 +1,4 @@
-/* MOBILE */
+/*/////////////////////////////////////////////// MOBILE ///////////////////////////////////////////////*/
 
 @media screen and (max-width: 767px) {
   .logo {
@@ -31,7 +31,7 @@
     border: none;
   }
 
-  /* BURGER MENU */
+  /*/////////////////////////////////////////////// BURGER MENU ///////////////////////////////////////////////*/
   .backdrop.open {
     background: #7e847f;
     display: block;
@@ -98,22 +98,11 @@
     color: #333;
     display: block;
   }
-  .navigation-container-menu {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-  }
-  .mobile-navigation-container-menu {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-  }
   .mobile-navigation-list {
-    display: inline-flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 16px;
   }
   .mobile-navigation-button {
     display: flex;
@@ -122,8 +111,13 @@
     align-items: center;
     gap: 10px;
     border-radius: 30px;
-    background: #fff;
+    color: #f6f6f6;
     border: none;
+    background-color: #7e847f;
+  }
+  .mobile-navigation-button:hover:active:focus {
+    background: #fff;
+    color: #1b1b1b;
   }
   .mobile-navigation-item {
     color: #1b1b1b;
@@ -134,21 +128,38 @@
     line-height: 1.5em;
   }
   .mobile-header-social-links {
-    display: inline-flex;
-    align-items: flex-start;
-    gap: 12px;
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 8px;
+    align-items: center;
+    gap: 8px;
   }
   .mobile-header-links-list {
     display: inline-flex;
     flex-direction: row;
     align-items: flex-start;
     gap: 12px;
+    margin-right: auto;
+    margin-bottom: 40px;
+    margin-left: auto;
+  }
+  .mobile-header-link-item {
+    display: flex;
+    padding: 8px;
+    align-items: center;
+    gap: 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(246, 246, 246, 0.2);
+    fill: #f6f6f6;
   }
 }
 
-/* TABLET */
+/*/////////////////////////////////////////////// TABLET ///////////////////////////////////////////////*/
 
 @media screen and (min-width: 768px) and (max-width: 1158px) {
+  .backdrop {
+    display: none;
+  }
   .page-header-container {
     margin-top: 32px;
     display: flex;
@@ -182,9 +193,8 @@
   }
   .navigation-item {
     margin-top: 8px;
-    margin-left: 16px;
     margin-bottom: 8px;
-    margin-right: 28px;
+    padding-right: 28px;
     justify-content: center;
     align-items: center;
     display: flex;
@@ -193,9 +203,13 @@
   }
   .navigation-button {
     border-radius: 30px;
-    background: #fff;
+    background: #7e847f;
     border: none;
     position: relative;
+  }
+  .navigation-button:hover,
+  .navigation-button:focus {
+    background-color: #fff;
   }
   #homeButton {
     display: flex;
@@ -215,7 +229,6 @@
   .header-social-links {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
     gap: 12px;
   }
   .header-link-item {
@@ -227,17 +240,31 @@
     border: 1px solid rgba(126, 132, 127, 0.2);
   }
   .header-link {
+    display: flex;
+    width: 28px;
+    height: 28px;
+    justify-content: center;
+    align-items: center;
     opacity: 0.8;
     fill: #7e847f;
+  }
+  .header-links-list {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 12px;
+    color: #7e847f;
   }
   .open-mobile-menu-btn {
     display: none;
   }
 }
 
-/* DESKTOP */
+/*/////////////////////////////////////////////// DESKTOP ///////////////////////////////////////////////*/
 
 @media screen and (min-width: 1158px) {
+  .backdrop {
+    display: none;
+  }
   .page-header-container {
     margin-top: 32px;
     display: flex;
@@ -261,30 +288,38 @@
     justify-content: center;
     margin-left: auto;
   } */
-  .container.navigation-container-menu {
-    padding: 8px 16px;
-    border-radius: 60px;
+  .navigation-container-menu {
     width: 211px;
     height: 52px;
+    border-radius: 60px;
     background: #7e847f;
+    display: block;
   }
   .navigation-list {
-    margin: 8px 16px;
+    width: 211px;
     display: flex;
     flex-direction: row;
-    row-gap: 16px;
     align-items: center;
   }
   .navigation-item {
-    padding-top: 8px;
-    padding-left: 16px;
-    padding-bottom: 8px;
+    margin-top: 8px;
+    margin-bottom: 8px;
     padding-right: 28px;
     justify-content: center;
     align-items: center;
     display: flex;
     border-radius: 30px;
     background: #7e847f;
+  }
+  .navigation-button {
+    border-radius: 30px;
+    background: #7e847f;
+    border: none;
+    position: relative;
+  }
+  .navigation-button:hover,
+  .navigation-button:focus {
+    background-color: #fff;
   }
   #homeButton {
     display: flex;
@@ -299,6 +334,7 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
+    position: absolute;
   }
   .header-social-links {
     margin-left: auto;
@@ -306,6 +342,12 @@
     align-items: center;
     justify-content: flex-end;
     gap: 12px;
+  }
+  .header-links-list {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 12px;
+    color: #7e847f;
   }
   .header-link-item {
     display: flex;
