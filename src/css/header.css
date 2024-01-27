@@ -337,10 +337,8 @@
     position: absolute;
   }
   .header-social-links {
-    margin-left: auto;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
     gap: 12px;
   }
   .header-links-list {
