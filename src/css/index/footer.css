@@ -50,6 +50,7 @@
 }
 
 .footer-social-icon {
+    fill: var(--light-accent-color);
     justify-content: center;
     align-items: center;
 }
@@ -58,6 +59,10 @@
 .footer-social-item-link:focus {
     color: var(--hover-color);
     border-color: var(--hover-color);
+}
+
+.footer-social-icon:hover {
+    fill: var(--hover-color);
 }
 
 .footer-paragraph {
@@ -109,6 +114,8 @@
 }
 
 .footer-form-input:focus {
+    padding-left: 14px;
+    font-size: 14px;
     background-color: #ffffff;
     color: var(--secondary-color);
 }
@@ -211,6 +218,10 @@ screen and (max-device-pixel-ratio: 2) and (max-width: 767px) {
         font-size: 16px;
         line-height: 1.5;
         margin-bottom: 20px;
+    }
+
+    .footer-form-input:focus {
+        font-size: 16px;
     }
 
     .footer-btn {
