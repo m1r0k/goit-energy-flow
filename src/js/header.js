@@ -18,5 +18,3 @@ document.addEventListener("DOMContentLoaded", function() {
   closeMobileMenuBtn.addEventListener("click", closeMobileMenu);
   backdrop.addEventListener("click", closeMobileMenu);
 });
-
-  
