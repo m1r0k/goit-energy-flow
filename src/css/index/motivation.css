@@ -1,0 +1,140 @@
+.sport-image-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/* Foto */
+
+.foto-women-style {
+    width: 335px;
+    border-radius: 30px;
+    background: var(--primary-color);
+    max-height: 100%;
+}
+
+/* 101 min */
+
+.norm-of-sports {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 335px;
+    border-radius: 30px;
+    background: var(--secondary-color);
+}
+
+.article-title {
+    padding-left: 70px;
+    padding-top: 40px;
+    color: var(--light-accent-color);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.daily-norm {
+    margin-top: auto;
+    padding-left: 70px;
+    margin-bottom: 14px;
+    color: rgba(246, 246, 246, 0.60);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.28;
+}
+
+.daily-norm-text {
+    padding-left: 70px;
+    padding-right: 20px;
+    padding-bottom: 40px;
+    color: rgba(246, 246, 246, 0.60);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+}
+
+.icon-dumbbell {
+    position: absolute;
+    left: 36px;
+    top: 46px;
+    transform: translateX(-50%);
+    fill: var(--light-accent-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: var(--light-accent-color);
+    border-radius: 50%;
+}
+
+
+/*tablet*/
+
+@media screen and (min-width: 768px) {
+    .sport-image-section {
+        margin-bottom: var(--primary-margin);
+    }
+
+    .norm-of-sports {
+        height: 302px;
+        width: 736px;
+    }
+
+    .foto-women-style {
+        width: 736px;
+    }
+
+    .daily-norm {
+
+        margin-bottom: 25px;
+        padding-left: 114px;
+    }
+
+    .article-title {
+        padding-left: 114px;
+        padding-top: 64px;
+        font-size: 24px;
+        line-height: 1.33;
+    }
+
+    .daily-norm-text {
+        padding-left: 114px;
+        padding-right: 96px;
+        padding-bottom: 64px;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.5;
+    }
+
+    .icon-dumbbell {
+        left: 70px;
+        top: 71px;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .sport-image-section {
+        flex-direction: row;
+        height: 302px;
+    }
+
+    .norm-of-sports {
+        width: 704px;
+    }
+
+    .foto-women-style {
+        width: 704px;
+        height: 100%;
+    }
+
+    .sport-image {
+        height: auto;
+    }
+
+    .daily-norm-text {
+        padding-right: 64px;
+    }
+}
