@@ -3,13 +3,18 @@
 /* Mobile */
 
 .exercises {
-  border-radius: 30px;
-  background: #e8e8e8;
+  margin-bottom: 16px;
 }
+
 .exercises-content-container {
   padding-top: 40px;
   padding-bottom: 40px;
+  padding-right: 20px;
+  padding-left: 20px;
+  border-radius: 30px;
+  background: #e8e8e8;
 }
+
 .exercises-title {
   color: var(--secondary-color);
 
@@ -22,6 +27,7 @@
 
   margin-bottom: 20px;
 }
+
 .exercises-btn-filter {
   color: var(--secondary-color);
   background: var(--light-accent-color);
@@ -36,6 +42,7 @@
   border: none;
   cursor: pointer;
 }
+
 .btn-wrapper {
   display: flex;
   gap: 6px;
@@ -70,6 +77,7 @@
   justify-content: center;
   align-items: center;
 }
+
 .exercises-name {
   color: #f6f6f6;
 
@@ -93,6 +101,7 @@
   font-weight: 400;
   line-height: 18px;
 }
+
 .current {
   color: var(--light-accent-color);
   background-color: #7e847f;
@@ -109,35 +118,44 @@
     font-size: 24px;
     line-height: 24px;
   }
+
   .exercises-title {
     font-size: 44px;
     line-height: 48px;
     letter-spacing: -0.88px;
     margin-bottom: 32px;
   }
+
   .exercises-btn-filter {
     font-size: 16px;
     line-height: 24px;
     padding: 10px 20px;
   }
+
   .exercises-content-container {
     padding-top: 64px;
     padding-bottom: 64px;
+    padding-right: 48px;
+    padding-left: 48px;
   }
+
   .btn-wrapper {
     display: flex;
     gap: 8px;
     margin-bottom: 32px;
   }
+
   .text-wrapper {
     width: 195px;
   }
+
   .exercises-item {
     /* width: 313px;
     height: 250px; */
     width: calc((100% - 14px) / 2);
   }
 }
+
 @media screen and (min-width: 1440px) {
   .exercises-list {
     display: flex;
@@ -145,6 +163,7 @@
     column-gap: 20px;
     row-gap: 40px;
   }
+
   .exercises-item {
     width: calc((100% - 60px) / 4);
   }
