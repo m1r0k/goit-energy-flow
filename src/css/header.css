@@ -29,6 +29,7 @@
     width: 32px;
     height: 16px;
     border: none;
+    stroke: #7e847f;
   }
 
   /*/////////////////////////////////////////////// BURGER MENU ///////////////////////////////////////////////*/
@@ -84,7 +85,7 @@
     margin-left: auto;
     border: none;
     background-color: #7e847f;
-    fill: #f6f6f6;
+    stroke: #f6f6f6;
   }
   .mobile-menu-list {
     list-style-type: none;
@@ -97,6 +98,10 @@
     text-decoration: none;
     color: #333;
     display: block;
+  }
+  .mobile-navigation-container-menu {
+    margin-top: auto;
+    margin-bottom: auto;
   }
   .mobile-navigation-list {
     display: flex;
@@ -156,7 +161,7 @@
 
 /*/////////////////////////////////////////////// TABLET ///////////////////////////////////////////////*/
 
-@media screen and (min-width: 768px) and (max-width: 1158px) {
+@media screen and (min-width: 768px) and (max-width: 1439px) {
   .backdrop {
     display: none;
   }
@@ -261,7 +266,7 @@
 
 /*/////////////////////////////////////////////// DESKTOP ///////////////////////////////////////////////*/
 
-@media screen and (min-width: 1158px) {
+@media screen and (min-width: 1440px) {
   .backdrop {
     display: none;
   }
