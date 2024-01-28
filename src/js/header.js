@@ -1,23 +1,40 @@
-document.addEventListener("DOMContentLoaded", function() {
-  const openMobileMenuBtn = document.querySelector(".open-mobile-menu-btn");
-  const closeMobileMenuBtn = document.querySelector(".mobile-menu-close-btn");
-  const mobileMenu = document.querySelector(".mobile-menu");
-  const backdrop = document.querySelector(".backdrop");
+document.addEventListener('DOMContentLoaded', function() {
+    const favoritesButton = document.getElementById('favoritesButton');
 
-  function openMobileMenu() {
-    mobileMenu.classList.add("open");
-    backdrop.classList.add("open");
-  }
+    favoritesButton.addEventListener('click', function(event) {
+        event.preventDefault(); 
 
-  function closeMobileMenu() {
-    mobileMenu.classList.remove("open");
-    backdrop.classList.remove("open");
-  }
+        const favoritesURL = favoritesButton.getAttribute('href');
+        const favoritesWindow = window.open(favoritesURL, '_blank'); 
 
-  openMobileMenuBtn.addEventListener("click", openMobileMenu);
-  closeMobileMenuBtn.addEventListener("click", closeMobileMenu);
-  backdrop.addEventListener("click", closeMobileMenu);
+       
+        if (favoritesWindow) {
+            favoritesWindow.focus();
+        } else {
+            alert('Будь ласка, дозвольте спливаючі вікна для цього сайту, щоб відкрити сторінку "Favorites".');
+        }
+    });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const openMobileMenuBtn = document.querySelector('.open-mobile-menu-btn');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const backdrop = document.querySelector('.backdrop');
+    const closeMobileMenuBtn = document.querySelector('.mobile-menu-close-btn'); 
+    openMobileMenuBtn.addEventListener('click', function() {
+        mobileMenu.classList.toggle('expanded');
+        backdrop.classList.toggle('expanded');
+    });
+
+    function closeMobileMenu() {
+        mobileMenu.classList.remove("expanded"); 
+        backdrop.classList.remove("expanded"); 
+    }
+
+    closeMobileMenuBtn.addEventListener("click", closeMobileMenu); 
+    backdrop.addEventListener("click", closeMobileMenu); 
+});
+
 
 document.addEventListener("DOMContentLoaded", function() {
   const logoLink = document.querySelector(".logo");
