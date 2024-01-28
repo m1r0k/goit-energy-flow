@@ -56,7 +56,14 @@ body {
     background-color: var(--light-accent-color);
     font-family: 'DM Sans', sans-serif;
     color: #434455;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 
+@media screen and (min-width: 768px) {
+  body {
+    margin-top: 16px;
+    margin-bottom: 16px;
 }
 
 button {
