@@ -1,8 +1,10 @@
-import { filterExercises, getExercises } from './api';
+import { filterExercises } from './api';
 const btnFilterList = document.querySelector('.btn-wrapper');
 const exFilterBtn = document.querySelectorAll('.exercises-btn-filter');
 const exList = document.querySelector('.exercises-list');
 const exPagination = document.querySelector('.exercises-pagination');
+const span = document.querySelector('.span');
+const secondSpan = document.querySelector('.second-span');
 
 let query = 'Muscles';
 
@@ -15,6 +17,7 @@ filterExercises(query).then(({ data: { results, totalPages } }) => {
 
 btnFilterList.addEventListener('click', e => {
   //   exList.classList.remove('visually-hidden');
+  span.classList.add('visually-hidden');
   const button = e.target;
   if (button.nodeName !== 'BUTTON') {
     return;
@@ -63,9 +66,11 @@ function renderFilterItems(data) {
           background-size: cover;
   background-repeat: no-repeat; 
           "
+          data-name = "${name}"
+          data-filter = "${filter.toLowerCase().split(' ').join('')}"
         >
         <div class = "text-wrapper">
-          <p class="exercises-name">${name}</p>
+          <p class="exercises-name" >${name}</p>
           <p class="exercises-text">${filter}</p>
           </div>
         </li>`
@@ -98,76 +103,84 @@ function fetchEx(query, page) {
     });
 }
 
-// function renderCards(card) {
-//   return card
-//     .map(
-//       ({ name, rating, burnedCalories, target, bodyPart, time }) => `<li
-//       class="workout-item"
-//               <div class="workout-header">
-//           <div class="workout-header-wrapper">
-//             <p class="workout-title" id="workout-title">workout</p>
-//             <p class="workout-rating" id="workout-rating">${rating}</p>
-//               <svg
-//               class="workout-rating-icon"
-//               id="workout-rating-icon"
-//               width="18"
-//               height="18"
-//             >
-//               <use href="./images/icons.svg#icon-star"></use>
-//             </svg>
-//           </div>
-//           <button
-//             class="workout-start-button"
-//             id="workout-start-button"
-//             type="button"
-//           >
-//             Start
-//             <svg
-//               class="workout-icon-start"
-//               id="workout-icon-start"
-//               width="14"
-//               height="14"
-//             >
-//               <use href="./images/icons.svg#icon-arrow"></use>
-//             </svg>
-//           </button>
-//         </div>
-//         <div class="workout-name-wrapper">
-//           <svg
-//             class="workout-icon-man"
-//             id="workout-icon-man"
-//             width="24"
-//             height="24"
-//           >
-//             <use href="./images/icons.svg#icon-man"></use>
-//           </svg>
-//           <p class="workout-name" id="workout-name">${name}</p>
-//         </div>
-//         <div class="workout-inform-wrapper">
-//           <p class="workout-calories" id="workout-calories">
-//             Burned calories:
-//             <span class="number-calories" id="number-calories"
-//               >${burnedCalories}/${time} min</span
-//             >
-//           </p>
-//           <p class="workout-body-part" id="workout-body-part">
-//             Body part: <span class="body-part" id="body-part">${bodyPart}</span>
-//           </p>
-//           <p class="workout-target" id="workout-target">
-//             Target: <span class="target" id="target">${target}</span>
-//           </p>
-//             />
-//       `)
-//     .join('');
-// } 
+exList.addEventListener('click', e => {
+  const exSubtype = e.target.dataset.name;
+  let exFilter = e.target.dataset.filter;
 
-// const exerForm = document.querySelector('.exercises-form');
-// const exerBtnSearch = document.querySelector('.exercises-button');
-// const cardList = document.querySelector('.list');
+  if (exFilter === 'bodyparts') {
+    exFilter = 'bodypart';
+  }
 
-// let queryExer;
-// exerForm.addEventListener('click', event) => {
-//   event.preventDefault();
-//   cardList.innerHTML = "";
-//   queryExer.event.target.elements.serach.value.trim();
-// } 
+  span.classList.remove('visually-hidden');
+
+  exList.innerHTML = '';
+  exPagination.innerHTML = '';
+  secondSpan.textContent = exSubtype;
+  fetch(
+    `https://energyflow.b.goit.study/api/exercises?${exFilter}=${exSubtype}&page=1&limit=10`
+  )
+    .then(res => res.json())
+    .then(({ results }) => console.log(results));
+});
+
+function renderCards(card) {
+  return card
+    .map(
+      ({ name, rating, burnedCalories, target, bodyPart, time }) => `<li
+              <div class="workout-header">
+          <div class="workout-header-wrapper">
+            <p class="workout-title" id="workout-title">workout</p>
+            <p class="workout-rating" id="workout-rating">${rating}</p>
+              <svg
+              class="workout-rating-icon"
+              id="workout-rating-icon"
+              width="18"
+              height="18"
+            >
+              <use href="./images/icons.svg#icon-star"></use>
+            </svg>
+          </div>
+          <button
+            class="workout-start-button"
+            id="workout-start-button"
+            type="button"
+          >
+            Start
+            <svg
+              class="workout-icon-start"
+              id="workout-icon-start"
+              width="14"
+              height="14"
+            >
+              <use href="./images/icons.svg#icon-arrow"></use>
+            </svg>
+          </button>
+        </div>
+        <div class="workout-name-wrapper">
+          <svg
+            class="workout-icon-man"
+            id="workout-icon-man"
+            width="24"
+            height="24"
+          >
+            <use href="./images/icons.svg#icon-man"></use>
+          </svg>
+          <p class="workout-name" id="workout-name">${name}</p>
+        </div>
+        <div class="workout-inform-wrapper">
+          <p class="workout-calories" id="workout-calories">
+            Burned calories:
+            <span class="number-calories" id="number-calories"
+              >${burnedCalories}/${time} min</span
+            >
+          </p>
+          <p class="workout-body-part" id="workout-body-part">
+            Body part: <span class="body-part" id="body-part">${bodyPart}</span>
+          </p>
+          <p class="workout-target" id="workout-target">
+            Target: <span class="target" id="target">${target}</span>
+          </p>
+            />
+      `)
+    .join('');
+} 
