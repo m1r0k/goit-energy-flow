@@ -11,12 +11,12 @@ function updateFavorites() {
 
 // RENDER //
 
-export function renderExercise(exerciseData) {
+export function renderExercise(exerciseModalData) {
   backDrop.classList.remove('visually-hidden');
 
-  const exerciseData = getExercise(id);
+  const exerciseModalData = getExercise(id);
 
-  markupModal.innerHTML = exerciseData.map(
+  markupModal.innerHTML = exerciseModalData.map(
     ({
       gifUrl, name, rating, target, bodyPart, equipment,
       popularity, burnedCalories, time, description
@@ -84,7 +84,7 @@ addToFavoritesBtn.addEventListener('click', addToFavoritesClickHandler);
 
 function addToFavoritesClickHandler(e) {
   e.preventDefault();
-  const index = favorites.findIndex((exercise) => exercise.name === exerciseData.name);
+  const index = favorites.findIndex((exercise) => exercise.name === exerciseModalData.name);
 
   if (index !== -1) {
     favorites.splice(index, 1);
