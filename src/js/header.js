@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var favoritesButton = document.getElementById('favoritesButton');
+    const favoritesButton = document.getElementById('favoritesButton');
 
     favoritesButton.addEventListener('click', function(event) {
         event.preventDefault(); 
 
-        var favoritesURL = favoritesButton.getAttribute('href');
-        var favoritesWindow = window.open(favoritesURL, '_blank'); 
+        const favoritesURL = favoritesButton.getAttribute('href');
+        const favoritesWindow = window.open(favoritesURL, '_blank'); 
 
        
         if (favoritesWindow) {
@@ -17,10 +17,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-    var openMobileMenuBtn = document.querySelector('.open-mobile-menu-btn');
-    var mobileMenu = document.querySelector('.mobile-menu');
-    var backdrop = document.querySelector('.backdrop');
-    var closeMobileMenuBtn = document.querySelector('.mobile-menu-close-btn'); 
+    const openMobileMenuBtn = document.querySelector('.open-mobile-menu-btn');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const backdrop = document.querySelector('.backdrop');
+    const closeMobileMenuBtn = document.querySelector('.mobile-menu-close-btn'); 
     openMobileMenuBtn.addEventListener('click', function() {
         mobileMenu.classList.toggle('expanded');
         backdrop.classList.toggle('expanded');
