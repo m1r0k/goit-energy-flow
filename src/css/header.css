@@ -39,7 +39,7 @@
   height: 16px;
   border: none;
   stroke: var(--dark-accent-color);
-  background-color: var(--primary-color);
+  background-color: transparent;
 }
 
 /*/////////////////////////////////////////////// BURGER MENU ///////////////////////////////////////////////*/
