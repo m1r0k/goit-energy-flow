@@ -2,19 +2,20 @@
 
 /* Mobile */
 
-.search-and-button {
-    margin-bottom: 40px;
-}
-
-.exercises-form {
-    position: relative;
-}
+/* .is-visible {
+    display: none;
+} */
 
 .btn-wrapper-details {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
-    margin-bottom: 20px;
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.search {
+    margin-top: 20px;
 }
 
 .exercises-input {
@@ -43,7 +44,7 @@
     position: absolute;
     z-index: 2;
     left: 263px;
-    top: 10px;
+    top: 70px;
 }
 
 .search-icon {
@@ -52,18 +53,43 @@
     
 }
 
-.workout-list {
-    display: flex;
-    flex-wrap: wrap;
+
+
+
+
+
+
+.favorites-container {
+    border-radius: 30px;
+    background: #E8E8E8;
+    padding: 40px 20px;
     gap: 20px;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    width: 100%;
+    min-height: 450px;
+    position: relative;
+
+
 }
 
-.workout-item {
+.favorites-title {
+    color: #1B1B1B;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 32px;
+    letter-spacing: -0.64px;
+
+}
+
+.workout-card {
     border-radius: 15px;
     background: #FFF;
     padding: 16px;
     width: 295px;
     height: 100%;
+
 }
 
 .workout-header {
@@ -95,6 +121,22 @@
 
 }
 
+.workout-trash-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 16px;
+    height: 16px;
+    border: none;
+    padding: 0;
+    background-color: transparent;
+}
+
+.workout-icon-trash {
+    stroke: #1B1B1B;
+    fill: #FFF;
+}
+
 .workout-rating {
     color: #1B1B1B;
     font-size: 12px;
@@ -106,6 +148,7 @@
 
 .workout-rating-icon {
     fill: #EEA10C;
+    
 }
 
 .workout-start-button {
@@ -113,6 +156,8 @@
     border: none;
     display: flex;
     gap: 8px;
+
+
     font-family: "DM Sans";
     color: #1B1B1B;
     font-size: 14px;
@@ -174,53 +219,28 @@
     /* 150% */
 }
 
-@media screen and (min-width: 768px) {
+.favorites-not-found {
 
-.search-and-button {
-    display: flex;
-    justify-content: space-between;
-}
-
-.search {
-    margin-top: 0;
-}
-
-.exercises-input {
-    width: 246px;
-    font-size: 16px;
-}
-
-.exercises-button {
-    left: 215px;
-    top: 12px;
-}
-
-.workout-list {
-    gap: 20px 14px;
-}
-
-.workout-item {
-    height: 165px;
-    width: calc((100% - 14px) / 2);
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
     margin: 0 auto;
-}
+    position: absolute;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+
+
 }
 
-@media screen and (min-width: 1440px) {
+.favorites-not-found-text {
+    width: 247px;
+    color: #1B1B1B;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
 
-.btn-wrapper-details {
-    margin-bottom: 32px;
-}
-
-.exercises-input {
-    width: 273px;
-}
-
-.exercises-button {
-    left: 235px;
-}
-
-.workout-item {
-    width: calc((100% - 40px) / 3);
-}
 }
