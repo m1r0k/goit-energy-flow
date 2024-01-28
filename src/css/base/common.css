@@ -53,10 +53,10 @@
 }
 
 body {
-    background-color: #FFFFFF;
+    background-color: var(--light-accent-color);
     font-family: 'DM Sans', sans-serif;
     color: #434455;
-    
+
 }
 
 button {
