@@ -2,9 +2,9 @@
 
 /* Mobile */
 
-.exercises-title.is-visible {
-    display: block;
-}
+/* .is-visible {
+    display: none;
+} */
 
 .btn-wrapper-details {
     display: flex;
