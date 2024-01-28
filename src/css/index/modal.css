@@ -7,16 +7,16 @@
   background: rgba(27, 27, 27, 0.6);
   transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
     visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.backdrop.is-open {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
 }
-
-/* .backdrop.is-open {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-} */
 
 .modal-window {
   width: 335px;
@@ -49,10 +49,9 @@
   right: 14px;
   border: none;
   padding: 0;
-  background: #f6f6f6;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1440px) {
   .modal-btn-close {
     top: 16px;
     right: 16px;
@@ -60,16 +59,7 @@
 }
 
 .modal-btn-close-svg {
-  stroke: #1b1b1b;
-  width: 24px;
-  height: 24px;
-}
-
-@media (min-width: 768px) {
-  .modal-btn-close-svg {
-    width: 28px;
-    height: 28px;
-  }
+  fill: #1b1b1b;
 }
 
 @media (min-width: 768px) {
@@ -121,10 +111,9 @@
 }
 
 .modal-rating {
+  display: flex;
   margin-top: 10px;
   margin-bottom: 20px;
-  display: flex;
-  gap: 2px;
 }
 
 @media (min-width: 768px) {
@@ -142,19 +131,15 @@
   line-height: 1.5;
 }
 
-/* .modal-rating-stars {
+.modal-rating-stars {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 2px;
-} */
+}
 
 .modal-rating-stars-svg {
   fill: rgba(27, 27, 27, 0.2);
-}
-
-.modal-rating-stars-svg.is-active {
-  fill: #eea10c;
 }
 
 .modal-info-list {
@@ -226,38 +211,22 @@
 }
 
 .modal-btn-favorites {
-  display: flex;
-  gap: 8px;
+  display: block;
   border-radius: 30px;
   background: #7e847f;
   border: none;
   padding: 12px 83px;
+  margin-bottom: 9px;
   cursor: pointer;
   color: #f6f6f6;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
-  white-space: nowrap;
-  margin-bottom: 9px;
 }
 
-.modal-btn-favorites:active {
+.modal-btn-favorites:hover {
   background: #5f6560;
-}
-
-.modal-btn-favorites-svg {
-  width: 18px;
-  height: 18px;
-  stroke: #f6f6f6;
-  fill: rgba(0, 0, 0, 0);
-}
-
-@media (min-width: 768px) {
-  .modal-btn-favorites-svg {
-  width: 20px;
-  height: 20px;
-}
 }
 
 @media (min-width: 768px) {
@@ -266,7 +235,7 @@
   }
 }
 
-/* .modal-btn-rating {
+.modal-btn-rating {
   border-radius: 30px;
   border: 1px solid #1b1b1b;
   padding: 12px 107px;
@@ -275,10 +244,4 @@
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
-  white-space: nowrap;
 }
-
-.modal-btn-rating:active {
-  color: #7E847F;
-  border: 1px solid #7E847F;
-} */
