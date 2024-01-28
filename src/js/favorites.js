@@ -3,7 +3,7 @@ let paginationButtons;
 
 const itemsPerPage = 6;
 if (window.location.pathname === './src/favorites.html') {
-  favoritesList = document.querySelector('.favorites-list');
+  favoritesList = document.querySelector('.workout-item');
   paginationButtons = document.querySelectorAll(
     '.favorites-pagination-block button'
   );
@@ -21,7 +21,7 @@ function showPage(pageNumber) {
   const startIndex = (pageNumber - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
-  const items = favoritesList.querySelectorAll('.favorites-list-item');
+  const items = favoritesList.querySelectorAll('.workout-list');
   items.forEach((item, index) => {
     if (index >= startIndex && index < endIndex) {
       item.style.display = 'block';
