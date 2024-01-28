@@ -15,6 +15,7 @@
     display: inline-flex;
     justify-content: space-between;
     margin-top: 20px;
+    position: absolute;
   }
   .navigation {
     display: none;
@@ -30,8 +31,8 @@
     height: 16px;
     border: none;
     stroke: #7e847f;
+    background-color: #e8e8e8;
   }
-
   /*/////////////////////////////////////////////// BURGER MENU ///////////////////////////////////////////////*/
   .backdrop.open {
     background: #7e847f;
@@ -50,16 +51,16 @@
   height: 771px;
 } */
   .mobile-menu {
+    display: flex;
+    flex-direction: column;
     position: fixed;
-    /* top: 0;
-  left: 0; */
-    z-index: 9999999999999;
-    display: block;
-    transform: translateX(0);
-    width: 335px;
-    height: 771px;
-    border-radius: 30px;
+    left: 0;
+    top: 0;
+    z-index: 9999999;
+    width: 100%;
+    height: 100%;
     background: #7e847f;
+    border-radius: 30px;
   }
   .mobile-menu.open {
     display: block;
@@ -155,6 +156,8 @@
     gap: 8px;
     border-radius: 10px;
     border: 1px solid rgba(246, 246, 246, 0.2);
+  }
+  .mobile-link-icon-header {
     fill: #f6f6f6;
   }
 }
@@ -169,6 +172,7 @@
     margin-top: 32px;
     display: flex;
     align-items: center;
+    position: absolute;
   }
   .logo {
     color: #1b1b1b;
@@ -271,28 +275,25 @@
     display: none;
   }
   .page-header-container {
-    margin-top: 32px;
+    margin-top: 24px;
     display: flex;
     align-items: center;
+    position: absolute;
   }
   .logo {
+    display: flex;
+    margin-left: auto;
     color: #1b1b1b;
     font-family: 'DM Sans';
     font-size: 28px;
     font-style: normal;
     font-weight: 700;
-    line-height: 1em; /* 100% */
+    line-height: 1em;
     letter-spacing: -0.56px;
-    margin-right: 81px;
   }
-  /* .navigation {
-    padding-right: 16px;
-    padding-left: 28px;
+  .navigation {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-left: auto;
-  } */
+  }
   .navigation-container-menu {
     width: 211px;
     height: 52px;
