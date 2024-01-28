@@ -1,4 +1,4 @@
-import { filterExercises } from './api';
+import { filterExercises, getExercises } from './api';
 const btnFilterList = document.querySelector('.btn-wrapper');
 const exFilterBtn = document.querySelectorAll('.exercises-btn-filter');
 const exList = document.querySelector('.exercises-list');
@@ -10,9 +10,11 @@ filterExercises(query).then(({ data: { results, totalPages } }) => {
   exFilterBtn[0].classList.add('is-active');
   exList.insertAdjacentHTML('beforeend', renderFilterItems(results));
   renderPagBtn(totalPages);
+  exPagination.firstChild.classList.add('active-pag-btn');
 });
 
 btnFilterList.addEventListener('click', e => {
+  //   exList.classList.remove('visually-hidden');
   const button = e.target;
   if (button.nodeName !== 'BUTTON') {
     return;
@@ -30,6 +32,7 @@ btnFilterList.addEventListener('click', e => {
     exList.insertAdjacentHTML('beforeend', renderFilterItems(results));
 
     renderPagBtn(totalPages);
+    exPagination.firstChild.classList.add('active-pag-btn');
   });
 });
 
@@ -40,6 +43,11 @@ function onPagBtnClick(e) {
   if (e.target.nodeName !== 'BUTTON') {
     return;
   }
+  const activePagBtn = document.querySelector('.active-pag-btn');
+  if (activePagBtn) {
+    activePagBtn.classList.remove('active-pag-btn');
+  }
+  e.target.classList.add('active-pag-btn');
 
   fetchEx(query, page);
 }
@@ -70,9 +78,9 @@ function renderPagBtn(totalPages) {
     .fill()
     .map(
       (_, idx) =>
-        `<button class = "exercises-pagination-btn" type = "button" data-page-number = ${
+        `<button class = "exercises-pagination-btn" type = "button">${
           idx + 1
-        }>${idx + 1}</button>`
+        }</button>`
     )
     .join('');
   exPagination.innerHTML = '';

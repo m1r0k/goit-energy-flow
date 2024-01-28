@@ -124,6 +124,7 @@
   background-color: #7e847f;
 }
 .active-pag-btn {
+  color: var(--secondary-color);
   width: 31px;
   height: 32px;
   border-radius: 50%;
