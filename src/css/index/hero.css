@@ -1,10 +1,10 @@
 /* MOBILE */
 .hero {
-display: flex;
-justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
-.girl {  
+.girl {
     width: 335px;
     height: 387px;
     border-radius: 30px;
@@ -14,10 +14,11 @@ justify-content: center;
     background-size: cover;
 }
 
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-        .girl {
-            background-image: url('../../images/hero/girl-mob@2x.png');
-        }
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+    .girl {
+        background-image: url('../../images/hero/girl-mob@2x.png');
+    }
 }
 
 .tags {
@@ -87,34 +88,31 @@ justify-content: center;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
-    line-height: 1,28em;
+    line-height: 1, 28em;
     letter-spacing: -0.14px;
 }
 
-    /* TABLET */
+/* TABLET */
 
 @media screen and (min-width: 768px) {
-    .container {
+    .hero-container {
         width: 736px;
+        display: flex;
     }
 
-    .hero-container{
-        width: 736px; 
-        display: flex;
-      }
-
-      .girl { 
-        width: 248px; 
+    .girl {
+        width: 248px;
         height: 900px;
         border-radius: 50px 0px 50px 50px;
         margin-bottom: 0px;
         background-image: url('../../images/hero/girl-tab.png');
     }
-    
-    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-            .girl {
-                background-image: url('../../images/hero/girl-tab@2x.png');
-            }
+
+    @media (-webkit-min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi) {
+        .girl {
+            background-image: url('../../images/hero/girl-tab@2x.png');
+        }
     }
 
     .tags {
@@ -139,7 +137,7 @@ justify-content: center;
         padding-left: 32px;
         padding-right: 32px;
         padding-bottom: 192px;
-        border-radius:  0px 50px 50px 50px;
+        border-radius: 0px 50px 50px 50px;
         background: #FFF;
     }
 
@@ -160,7 +158,7 @@ justify-content: center;
     .hero-motivation-text {
         width: 396px;
         font-size: 18px;
-        line-height: 1,33em;
+        line-height: 1, 33em;
         letter-spacing: -0.18px;
     }
 }
@@ -168,29 +166,24 @@ justify-content: center;
 /* DESKTOP */
 
 @media screen and (min-width: 1440px) {
-    .container {
+    .hero-container {
         width: 1408px;
-        padding-left: 48px;
-        padding-right: 48px;
+        display: flex;
     }
 
-    .hero-container{
-        width: 1408px; 
-        display: flex;
-      }
-
-      .girl { 
-        width: 704px; 
+    .girl {
+        width: 704px;
         height: 884px;
         border-radius: 50px 0px 50px 50px;
         margin-bottom: 0px;
         background-image: url('../../images/hero/girl-desk.png');
     }
-    
-    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-            .girl {
-                background-image: url('../../images/hero/girl-desk@2x.png');
-            }
+
+    @media (-webkit-min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi) {
+        .girl {
+            background-image: url('../../images/hero/girl-desk@2x.png');
+        }
     }
 
     .tags {
