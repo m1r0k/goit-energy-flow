@@ -1,23 +1,22 @@
-document.addEventListener("DOMContentLoaded", function() {
-  const openMobileMenuBtn = document.querySelector(".open-mobile-menu-btn");
-  const closeMobileMenuBtn = document.querySelector(".mobile-menu-close-btn");
-  const mobileMenu = document.querySelector(".mobile-menu");
-  const backdrop = document.querySelector(".backdrop");
+document.addEventListener('DOMContentLoaded', function() {
+    var openMobileMenuBtn = document.querySelector('.open-mobile-menu-btn');
+    var mobileMenu = document.querySelector('.mobile-menu');
+    var backdrop = document.querySelector('.backdrop');
+    var closeMobileMenuBtn = document.querySelector('.mobile-menu-close-btn'); 
+    openMobileMenuBtn.addEventListener('click', function() {
+        mobileMenu.classList.toggle('expanded');
+        backdrop.classList.toggle('expanded');
+    });
 
-  function openMobileMenu() {
-    mobileMenu.classList.add("open");
-    backdrop.classList.add("open");
-  }
+    function closeMobileMenu() {
+        mobileMenu.classList.remove("expanded"); 
+        backdrop.classList.remove("expanded"); 
+    }
 
-  function closeMobileMenu() {
-    mobileMenu.classList.remove("open");
-    backdrop.classList.remove("open");
-  }
-
-  openMobileMenuBtn.addEventListener("click", openMobileMenu);
-  closeMobileMenuBtn.addEventListener("click", closeMobileMenu);
-  backdrop.addEventListener("click", closeMobileMenu);
+    closeMobileMenuBtn.addEventListener("click", closeMobileMenu); 
+    backdrop.addEventListener("click", closeMobileMenu); 
 });
+
 
 document.addEventListener("DOMContentLoaded", function() {
   const logoLink = document.querySelector(".logo");
