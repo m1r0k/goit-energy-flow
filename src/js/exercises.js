@@ -1,4 +1,4 @@
-import { filterExercises } from './api';
+import { filterExercises, getExercisesCards } from './api';
 const btnFilterList = document.querySelector('.btn-wrapper');
 const exFilterBtn = document.querySelectorAll('.exercises-btn-filter');
 const exList = document.querySelector('.exercises-list');
@@ -103,8 +103,10 @@ function fetchEx(query, page) {
     });
 }
 
-exList.addEventListener('click', e => {
-  const exSubtype = e.target.dataset.name;
+exList.addEventListener('click', onCardClick);
+
+function onCardClick(e) {
+  let exSubtype = e.target.dataset.name;
   let exFilter = e.target.dataset.filter;
 
   if (exFilter === 'bodyparts') {
@@ -112,16 +114,14 @@ exList.addEventListener('click', e => {
   }
 
   span.classList.remove('visually-hidden');
-
+  secondSpan.textContent = exSubtype;
   exList.innerHTML = '';
   exPagination.innerHTML = '';
-  secondSpan.textContent = exSubtype;
-  fetch(
-    `https://energyflow.b.goit.study/api/exercises?${exFilter}=${exSubtype}&page=1&limit=10`
-  )
-    .then(res => res.json())
-    .then(({ results }) => console.log(results));
-});
+  getExercisesCards(exFilter, exSubtype).then(({ data: { results } }) => {
+    console.log(results);
+    exList.insertAdjacentHTML('beforeend', renderCards(results));
+  });
+}
 
 function renderCards(card) {
   return card
@@ -181,6 +181,7 @@ function renderCards(card) {
             Target: <span class="target" id="target">${target}</span>
           </p>
             />
-      `)
+      `
+    )
     .join('');
-} 
+}
