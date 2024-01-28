@@ -1,4 +1,22 @@
 document.addEventListener('DOMContentLoaded', function() {
+    var favoritesButton = document.getElementById('favoritesButton');
+
+    favoritesButton.addEventListener('click', function(event) {
+        event.preventDefault(); 
+
+        var favoritesURL = favoritesButton.getAttribute('href');
+        var favoritesWindow = window.open(favoritesURL, '_blank'); 
+
+       
+        if (favoritesWindow) {
+            favoritesWindow.focus();
+        } else {
+            alert('Будь ласка, дозвольте спливаючі вікна для цього сайту, щоб відкрити сторінку "Favorites".');
+        }
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
     var openMobileMenuBtn = document.querySelector('.open-mobile-menu-btn');
     var mobileMenu = document.querySelector('.mobile-menu');
     var backdrop = document.querySelector('.backdrop');
