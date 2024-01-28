@@ -21,8 +21,8 @@ form.addEventListener("submit", async function (e) {
     subscribe(email);
     if (subscribe.ok) {
       showSend();
-    } else {
-      showError();
+    } else if (subscribe.status === '409'){
+      showError('You are subscribed to new exercises!');
     }
   } catch (error) {
     showError();
@@ -43,7 +43,7 @@ function showSend() {
 function showError() {
   iziToast.error({
     title: "Error",
-    message:
+    message: message ||
       "Sorry, there was an error sending your address. Please try again!",
     position: "center",
   });
