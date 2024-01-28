@@ -2,6 +2,17 @@ import axios from 'axios';
 
 const BASE_URL = 'https://energyflow.b.goit.study/api/';
 
+export async function getExercisesCards(filter, name, keyword) {
+  return await axios(`${BASE_URL}exercises`, {
+    method: 'get',
+    params: {
+      [filter]: name,
+      keyword,
+      limit: 9,
+    },
+  });
+}
+
 // фільтри для блоку з видами вправав
 export async function filterExercises(value) {
   return await axios(`${BASE_URL}filters`, {
