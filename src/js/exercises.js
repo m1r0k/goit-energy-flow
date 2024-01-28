@@ -1,8 +1,10 @@
-import { filterExercises, getExercises } from './api';
+import { filterExercises } from './api';
 const btnFilterList = document.querySelector('.btn-wrapper');
 const exFilterBtn = document.querySelectorAll('.exercises-btn-filter');
 const exList = document.querySelector('.exercises-list');
 const exPagination = document.querySelector('.exercises-pagination');
+const span = document.querySelector('.span');
+const secondSpan = document.querySelector('.second-span');
 
 let query = 'Muscles';
 
@@ -15,6 +17,7 @@ filterExercises(query).then(({ data: { results, totalPages } }) => {
 
 btnFilterList.addEventListener('click', e => {
   //   exList.classList.remove('visually-hidden');
+  span.classList.add('visually-hidden');
   const button = e.target;
   if (button.nodeName !== 'BUTTON') {
     return;
@@ -63,9 +66,11 @@ function renderFilterItems(data) {
           background-size: cover;
   background-repeat: no-repeat; 
           "
+          data-name = "${name}"
+          data-filter = "${filter.toLowerCase().split(' ').join('')}"
         >
         <div class = "text-wrapper">
-          <p class="exercises-name">${name}</p>
+          <p class="exercises-name" >${name}</p>
           <p class="exercises-text">${filter}</p>
           </div>
         </li>`
@@ -97,3 +102,22 @@ function fetchEx(query, page) {
       exList.insertAdjacentHTML('beforeend', renderFilterItems(results));
     });
 }
+exList.addEventListener('click', e => {
+  const exSubtype = e.target.dataset.name;
+  let exFilter = e.target.dataset.filter;
+
+  if (exFilter === 'bodyparts') {
+    exFilter = 'bodypart';
+  }
+
+  span.classList.remove('visually-hidden');
+
+  exList.innerHTML = '';
+  exPagination.innerHTML = '';
+  secondSpan.textContent = exSubtype;
+  fetch(
+    `https://energyflow.b.goit.study/api/exercises?${exFilter}=${exSubtype}&page=1&limit=10`
+  )
+    .then(res => res.json())
+    .then(({ results }) => console.log(results));
+});

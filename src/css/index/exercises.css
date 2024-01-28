@@ -139,6 +139,17 @@
   border: solid 1px black;
 }
 
+.second-span {
+  color: rgba(27, 27, 27, 0.5);
+
+  font-family: 'DM Sans';
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.4px;
+}
+
 @media screen and (min-width: 768px) {
   .exercises-list {
     display: flex;
@@ -192,6 +203,12 @@
     font-size: 24px;
     line-height: 32px;
     letter-spacing: 0.96px;
+  }
+
+  .second-span {
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.48px;
   }
 }
 
