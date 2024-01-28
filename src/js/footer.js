@@ -5,14 +5,21 @@ import { subscribe } from './api';
 const form = document.querySelector(".footer-form");
 const emailInput = document.querySelector(".footer-form-input");
 
+const emailPattern = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+
 form.addEventListener("submit", async function (e) {
   e.preventDefault();
 
   const email = emailInput.value.trim();
 
+  if (!emailPattern.test(email)) {
+    showError("Invalid email address");
+    return;
+  }
+
   try {
     subscribe(email);
-    if (subscribe.ok || subscribe.status === '409') {
+    if (subscribe.ok) {
       showSend();
     } else {
       showError();
