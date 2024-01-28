@@ -105,6 +105,10 @@
 }
 .workout-icon-man {
     margin-right: 16px;
+    fill: #7E847F;
+    /* stroke: #F6F6F6; */
+    --custom-property: red;
+        color: var(--custom-property);
 }
 .workout-name {
     color: #1B1B1B;

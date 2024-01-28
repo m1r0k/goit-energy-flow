@@ -1,3 +1,6 @@
+.quote {
+    margin-top: 96px;
+}
 .container-quote {
     border-radius: 30px;
     background: #7E847F;
@@ -9,13 +12,16 @@
 
 .quote-icon-man {
     margin-right: 12px;
+    fill: #F6F6F61A;
+    
+       
 }
 
 .quote-icon {
     position: absolute;
     right: 20px;
     top: 40px;
-
+    fill: #F6F6F6;
 }
 
 .quote-background-image {
@@ -97,6 +103,7 @@
 
 }
 @media screen and (max-width: 767px) {
+    
     .quote-wrapper {
         width: 250px;
 
@@ -111,6 +118,9 @@ screen and (min-device-pixel-ratio: 2) and (max-width: 767px) {
     }
 }
 @media screen and (min-width: 768px) {
+    .quote {
+            margin-top: 180px;
+        }
     .container-quote {
         padding: 64px 80px;
         margin-bottom: 16px;
@@ -184,6 +194,9 @@ screen and (min-device-pixel-ratio: 2) and (min-width: 768px) and (max-width: 14
     }
 }
 @media screen and (min-width: 1440px) {
+    .quote {
+            margin-top: 156px;
+        }
     .container-quote-wrapper {
         display: flex;
         width: 100%;
