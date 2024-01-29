@@ -3,13 +3,18 @@
 /* Mobile */
 
 .exercises {
-  border-radius: 30px;
-  background: #e8e8e8;
+  margin-bottom: 16px;
 }
+
 .exercises-content-container {
   padding-top: 40px;
   padding-bottom: 40px;
+  padding-right: 20px;
+  padding-left: 20px;
+  border-radius: 30px;
+  background: #e8e8e8;
 }
+
 .exercises-title {
   color: var(--secondary-color);
 
@@ -22,6 +27,7 @@
 
   margin-bottom: 20px;
 }
+
 .exercises-btn-filter {
   color: var(--secondary-color);
   background: var(--light-accent-color);
@@ -36,6 +42,7 @@
   border: none;
   cursor: pointer;
 }
+
 .btn-wrapper {
   display: flex;
   gap: 6px;
@@ -47,6 +54,7 @@
   flex-wrap: wrap;
 
   gap: 20px;
+  margin-bottom: 20px;
 }
 
 .exercises-item {
@@ -59,8 +67,6 @@
   border-radius: 12px;
   border: 1px solid rgba(246, 246, 246, 0.3);
   background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
   cursor: pointer;
 }
 
@@ -70,6 +76,7 @@
   justify-content: center;
   align-items: center;
 }
+
 .exercises-name {
   color: #f6f6f6;
 
@@ -93,9 +100,55 @@
   font-weight: 400;
   line-height: 18px;
 }
-.current {
+
+.exercises-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.exercises-pagination-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: 'DM Sans';
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 32px;
+  letter-spacing: 0.8px;
+  color: rgba(27, 27, 27, 0.4);
+  border: none;
+  /* width: 31px;
+  height: 32px;
+  border-radius: 50%;
+  border: solid 1px black; */
+  background-color: transparent;
+}
+.is-active {
   color: var(--light-accent-color);
   background-color: #7e847f;
+}
+.active-pag-btn {
+  color: var(--secondary-color);
+  width: 31px;
+  height: 32px;
+  border-radius: 50%;
+  border: solid 1px black;
+}
+
+.second-span {
+  color: rgba(27, 27, 27, 0.5);
+
+  font-family: 'DM Sans';
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.4px;
+  text-transform: capitalize;
 }
 
 @media screen and (min-width: 768px) {
@@ -103,41 +156,63 @@
     display: flex;
     flex-wrap: wrap;
     gap: 14px;
+    margin-bottom: 32px;
   }
 
   .exercises-name {
     font-size: 24px;
     line-height: 24px;
   }
+
   .exercises-title {
     font-size: 44px;
     line-height: 48px;
     letter-spacing: -0.88px;
     margin-bottom: 32px;
   }
+
   .exercises-btn-filter {
     font-size: 16px;
     line-height: 24px;
     padding: 10px 20px;
   }
+
   .exercises-content-container {
     padding-top: 64px;
     padding-bottom: 64px;
+    padding-right: 48px;
+    padding-left: 48px;
   }
+
   .btn-wrapper {
     display: flex;
     gap: 8px;
     margin-bottom: 32px;
   }
+
   .text-wrapper {
     width: 195px;
   }
+
   .exercises-item {
     /* width: 313px;
     height: 250px; */
     width: calc((100% - 14px) / 2);
   }
+
+  .exercises-pagination-btn {
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: 0.96px;
+  }
+
+  .second-span {
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.48px;
+  }
 }
+
 @media screen and (min-width: 1440px) {
   .exercises-list {
     display: flex;
@@ -145,6 +220,7 @@
     column-gap: 20px;
     row-gap: 40px;
   }
+
   .exercises-item {
     width: calc((100% - 60px) / 4);
   }
