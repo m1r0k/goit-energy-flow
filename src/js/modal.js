@@ -6,8 +6,8 @@ const addToFavoritesBtn = document.querySelector('.modal-btn-favorites');
 let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
 function updateFavorites() {
-  localStorage.setItem('favorites', JSON.stringify(favorites));
-}
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }
 
 // RENDER //
 
@@ -80,32 +80,32 @@ export function renderExercise(exerciseModalData) {
 
   // ADD TO FAVORITES //
 
-  addToFavoritesBtn.addEventListener('click', addToFavoritesClickHandler);
+addToFavoritesBtn.addEventListener('click', addToFavoritesClickHandler);
 
-  function addToFavoritesClickHandler(e) {
-    e.preventDefault();
-    const index = favorites.findIndex((exercise) => exercise.name === exerciseModalData.name);
+function addToFavoritesClickHandler(e) {
+  e.preventDefault();
+  const index = favorites.findIndex((exercise) => exercise.name === exerciseModalData.name);
 
-    if (index !== -1) {
-      favorites.splice(index, 1);
-      iziToast.show({
-        message: 'The exercise has been removed from favorites',
-        messageColor: '#f7f7fc',
-        backgroundColor: '#3939db',
-        position: 'topRight'
-      })
-    } else {
-      favorites.push(exerciseData[0]);
-      addToFavoritesBtn.innerText = 'Remove from';
-      iziToast.show({
-        message: 'The exercise has been added to favorites',
-        messageColor: '#f7f7fc',
-        backgroundColor: '#219c2b',
-        position: 'topRight'
-      })
-    }
+  if (index !== -1) {
+    favorites.splice(index, 1);
+    iziToast.show({
+      message: 'The exercise has been removed from favorites',
+      messageColor: '#f7f7fc',
+      backgroundColor: '#3939db',
+      position: 'topRight'
+    })
+  } else {
+    favorites.push(exerciseData[0]);
+    addToFavoritesBtn.innerText = 'Remove from';
+    iziToast.show({
+      message: 'The exercise has been added to favorites',
+      messageColor: '#f7f7fc',
+      backgroundColor: '#219c2b',
+      position: 'topRight'
+    })
+  }
 
-    updateFavorites();
+  updateFavorites();
   };
 
   // CLOSE MODAL //
