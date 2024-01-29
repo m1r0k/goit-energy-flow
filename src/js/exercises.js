@@ -127,7 +127,9 @@ function renderCards(card) {
   return card
     .map(
       ({ name, rating, burnedCalories, target, bodyPart, time }) => `<li
-              <div class="workout-header">
+          class="workout-item"
+          <div class="workout-card">    
+      <div class="workout-header">
           <div class="workout-header-wrapper">
             <p class="workout-title" id="workout-title">workout</p>
             <p class="workout-rating" id="workout-rating">${rating}</p>
@@ -171,7 +173,7 @@ function renderCards(card) {
           <p class="workout-calories" id="workout-calories">
             Burned calories:
             <span class="number-calories" id="number-calories"
-              >${burnedCalories}/${time} min</span
+              >${burnedCalories} / ${time} min</span
             >
           </p>
           <p class="workout-body-part" id="workout-body-part">
@@ -180,8 +182,9 @@ function renderCards(card) {
           <p class="workout-target" id="workout-target">
             Target: <span class="target" id="target">${target}</span>
           </p>
-            />
-      `
-    )
+          </div>
+          </div>
+            
+      `)
     .join('');
-}
+} 
