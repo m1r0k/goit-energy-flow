@@ -3,6 +3,9 @@
     right: 20px;
     bottom: 20px;
     z-index: 3;
+
+    transform: translateY(60px);
+    transition: transform 250ms linear;
 }
 
 .scroll-btn {
@@ -31,6 +34,9 @@
 }
 
 @media screen and (min-width: 768px) {
+    .scroll-container {
+        transform: translateY(120px);
+    }
 
     .scroll-btn {
         height: 100px;
