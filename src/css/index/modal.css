@@ -12,12 +12,6 @@
   pointer-events: auto;
 }
 
-/* .backdrop.is-open {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-} */
-
 .modal-window {
   width: 335px;
   position: absolute;
