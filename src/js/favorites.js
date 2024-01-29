@@ -1,4 +1,4 @@
-let favoritesList;
+/*let favoritesList;
 let paginationButtons;
 
 const itemsPerPage = 6;
@@ -37,4 +37,37 @@ function showPage(pageNumber) {
       button.classList.remove('active-btn');
     }
   });
+}*/
+
+let favoritesList;
+
+if (window.location.pathname === '/src/favorites.html') {
+  favoritesList = document.querySelector('.favorites-list');
+  displayFavorites();
+}
+
+function displayFavorites() {
+  const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+  if (favorites.length === 0) {
+    favoritesList.innerHTML = `
+      <div class="message-info">
+        <div class="message-info-block">
+          <img class="message-info-svg" src="./images/favorites/dumbbell.jpg" alt="dumbbell" />
+          <p class="message-info-text">
+            It appears that you haven't added any exercises to your favorites yet. To get
+            started, you can add exercises that you like to your favorites for easier
+            access in the future.
+          </p>
+        </div>
+      </div>
+    `;
+  } else {
+
+    favoritesList.innerHTML = favorites.map(exercise => `
+      <li class="favorites-item">
+        <span>${exercise.name}</span>
+      </li>
+    `).join('');
+  }
 }
