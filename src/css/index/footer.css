@@ -10,6 +10,7 @@
     background-image: url('../../images/footer/background_m@1.jpg');
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 20px;
 }
 
 .footer-logo-container {
@@ -164,6 +165,7 @@ screen and (max-device-pixel-ratio: 2) and (max-width: 767px) {
 @media screen and (min-width: 768px) {
     .page-footer {
         padding-top: 64px;
+        margin-bottom: 16px;
     }
 
     .page-footer-container {
@@ -293,6 +295,10 @@ screen and (max-device-pixel-ratio: 2) and (min-width: 768px) and (max-width: 14
 }
 
 @media screen and (min-width: 1440px) {
+    .container {
+        width: 1408px;
+    }
+
     .page-footer {
         max-width: 1408px;
         height: 454px;
