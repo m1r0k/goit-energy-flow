@@ -69,3 +69,17 @@ export async function subscribe(email) {
     }
   );
 }
+
+// відправити відгук
+
+export async function leaveReview(id, rate, email, review) {
+  await axios.patch(`${BASE_URL}exercises/${id}/rating`, {
+    rate,
+    email,
+    review
+  }, {
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  });
+}
