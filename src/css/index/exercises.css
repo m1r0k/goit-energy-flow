@@ -117,7 +117,7 @@
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
-  line-height: 32px; /* 160% */
+  line-height: 32px;
   letter-spacing: 0.8px;
   color: rgba(27, 27, 27, 0.4);
   border: none;
@@ -148,6 +148,7 @@
   font-weight: 400;
   line-height: 20px;
   letter-spacing: -0.4px;
+  text-transform: capitalize;
 }
 
 @media screen and (min-width: 768px) {
