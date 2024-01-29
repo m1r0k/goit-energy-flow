@@ -1,12 +1,12 @@
 .container {
-  width: 375px;
+  width: 335px;
   margin-left: auto;
   margin-right: auto;
 }
 
 @media screen and (min-width: 768px) {
   .container {
-    width: 776px;
+    width: 736px;
   }
 }
 
