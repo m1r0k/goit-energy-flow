@@ -9,7 +9,7 @@
     padding: 0%;
   }
   
-  /* Foto2 */
+  /* photo */
   
   .sport-image {
     width: 335px;
@@ -179,12 +179,7 @@
             padding-right: 0px;
             max-width: 1408px;     
         }
-        .foto-women-style {
-            width: auto;
-            max-height: 100%;
-            
-        }
-        
+          
         .daily-norm-text {
             padding-right: 64px;    
         }
