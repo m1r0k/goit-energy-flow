@@ -9,7 +9,7 @@
   padding: 0%;
 }
 
-/* Foto2 */
+/* photo */
 
 .sport-image {
   width: 335px;
@@ -21,11 +21,12 @@
   background-size: cover;
   background-position: 50%, 50%;
 }
+
 /* 0px-767px-2x */
 
 @media screen and (min-resolution: 192dpi) and (max-width: 767px),
-  screen and (min-resolution: 2dppx) and (max-width: 767px),
-  screen and (min-device-pixel-ratio: 2) and (max-width: 767px) {
+screen and (min-resolution: 2dppx) and (max-width: 767px),
+screen and (min-device-pixel-ratio: 2) and (max-width: 767px) {
   .sport-image {
     background: url('../../images/img_motivation/mobile_@2x.jpg');
     background-repeat: no-repeat;
@@ -66,7 +67,8 @@
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 1.28; /* 128.571% */
+  line-height: 1.28;
+  /* 128.571% */
 }
 
 .daily-norm-text {
@@ -78,7 +80,8 @@
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 18px; /* 128.571% */
+  line-height: 18px;
+  /* 128.571% */
 }
 
 .icon-dumbbell {
@@ -95,9 +98,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden; /* Обрезать видимые части тени */
+  overflow: hidden;
+  /* Обрезать видимые части тени */
   border-radius: 50%;
-  box-shadow: 0 0 0 1px rgba(246, 246, 246, 0.2); /* Создаем ореол с помощью box-shadow */
+  box-shadow: 0 0 0 1px rgba(246, 246, 246, 0.2);
+  /* Создаем ореол с помощью box-shadow */
 }
 
 /*tablet   */
@@ -109,9 +114,10 @@
     background: url('../../images/img_motivation/tablet_1.jpg');
     background-size: cover;
   }
+
   @media screen and (min-resolution: 192dpi) and (min-width: 768px),
-    screen and (min-resolution: 2dppx) and (min-width: 768px),
-    screen and (min-device-pixel-ratio: 2) and (min-width: 768px) {
+  screen and (min-resolution: 2dppx) and (min-width: 768px),
+  screen and (min-device-pixel-ratio: 2) and (min-width: 768px) {
     .sport-image {
       background: url('../../images/img_motivation/tablet_@2x.jpg');
       background-repeat: no-repeat;
@@ -123,16 +129,19 @@
     height: 302px;
     max-width: 736px;
   }
+
   .daily-norm {
     margin-bottom: 25px;
     padding-left: 114px;
   }
+
   .article-title {
     padding-left: 114px;
     padding-top: 64px;
     font-size: 24px;
     line-height: 1.33;
   }
+
   .daily-norm-text {
     padding-left: 114px;
     padding-right: 96px;
@@ -141,6 +150,7 @@
     font-weight: 400;
     line-height: 1.5;
   }
+
   .icon-dumbbell-ellipse {
     left: 64px;
     top: 65px;
@@ -158,12 +168,13 @@
   }
 
   @media screen and (min-resolution: 192dpi) and (min-width: 1440px),
-    screen and (min-resolution: 2dppx) and (min-width: 1440px),
-    screen and (min-device-pixel-ratio: 2) and (min-width: 1440px) {
+  screen and (min-resolution: 2dppx) and (min-width: 1440px),
+  screen and (min-device-pixel-ratio: 2) and (min-width: 1440px) {
     .sport-image {
       background: url('../../images/img_motivation/desktop_@2x.jpg');
       background-repeat: no-repeat;
-      background-size: 100% auto; /* Используем относительные единицы */
+      background-size: 100% auto;
+      /* Используем относительные единицы */
     }
   }
 
@@ -174,10 +185,6 @@
     padding-right: 0px;
     max-width: 1408px;
   }
-  .foto-women-style {
-    width: auto;
-    max-height: 100%;
-  }
 
   .daily-norm-text {
     padding-right: 64px;
@@ -187,17 +194,20 @@
     height: 302px;
     max-width: 704px;
   }
+
   .daily-norm {
     margin-top: 0;
     margin-bottom: 25px;
     padding-left: 114px;
   }
+
   .article-title {
     padding-left: 114px;
     padding-top: 64px;
     font-size: 24px;
     line-height: 1.33;
   }
+
   .daily-norm-text {
     padding-left: 114px;
     padding-right: 64px;
@@ -206,6 +216,7 @@
     font-weight: 400;
     line-height: 1.5;
   }
+
   .icon-dumbbell-ellipse {
     left: 64px;
     top: 65px;

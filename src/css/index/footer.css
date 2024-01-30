@@ -1,6 +1,5 @@
 .page-footer {
-    padding-top: 40px;
-    padding-bottom: 20px;
+    padding: 40px 20px 20px 20px;
     border-radius: 30px;
     background-size: cover;
     background-repeat: no-repeat;
@@ -10,6 +9,7 @@
     background-image: url('../../images/footer/background_m@1.jpg');
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 20px;
 }
 
 .page-footer-container {
@@ -83,7 +83,7 @@
 }
 
 .subscribe-container {
-    width: 295px;
+    margin-bottom: 60px;
 }
 
 .subscribe-header {
@@ -171,13 +171,14 @@ screen and (max-device-pixel-ratio: 2) and (max-width: 767px) {
 @media screen and (min-width: 768px) {
     .page-footer {
         padding-top: 64px;
+        margin-bottom: 16px;
     }
 
     .page-footer-container {
         display: flex;
         flex-direction: row;
-        margin-bottom: 120px;
-        padding-left: 48px;
+        /* margin-bottom: 120px; */
+        padding-left: 28px;
     }
 
     .footer-logo-container {
@@ -301,6 +302,10 @@ screen and (max-device-pixel-ratio: 2) and (min-width: 768px) and (max-width: 14
 }
 
 @media screen and (min-width: 1440px) {
+    .container {
+        width: 1408px;
+    }
+
     .page-footer {
         max-width: 1408px;
         height: 454px;
@@ -311,7 +316,7 @@ screen and (max-device-pixel-ratio: 2) and (min-width: 768px) and (max-width: 14
 
     .page-footer-container {
         column-gap: 156px;
-        margin-bottom: 160px;
+        margin-bottom: 120px;
     }
 
     .footer-logo-container {
