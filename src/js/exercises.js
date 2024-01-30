@@ -206,7 +206,7 @@ function renderCards(card) {
           </div>
           </div>
             
-      `
+      </li>`
     )
     .join('');
 }
