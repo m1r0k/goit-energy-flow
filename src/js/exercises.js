@@ -1,10 +1,12 @@
 import { filterExercises, getExercisesCards } from './api';
 const btnFilterList = document.querySelector('.btn-wrapper');
 const exFilterBtn = document.querySelectorAll('.exercises-btn-filter');
+const exForm = document.querySelector('.exercises-form');
 const exList = document.querySelector('.exercises-list');
 const exPagination = document.querySelector('.exercises-pagination');
-const span = document.querySelector('.span');
+let span = document.querySelector('.span');
 const secondSpan = document.querySelector('.second-span');
+const exHeader = document.querySelector('.exercises-header');
 
 let query = 'Muscles';
 
@@ -12,21 +14,25 @@ filterExercises(query).then(({ data: { results, totalPages } }) => {
   exFilterBtn[0].classList.add('is-active');
   exList.insertAdjacentHTML('beforeend', renderFilterItems(results));
   renderPagBtn(totalPages);
-  exPagination.firstChild.classList.add('active-pag-btn');
 });
 
-btnFilterList.addEventListener('click', e => {
-  //   exList.classList.remove('visually-hidden');
+btnFilterList.addEventListener('click', onFiltersBtnClick);
+
+function onFiltersBtnClick(e) {
   span.classList.add('visually-hidden');
   const button = e.target;
   if (button.nodeName !== 'BUTTON') {
     return;
   }
   const activeFilterBtn = document.querySelector('.is-active');
-
   if (activeFilterBtn) {
     activeFilterBtn.classList.remove('is-active');
   }
+
+  if (innerWidth >= 768 && innerWidth < 1440) {
+    exHeader.style.marginBottom = '32px';
+  }
+
   button.classList.add('is-active');
   query = button.textContent;
 
@@ -35,14 +41,49 @@ btnFilterList.addEventListener('click', e => {
     exList.insertAdjacentHTML('beforeend', renderFilterItems(results));
 
     renderPagBtn(totalPages);
-    exPagination.firstChild.classList.add('active-pag-btn');
+
+    exForm.classList.add('visually-hidden');
   });
-});
+}
+
+exList.addEventListener('click', onCardClick);
+
+function onCardClick(e) {
+  let exSubtype = e.target.dataset.name;
+  let exFilter = e.target.dataset.filter;
+
+  if (exFilter === 'bodyparts') {
+    exFilter = 'bodypart';
+  }
+
+  if (e.target.nodeName === 'UL') {
+    return;
+  }
+
+  exForm.classList.remove('visually-hidden');
+  span.classList.remove('visually-hidden');
+  secondSpan.textContent = exSubtype;
+
+  exList.innerHTML = '';
+  exPagination.innerHTML = '';
+
+  getExercisesCards(exFilter, exSubtype).then(
+    ({ data: { results, totalPages } }) => {
+      exList.insertAdjacentHTML('beforeend', renderCards(results));
+      renderPagBtn(totalPages);
+      exPagination.firstChild.classList.add('active-pag-btn');
+    }
+  );
+  if (innerWidth >= 768 && innerWidth < 1440) {
+    exHeader.style.marginBottom = '55px';
+  }
+}
 
 exPagination.addEventListener('click', onPagBtnClick);
 
 function onPagBtnClick(e) {
   let page = e.target.textContent;
+  //   let name = span.textContent;
   if (e.target.nodeName !== 'BUTTON') {
     return;
   }
@@ -69,10 +110,10 @@ function renderFilterItems(data) {
           data-name = "${name}"
           data-filter = "${filter.toLowerCase().split(' ').join('')}"
         >
-        <div class = "text-wrapper">
+        
           <p class="exercises-name" >${name}</p>
           <p class="exercises-text">${filter}</p>
-          </div>
+          
         </li>`
     )
     .join('');
@@ -83,44 +124,24 @@ function renderPagBtn(totalPages) {
     .fill()
     .map(
       (_, idx) =>
-        `<button class = "exercises-pagination-btn" type = "button">${
-          idx + 1
+        `<button class = "exercises-pagination-btn" type = "button">${idx + 1
         }</button>`
     )
     .join('');
   exPagination.innerHTML = '';
   exPagination.insertAdjacentHTML('beforeend', buttons);
+  exPagination.firstChild.classList.add('active-pag-btn');
 }
 
-function fetchEx(query, page) {
+function fetchEx(name, page) {
   return fetch(
-    `https://energyflow.b.goit.study/api/filters?filter=${query}&page=${page}&limit=12`
+    `https://energyflow.b.goit.study/api/filters?filter=${name}&page=${page}&limit=12`
   )
     .then(res => res.json())
     .then(({ results }) => {
       exList.innerHTML = '';
       exList.insertAdjacentHTML('beforeend', renderFilterItems(results));
     });
-}
-
-exList.addEventListener('click', onCardClick);
-
-function onCardClick(e) {
-  let exSubtype = e.target.dataset.name;
-  let exFilter = e.target.dataset.filter;
-
-  if (exFilter === 'bodyparts') {
-    exFilter = 'bodypart';
-  }
-
-  span.classList.remove('visually-hidden');
-  secondSpan.textContent = exSubtype;
-  exList.innerHTML = '';
-  exPagination.innerHTML = '';
-  getExercisesCards(exFilter, exSubtype).then(({ data: { results } }) => {
-    console.log(results);
-    exList.insertAdjacentHTML('beforeend', renderCards(results));
-  });
 }
 
 function renderCards(card) {
@@ -184,6 +205,8 @@ function renderCards(card) {
         
           </div>
           </div>
-      `)
+            
+      `
+    )
     .join('');
-} 
+}
