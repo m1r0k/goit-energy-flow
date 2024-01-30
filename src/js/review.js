@@ -81,8 +81,6 @@ export function renderReview() {
 }
 
 
-g.addEventListener('click', renderReview);
-
 
 function closeReviewWindow() {
 
