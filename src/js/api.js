@@ -39,12 +39,9 @@ export async function getExercises(bodyparts, muscles, equipment, keyword) {
 }
 
 // взяти одину вправу за айді
-export async function getExercise(id) {
-  return await axios(`${BASE_URL}exercises`, {
+export async function getExercise(_id) {
+  return await axios(`${BASE_URL}exercises/${_id}`, {
     method: 'get',
-    params: {
-      id,
-    },
   });
 }
 
