@@ -1,6 +1,6 @@
-import star from './images/svg/icon-star.svg';
-import arrow from './images/svg/icon-arrow.svg';
-import man from './images/svg/icon-man.svg';
+import star from '../images/svg/icon-star.svg';
+import arrow from '../images/svg/icon-arrow.svg';
+import man from '../images/svg/icon-man.svg';
 import { filterExercises, getExercisesCards } from './api';
 const btnFilterList = document.querySelector('.btn-wrapper');
 const exFilterBtn = document.querySelectorAll('.exercises-btn-filter');
