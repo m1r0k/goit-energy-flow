@@ -131,11 +131,10 @@ function renderCards(card) {
           <div class="workout-card">    
       <div class="workout-header">
           <div class="workout-header-wrapper">
-            <p class="workout-title" id="workout-title">workout</p>
-            <p class="workout-rating" id="workout-rating">${rating}</p>
+            <p class="workout-title">workout</p>
+            <p class="workout-rating">${rating}</p>
               <svg
               class="workout-rating-icon"
-              id="workout-rating-icon"
               width="18"
               height="18"
             >
@@ -144,13 +143,11 @@ function renderCards(card) {
           </div>
           <button
             class="workout-start-button"
-            id="workout-start-button"
             type="button"
           >
             Start
             <svg
               class="workout-icon-start"
-              id="workout-icon-start"
               width="14"
               height="14"
             >
@@ -161,30 +158,32 @@ function renderCards(card) {
         <div class="workout-name-wrapper">
           <svg
             class="workout-icon-man"
-            id="workout-icon-man"
             width="24"
             height="24"
           >
             <use href="./images/icons.svg#icon-man"></use>
           </svg>
-          <p class="workout-name" id="workout-name">${name}</p>
+          <p class="workout-name">${name}</p>
         </div>
+        
         <div class="workout-inform-wrapper">
-          <p class="workout-calories" id="workout-calories">
+
+        <p class="workout-calories">
             Burned calories:
-            <span class="number-calories" id="number-calories"
-              >${burnedCalories} / ${time} min</span
-            >
+            <span class="number-calories">${burnedCalories} / ${time} min</span>
           </p>
-          <p class="workout-body-part" id="workout-body-part">
-            Body part: <span class="body-part" id="body-part">${bodyPart}</span>
+
+        <p class="workout-body-part">
+            Body part:
+            <span class="body-part">${bodyPart}</span>
           </p>
-          <p class="workout-target" id="workout-target">
-            Target: <span class="target" id="target">${target}</span>
+        
+          <p class="workout-target">
+            Target: <span class="target">${target}</span>
           </p>
+        
           </div>
           </div>
-            
       `)
     .join('');
 } 
