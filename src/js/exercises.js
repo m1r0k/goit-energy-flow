@@ -1,4 +1,5 @@
 import { filterExercises, getExercisesCards } from './api';
+import axios from 'axios'; 
 const btnFilterList = document.querySelector('.btn-wrapper');
 const exFilterBtn = document.querySelectorAll('.exercises-btn-filter');
 const exForm = document.querySelector('.exercises-form');
@@ -132,7 +133,7 @@ function renderPagBtn(totalPages) {
   exPagination.insertAdjacentHTML('beforeend', buttons);
   exPagination.firstChild.classList.add('active-pag-btn');
 }
-
+/*
 function fetchEx(name, page) {
   return fetch(
     `https://energyflow.b.goit.study/api/filters?filter=${name}&page=${page}&limit=12`
@@ -143,7 +144,7 @@ function fetchEx(name, page) {
       exList.insertAdjacentHTML('beforeend', renderFilterItems(results));
     });
 }
-
+*/
 function renderCards(card) {
   return card
     .map(
@@ -209,4 +210,59 @@ function renderCards(card) {
       `
     )
     .join('');
+<<<<<<< Updated upstream
 }
+=======
+} 
+
+// пошук
+function getFilterAndSubtypeInfo() {
+  return axios.get('filterInfo')
+    .then(response => {
+      return {
+        filter: response.data.filter,
+        subtype: response.data.subtype
+      };
+    })
+    .catch(error => {
+      console.error('Error fetching filter and subtype info:', error);
+    });
+}
+
+function onexFormSubmit(e) {
+  e.preventDefault();
+
+  getFilterAndSubtypeInfo().then(({ filter, subtype }) => {
+    const keyword = searchInput.value.trim();
+    const page = 1; 
+    performSearch(keyword, filter, subtype, page);
+  });
+}
+
+exForm.addEventListener('submit', onexFormSubmit);
+
+function performSearch(keyword, filter, subtype, page) {
+  filterExercises(keyword, filter, subtype, page).then(({ data: { results, totalPages } }) => {
+    exList.innerHTML = '';
+    exList.insertAdjacentHTML('beforeend', renderFilterItems(results));
+    renderPagBtn(totalPages);
+    exForm.classList.add('visually-hidden');
+  });
+}
+function fetchEx(name, page) {
+  return fetch(`https://energyflow.b.goit.study/api/filters?filter=${name}&page=${page}&limit=12`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(({ results }) => {
+      exList.innerHTML = '';
+      exList.insertAdjacentHTML('beforeend', renderFilterItems(results));
+    })
+    .catch(error => {
+      console.error('Error fetching exercises:', error);
+    });
+}
+>>>>>>> Stashed changes
