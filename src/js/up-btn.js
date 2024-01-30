@@ -14,7 +14,6 @@ function checkScrolling() {
             upBtnContainer.style.transform = 'translateY(120px)';
         }
     }
-    console.log(window.scrollY);
 }
 
 function scrollUp() {

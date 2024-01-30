@@ -1,42 +1,124 @@
 import iziToast from "izitoast";
+import { getExercise } from './api'
 
-const markupModal = document.querySelector('.modal-window');
+
 const backDrop = document.querySelector('.backdrop');
-const addToFavoritesBtn = document.querySelector('.modal-btn-favorites');
-let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
-function updateFavorites() {
-    localStorage.setItem('favorites', JSON.stringify(favorites));
-  }
+
 
 // RENDER //
 
-export function renderExercise(exerciseModalData) {
+export async function renderExercise(_id) {
+
+  document.body.style.overflow = "hidden"
+
   backDrop.classList.remove('visually-hidden');
 
-  const exerciseModalData = getExercise(id);
+  const exerciseModalData = await getExercise(_id).then(res => res.data);
 
-  markupModal.innerHTML = exerciseModalData.map(
-    ({
-      gifUrl, name, rating, target, bodyPart, equipment,
-      popularity, burnedCalories, time, description
-    }) => {
-      const parsedRating = Math.round(parseFloat(rating));
+  backDrop.innerHTML = makeExerciseCard(exerciseModalData);
 
-      const stars = Array.from({ length: 5 }, (_, starIndex) => `
+  // ADD TO FAVORITES //
+
+  const addToFavoritesBtn = document.querySelector('.modal-btn-favorites');
+
+  addToFavoritesBtn.addEventListener('click', addToFavoritesClickHandler);
+
+  function addToFavoritesClickHandler(e) {
+    e.preventDefault();
+
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+    const index = favorites.findIndex((exercise) => {
+      return String(exercise._id) === String(exerciseModalData._id);
+    });
+
+    console.log(index);
+
+    if (index !== -1) {
+      favorites.splice(index, 1);
+      localStorage.setItem('favorites', JSON.stringify(favorites));
+      addToFavoritesBtn.innerHTML = checkExerciseIsFavorite(exerciseModalData._id);
+      iziToast.show({
+        message: 'The exercise has been removed from favorites',
+        messageColor: '#f7f7fc',
+        backgroundColor: '#3939db',
+        position: 'topRight'
+      });
+    } else {
+      favorites.push(exerciseModalData);
+      localStorage.setItem('favorites', JSON.stringify(favorites));
+      addToFavoritesBtn.innerHTML = checkExerciseIsFavorite(exerciseModalData._id);
+      iziToast.show({
+        message: 'The exercise has been added to favorites',
+        messageColor: '#f7f7fc',
+        backgroundColor: '#219c2b',
+        position: 'topRight'
+      });
+    }
+  };
+
+
+  // CLOSE MODAL //
+
+  function closeModal() {
+    backDrop.innerHTML = '';
+    backDrop.classList.add('visually-hidden');
+    addToFavoritesBtn.removeEventListener('click', addToFavoritesClickHandler);
+    closeBtn.removeEventListener('click', closeModal);
+    document.removeEventListener('keydown', escapeKeyHandler);
+    backDrop.removeEventListener('click', backdropClickHandler);
+    document.body.style.overflow = 'visible';
+  }
+
+  const closeBtn = document.querySelector('.modal-btn-close');
+  closeBtn.addEventListener('click', closeModal);
+
+  function escapeKeyHandler(e) {
+    if (e.key === 'Escape') {
+      closeModal();
+    }
+  };
+
+  document.addEventListener('keydown', escapeKeyHandler);
+
+  function backdropClickHandler(e) {
+    if (e.target === backDrop) {
+      closeModal();
+    }
+  };
+
+  backDrop.addEventListener('click', backdropClickHandler);
+};
+
+function makeExerciseCard({
+  gifUrl, name, rating, target, bodyPart, equipment,
+  popularity, burnedCalories, time, description, _id
+}) {
+  const parsedRating = Math.round(parseFloat(rating));
+
+  const stars = Array.from({ length: 5 }, (_, starIndex) => `
         <li>
           <svg class="modal-rating-stars-svg" width="18" height="18">
             <use href="./images/icons.svg#icon-star"></use>
           </svg>
         </li>
       `).map((star, starIndex) => {
-        if (starIndex < parsedRating) {
-          return star.replace('<svg', '<svg class="is-active"');
-        }
-        return star;
-      }).join('');
+    if (starIndex < parsedRating) {
+      return star.replace('<svg', '<svg class="modal-rating-stars-svg is-active"');
+    }
+    return star;
+  }).join('');
 
-      return `
+  return `
+        <div class="modal-window">
+    <div>
+      <button class="modal-btn-close" type="button">
+        <svg class="modal-btn-close-svg" width="28" height="28">
+          <use href="./images/icons.svg#icon-close" aria-label="icon-close"></use>
+        </svg>
+      </button>
+    </div>
         <div class="modal-tablet-pc-ver">
           <div class="modal-video"><img src="${gifUrl}" alt="Animated GIF"></div>
           <div>
@@ -74,67 +156,31 @@ export function renderExercise(exerciseModalData) {
             <p class="descr">${description}</p>
           </div>
         </div>
+            <div class="modal-btns">
+      <button class="modal-btn-favorites" type="button">
+        ${checkExerciseIsFavorite(_id)}
+      </button>
+    </div>
+  </div>
       `;
-    }
-  ).join('');
+}
 
-  // ADD TO FAVORITES //
+function checkExerciseIsFavorite(_id) {
+  let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
-addToFavoritesBtn.addEventListener('click', addToFavoritesClickHandler);
+  const index = favorites.findIndex((exercise) => String(exercise._id) === String(_id));
 
-function addToFavoritesClickHandler(e) {
-  e.preventDefault();
-  const index = favorites.findIndex((exercise) => exercise.name === exerciseModalData.name);
-
-  if (index !== -1) {
-    favorites.splice(index, 1);
-    iziToast.show({
-      message: 'The exercise has been removed from favorites',
-      messageColor: '#f7f7fc',
-      backgroundColor: '#3939db',
-      position: 'topRight'
-    })
+  if (index === -1) {
+    return `Add to favorites <div>
+          <svg class="modal-btn-favorites-svg">
+            <use href="./images/icons.svg#icon-heart" aria-label="icon-heart"></use>
+          </svg>
+        </div>`
   } else {
-    favorites.push(exerciseData[0]);
-    addToFavoritesBtn.innerText = 'Remove from';
-    iziToast.show({
-      message: 'The exercise has been added to favorites',
-      messageColor: '#f7f7fc',
-      backgroundColor: '#219c2b',
-      position: 'topRight'
-    })
+    return `Remove from <div>
+          <svg class="modal-btn-favorites-svg">
+            <use href="./images/icons.svg#icon-heart" aria-label="icon-heart"></use>
+          </svg>
+        </div>`
   }
-
-  updateFavorites();
-  };
-
-  // CLOSE MODAL //
-
-  function closeModal() {
-    markupModal.innerHTML = '';
-    backDrop.classList.add('visually-hidden');
-    addToFavoritesBtn.removeEventListener('click', addToFavoritesClickHandler);
-    closeBtn.removeEventListener('click', closeModal);
-    document.removeEventListener('keydown', escapeKeyHandler);
-    backDrop.removeEventListener('click', backdropClickHandler);
-  }
-
-  const closeBtn = document.querySelector('.modal-btn-close');
-  closeBtn.addEventListener('click', closeModal);
-
-  function escapeKeyHandler(e) {
-    if (e.key === 'Escape') {
-      closeModal();
-    }
-  };
-
-  document.addEventListener('keydown', escapeKeyHandler);
-
-  function backdropClickHandler(e) {
-    if (e.target === backDrop) {
-      closeModal();
-    }
-  };
-
-  backDrop.addEventListener('click', backdropClickHandler);
-};
+}

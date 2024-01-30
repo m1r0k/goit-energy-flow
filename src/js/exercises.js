@@ -1,3 +1,6 @@
+import star from '../images/svg/icon-star.svg';
+import arrow from '../images/svg/icon-arrow.svg'
+import man from '../images/svg/icon-man.svg'
 import { filterExercises, getExercisesCards } from './api';
 
 const btnFilterList = document.querySelector('.btn-wrapper');
@@ -171,7 +174,7 @@ function renderCards(card) {
               width="18"
               height="18"
             >
-              <use href="./images/icons.svg#icon-star"></use>
+              <use href="${star}"></use>
             </svg>
           </div>
           <button
@@ -185,7 +188,7 @@ function renderCards(card) {
               width="14"
               height="14"
             >
-              <use href="./images/icons.svg#icon-arrow"></use>
+              <use href="${arrow}"></use>
             </svg>
           </button>
         </div>
@@ -195,7 +198,7 @@ function renderCards(card) {
             width="24"
             height="24"
           >
-            <use href="./images/icons.svg#icon-man"></use>
+            <use href="${man}"></use>
           </svg>
           <p class="workout-name">${name}</p>
         </div>
@@ -222,4 +225,4 @@ function renderCards(card) {
       `
     )
     .join('');
-}
+} 
