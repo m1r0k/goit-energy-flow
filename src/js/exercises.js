@@ -1,4 +1,5 @@
 import { filterExercises, getExercisesCards } from './api';
+
 const btnFilterList = document.querySelector('.btn-wrapper');
 const exFilterBtn = document.querySelectorAll('.exercises-btn-filter');
 const exForm = document.querySelector('.exercises-form');
@@ -12,6 +13,7 @@ let query = 'Muscles';
 
 filterExercises(query).then(({ data: { results, totalPages } }) => {
   exFilterBtn[0].classList.add('is-active');
+
   exList.insertAdjacentHTML('beforeend', renderFilterItems(results));
   renderPagBtn(totalPages);
 });
@@ -35,7 +37,7 @@ function onFiltersBtnClick(e) {
 
   button.classList.add('is-active');
   query = button.textContent;
-
+  exList.addEventListener('click', onCardClick);
   filterExercises(query).then(({ data: { results, totalPages } }) => {
     exList.innerHTML = '';
     exList.insertAdjacentHTML('beforeend', renderFilterItems(results));
@@ -70,8 +72,17 @@ function onCardClick(e) {
   getExercisesCards(exFilter, exSubtype).then(
     ({ data: { results, totalPages } }) => {
       exList.insertAdjacentHTML('beforeend', renderCards(results));
+
+      const starBtn = document.querySelectorAll('.workout-start-button');
+      starBtn.forEach(btn =>
+        btn.addEventListener('click', e => {
+          console.log(results[0]._id);
+        })
+      );
+
       renderPagBtn(totalPages);
       exPagination.firstChild.classList.add('active-pag-btn');
+      exList.removeEventListener('click', onCardClick);
     }
   );
   if (innerWidth >= 768 && innerWidth < 1440) {
@@ -83,7 +94,7 @@ exPagination.addEventListener('click', onPagBtnClick);
 
 function onPagBtnClick(e) {
   let page = e.target.textContent;
-  //   let name = span.textContent;
+
   if (e.target.nodeName !== 'BUTTON') {
     return;
   }
@@ -112,7 +123,7 @@ function renderFilterItems(data) {
         >
         
           <p class="exercises-name" >${name}</p>
-          <p class="exercises-text">${filter}</p>
+          <p class="exercises-text" >${filter}</p>
           
         </li>`
     )
@@ -124,7 +135,8 @@ function renderPagBtn(totalPages) {
     .fill()
     .map(
       (_, idx) =>
-        `<button class = "exercises-pagination-btn" type = "button">${idx + 1
+        `<button class = "exercises-pagination-btn" type = "button">${
+          idx + 1
         }</button>`
     )
     .join('');
@@ -147,7 +159,7 @@ function fetchEx(name, page) {
 function renderCards(card) {
   return card
     .map(
-      ({ name, rating, burnedCalories, target, bodyPart, time }) => `<li
+      ({ name, rating, burnedCalories, target, bodyPart, time, _id }) => `<li
           class="workout-item"
           <div class="workout-card">    
       <div class="workout-header">
@@ -164,6 +176,7 @@ function renderCards(card) {
           </div>
           <button
             class="workout-start-button"
+            data-id = "${_id}"
             type="button"
           >
             Start
