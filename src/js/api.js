@@ -2,12 +2,13 @@ import axios from 'axios';
 
 const BASE_URL = 'https://energyflow.b.goit.study/api/';
 
-export async function getExercisesCards(filter, name, keyword) {
+export async function getExercisesCards(filter, name, totalPages, keyword) {
   return await axios(`${BASE_URL}exercises`, {
     method: 'get',
     params: {
       [filter]: name,
       keyword,
+      totalPages,
       limit: 9,
     },
   });
