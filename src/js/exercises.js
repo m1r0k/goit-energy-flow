@@ -1,7 +1,8 @@
 import star from '../images/svg/icon-star.svg';
-import arrow from '../images/svg/icon-arrow.svg'
-import man from '../images/svg/icon-man.svg'
+import arrow from '../images/svg/icon-arrow.svg';
+import man from '../images/svg/icon-man.svg';
 import { filterExercises, getExercisesCards } from './api';
+import { renderExercise } from './modal';
 
 const btnFilterList = document.querySelector('.btn-wrapper');
 const exFilterBtn = document.querySelectorAll('.exercises-btn-filter');
@@ -78,8 +79,8 @@ function onCardClick(e) {
 
       const starBtn = document.querySelectorAll('.workout-start-button');
       starBtn.forEach(btn =>
-        btn.addEventListener('click', e => {
-          console.log(results[0]._id);
+        btn.addEventListener('click', () => {
+          renderExercise(btn.dataset.id);
         })
       );
 
@@ -88,6 +89,7 @@ function onCardClick(e) {
       exList.removeEventListener('click', onCardClick);
     }
   );
+
   if (innerWidth >= 768 && innerWidth < 1440) {
     exHeader.style.marginBottom = '55px';
   }
@@ -225,4 +227,4 @@ function renderCards(card) {
       `
     )
     .join('');
-} 
+}
