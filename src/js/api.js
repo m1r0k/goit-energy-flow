@@ -48,9 +48,17 @@ export async function getExercise(_id) {
 
 // отримати цититу
 export async function getQuote() {
-  return await axios(`${BASE_URL}quote`, {
-    method: 'get',
-  });
+  try {
+    const response = await fetch("https://energyflow.b.goit.study/api/quote");
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching quote:", error);
+    throw error;
+  }
 }
 
 // підписатися на розсилку
