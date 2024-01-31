@@ -210,6 +210,8 @@ function renderCards(card) {
       `
     )
     .join('');
+}
+
 
 // пошук
 function getFilterAndSubtypeInfo(keyword) {
@@ -224,18 +226,18 @@ function getFilterAndSubtypeInfo(keyword) {
     .catch(error => {
       console.error('Error fetching filter and subtype info:', error);
    });  
-    
-  return axios.get('https://energyflow.b.goit.study/api/filterInfo')
-    .then(response => {
-      return {
-        filter: response.data.filter,
-        subtype: response.data.subtype
-      };
-    })
-    .catch(error => {
-      console.error('Error fetching filter and subtype info:', error);
-    });
 }
+//   return axios.get('https://energyflow.b.goit.study/api/filterInfo')
+//     .then(response => {
+//       return {
+//         filter: response.data.filter,
+//         subtype: response.data.subtype
+//       };
+//     })
+//     .catch(error => {
+//       console.error('Error fetching filter and subtype info:', error);
+//     });
+// }
 
 // function onexFormSubmit(e) {
 //   e.preventDefault();
@@ -247,7 +249,7 @@ function getFilterAndSubtypeInfo(keyword) {
 
     performSearch(keyword, filter, subtype, page);
   });
-}
+
 
 exForm.addEventListener('submit', onexFormSubmit);
 
