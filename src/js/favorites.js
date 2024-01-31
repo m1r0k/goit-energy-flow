@@ -135,6 +135,7 @@ function displayFavorites() {
 
   }
 }
+
 /  Start  /
 
 exList.addEventListener('click', onCardClick);
