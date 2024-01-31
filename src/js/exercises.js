@@ -1,8 +1,8 @@
-// import star from '../images/svg/icon-star.svg';
-// import arrow from '../images/svg/icon-arrow.svg';
-// import man from '../images/svg/icon-man.svg';
+import star from '../images/svg/icon-star.svg';
+import arrow from '../images/svg/icon-arrow.svg';
+import man from '../images/svg/icon-man.svg';
 import { filterExercises, getExercisesCards } from './api';
-import axios from 'axios'; 
+import axios from 'axios';
 import { renderExercise } from './modal';
 const btnFilterList = document.querySelector('.btn-wrapper');
 const exFilterBtn = document.querySelectorAll('.exercises-btn-filter');
@@ -140,8 +140,7 @@ function renderPagBtn(totalPages) {
     .fill()
     .map(
       (_, idx) =>
-        `<button class = "exercises-pagination-btn" type = "button">${
-          idx + 1
+        `<button class = "exercises-pagination-btn" type = "button">${idx + 1
         }</button>`
     )
     .join('');
@@ -171,13 +170,9 @@ function renderCards(card) {
           <div class="workout-header-wrapper">
             <p class="workout-title">workout</p>
             <p class="workout-rating">${rating}</p>
-              <svg
-              class="workout-rating-icon"
-              width="18"
-              height="18"
-            >
-              <use href="./images/icons.svg#icon-star"></use>
-            </svg>
+            <img 
+            class="workout-rating-icon"
+              href="${star}" />
           </div>
           <button
             class="workout-start-button"
@@ -185,23 +180,15 @@ function renderCards(card) {
             type="button"
           >
             Start
-            <svg
+             <img 
               class="workout-icon-start"
-              width="14"
-              height="14"
-            >
-              <use href="./images/icons.svg#icon-arrow"></use>
-            </svg>
+             href="${arrow}" />
           </button>
         </div>
         <div class="workout-name-wrapper">
-          <svg
+           <img 
             class="workout-icon-man"
-            width="24"
-            height="24"
-          >
-            <use href="./images/icons.svg#icon-man"></use>
-          </svg>
+            href="${man}" />
           <p class="workout-name">${name}</p>
         </div>
         
@@ -228,7 +215,7 @@ function renderCards(card) {
     )
     .join('');
 
-} 
+}
 
 // пошук
 function getFilterAndSubtypeInfo() {
@@ -249,7 +236,7 @@ function onexFormSubmit(e) {
 
   getFilterAndSubtypeInfo().then(({ filter, subtype }) => {
     const keyword = searchInput.value.trim();
-    const page = 1; 
+    const page = 1;
     performSearch(keyword, filter, subtype, page);
   });
 }
