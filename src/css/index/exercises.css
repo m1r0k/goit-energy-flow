@@ -263,6 +263,8 @@
 
 .workout-rating-icon {
   fill: #eea10c;
+  width: 18px;
+  height: 18px;
 }
 
 .workout-start-button {
@@ -282,6 +284,8 @@
 .workout-icon-start {
   stroke: #1b1b1b;
   margin: auto;
+  width: 16px;
+  height: 16px;
 }
 
 .workout-name-wrapper {
@@ -292,6 +296,8 @@
 
 .workout-icon-man {
   margin-right: 16px;
+  width: 24px;
+  height: 24px;
 }
 
 .workout-name {
