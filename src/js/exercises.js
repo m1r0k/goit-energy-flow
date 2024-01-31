@@ -216,7 +216,7 @@ function renderCards(card) {
     .join('');
 }
 
-// пошук
+// пошук //
 
 // function getFilterAndSubtypeInfo(keyword) {
 //   return filterExercises(keyword).then(response => {
