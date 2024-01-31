@@ -15,11 +15,13 @@ const exHeader = document.querySelector('.exercises-header');
 
 let query = 'Muscles';
 
-filterExercises(query).then(({ data: { results, totalPages } }) => {
+let allPages = 0;
+
+filterExercises(query).then(({ data: { results, totalPages, page } }) => {
   exFilterBtn[0].classList.add('is-active');
 
   exList.insertAdjacentHTML('beforeend', renderFilterItems(results));
-  renderPagBtn(totalPages);
+  renderPagBtn(totalPages, page);
 });
 
 btnFilterList.addEventListener('click', onFiltersBtnClick);
@@ -42,11 +44,11 @@ function onFiltersBtnClick(e) {
   button.classList.add('is-active');
   query = button.textContent;
   exList.addEventListener('click', onCardClick);
-  filterExercises(query).then(({ data: { results, totalPages } }) => {
+  filterExercises(query).then(({ data: { results, totalPages, page } }) => {
     exList.innerHTML = '';
     exList.insertAdjacentHTML('beforeend', renderFilterItems(results));
 
-    renderPagBtn(totalPages);
+    renderPagBtn(totalPages, page);
 
     exForm.classList.add('visually-hidden');
   });
@@ -55,49 +57,56 @@ function onFiltersBtnClick(e) {
 exList.addEventListener('click', onCardClick);
 
 function onCardClick(e) {
-  let exSubtype = e.target.dataset.name;
-  let exFilter = e.target.dataset.filter;
+  if (e.target.nodeName != 'UL') {
+    let exSubtype = e.target.closest('li').dataset.name;
+    let exFilter = e.target.closest('li').dataset.filter;
 
-  if (exFilter === 'bodyparts') {
-    exFilter = 'bodypart';
-  }
-
-  if (e.target.nodeName === 'UL') {
-    return;
-  }
-
-  exForm.classList.remove('visually-hidden');
-  span.classList.remove('visually-hidden');
-  secondSpan.textContent = exSubtype;
-
-  exList.innerHTML = '';
-  exPagination.innerHTML = '';
-
-  getExercisesCards(exFilter, exSubtype).then(
-    ({ data: { results, totalPages } }) => {
-      exList.insertAdjacentHTML('beforeend', renderCards(results));
-
-      const starBtn = document.querySelectorAll('.workout-start-button');
-      starBtn.forEach(btn =>
-        btn.addEventListener('click', () => {
-          renderExercise(btn.dataset.id);
-        })
-      );
-
-      renderPagBtn(totalPages);
-      exPagination.firstChild.classList.add('active-pag-btn');
-      exList.removeEventListener('click', onCardClick);
+    if (exFilter === 'bodyparts') {
+      exFilter = 'bodypart';
     }
-  );
 
-  if (innerWidth >= 768 && innerWidth < 1440) {
-    exHeader.style.marginBottom = '55px';
+    if (e.target.nodeName === 'UL') {
+      return;
+    }
+
+    exForm.classList.remove('visually-hidden');
+    span.classList.remove('visually-hidden');
+    secondSpan.textContent = exSubtype;
+
+    exList.innerHTML = '';
+    exPagination.innerHTML = '';
+
+    getExercisesCards(exFilter, exSubtype).then(
+      ({ data: { results, totalPages, page } }) => {
+        exList.insertAdjacentHTML('beforeend', renderCards(results));
+
+        const startBtn = document.querySelectorAll('.workout-start-button');
+        startBtn.forEach(btn =>
+          btn.addEventListener('click', () => {
+            renderExercise(btn.dataset.id);
+          })
+        );
+
+        renderPagBtn(totalPages, page);
+
+        exPagination.removeEventListener('click', onPagFilterBtnClick);
+        exPagination.addEventListener('click', onPagExBtnClick);
+
+        allPages = totalPages;
+
+        exPagination.firstChild.classList.add('active-pag-btn');
+        exList.removeEventListener('click', onCardClick);
+      }
+
+    );
+
+    if (innerWidth >= 768 && innerWidth < 1440) {
+      exHeader.style.marginBottom = '55px';
+    }
   }
 }
 
-exPagination.addEventListener('click', onPagBtnClick);
-
-function onPagBtnClick(e) {
+function onPagExBtnClick(e) {
   let page = e.target.textContent;
 
   if (e.target.nodeName !== 'BUTTON') {
@@ -109,10 +118,36 @@ function onPagBtnClick(e) {
   }
   e.target.classList.add('active-pag-btn');
 
-  fetchEx(query, page);
+  nextPage(allPages, page);
+  getExercisesCards(query.toLowerCase(), secondSpan.textContent, page).then(res => {
+    exList.innerHTML = '';
+    exList.insertAdjacentHTML('beforeend', renderCards(res.data.results));
+
+  });
+
+}
+
+function onPagFilterBtnClick(e) {
+  let page = e.target.textContent;
+
+  if (e.target.nodeName !== 'BUTTON') {
+    return;
+  }
+  const activePagBtn = document.querySelector('.active-pag-btn');
+  if (activePagBtn) {
+    activePagBtn.classList.remove('active-pag-btn');
+  }
+  e.target.classList.add('active-pag-btn');
+
+  filterExercises(query, page).then(res => {
+
+    exList.innerHTML = '';
+    exList.insertAdjacentHTML('beforeend', renderFilterItems(res.data.results));
+  });
 }
 
 function renderFilterItems(data) {
+  exPagination.addEventListener('click', onPagFilterBtnClick);
   return data
     .sort((a, b) => a.name.localeCompare(b.name))
     .map(
@@ -135,31 +170,63 @@ function renderFilterItems(data) {
     .join('');
 }
 
-function renderPagBtn(totalPages) {
-  const buttons = Array(totalPages)
-    .fill()
-    .map(
-      (_, idx) =>
-        `<button class = "exercises-pagination-btn" type = "button">${idx + 1
-        }</button>`
-    )
-    .join('');
+function nextPage(totalPages, page) {
+  const maxDisplayedPages = 5;
+
+  let startIdx = Math.max(1, page - Math.floor(maxDisplayedPages / 2));
+  let endIdx = Math.min(startIdx + maxDisplayedPages - 1, totalPages);
+
+  if (endIdx - startIdx + 1 < maxDisplayedPages) {
+    startIdx = Math.max(1, endIdx - maxDisplayedPages + 1);
+  }
+
+  const buttonsPage = Array.from({ length: endIdx - startIdx + 1 }, (_, idx) => {
+    const pageNum = startIdx + idx;
+
+    return pageNum === Number(page)
+      ? `<button class="exercises-pagination-btn active-pag-btn" type="button">${pageNum}</button>`
+      : `<button class="exercises-pagination-btn" type="button">${pageNum}</button>`;
+  }).join('');
+
+  exPagination.innerHTML = '';
+  exPagination.insertAdjacentHTML('beforeend', buttonsPage);
+}
+
+
+function renderPagBtn(totalPages, page) {
+  let buttons = ''
+
+  if (totalPages > 5) {
+    buttons = [page - 2, page - 1, page, page + 1, page + 2]
+      .fill(page, 3, 4)
+      .map(
+        (_, idx) =>
+          `<button class = "exercises-pagination-btn" type = "button">${idx + 1
+          }</button>`
+      )
+      .join('');
+
+  } else {
+    buttons = Array(totalPages)
+      .fill()
+      .map(
+        (_, idx) =>
+          `<button class = "exercises-pagination-btn" type = "button">${idx + 1
+          }</button>`
+      )
+      .join('');
+  }
+
   exPagination.innerHTML = '';
   exPagination.insertAdjacentHTML('beforeend', buttons);
-  exPagination.firstChild.classList.add('active-pag-btn');
+  const checkActive = Array.from(exPagination.querySelectorAll('.exercises-pagination-btn')).some(
+    (elem) => elem.classList.contains('active-pag-btn'));
+
+  if (!checkActive) {
+    exPagination.firstChild.classList.add('active-pag-btn');
+  }
 }
-/*
-function fetchEx(name, page) {
-  return fetch(
-    `https://energyflow.b.goit.study/api/filters?filter=${name}&page=${page}&limit=12`
-  )
-    .then(res => res.json())
-    .then(({ results }) => {
-      exList.innerHTML = '';
-      exList.insertAdjacentHTML('beforeend', renderFilterItems(results));
-    });
-}
-*/
+
 function renderCards(card) {
   return card
     .map(
@@ -257,12 +324,13 @@ function onexFormSubmit(e) {
 exForm.addEventListener('submit', onexFormSubmit);
 
 function performSearch(keyword, filter, subtype, page) {
-  filterExercises(keyword, filter, subtype, page).then(({ data: { results, totalPages } }) => {
+  filterExercises(keyword, filter, subtype, page).then(({ data: { results, totalPages, page } }) => {
     exList.innerHTML = '';
     exList.insertAdjacentHTML('beforeend', renderFilterItems(results));
-    renderPagBtn(totalPages);
+    renderPagBtn(totalPages, page);
     exForm.classList.add('visually-hidden');
   });
+
 }
 
 function performExcerciseSearch(bodyparts, muscles, equiment, keyword, page) {
@@ -291,3 +359,4 @@ function fetchEx(name, page) {
       console.error('Error fetching exercises:', error);
     });
 }
+
