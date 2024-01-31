@@ -214,24 +214,12 @@ function renderCards(card) {
       `
     )
     .join('');
+
 }
 
-
 // пошук
-function getFilterAndSubtypeInfo(keyword) {
-  return filterExercises(keyword).then(response => {
-    console.log(response);
-      return {
-        filter: response.data.filter,
-        subtype: response.data.subtype
-        
-      };
-    })
-    .catch(error => {
-      console.error('Error fetching filter and subtype info:', error);
-   });  
-    
-  return axios.get('https://energyflow.b.goit.study/api/filterInfo')
+function getFilterAndSubtypeInfo() {
+  return axios.get('filterInfo')
     .then(response => {
       return {
         filter: response.data.filter,
@@ -243,12 +231,11 @@ function getFilterAndSubtypeInfo(keyword) {
     });
 }
 
-// function onexFormSubmit(e) {
-//   e.preventDefault();
-//   let searchInput = document.querySelector('.exercises-input');
-//   const keyword = searchInput.value.trim();
+function onexFormSubmit(e) {
+  e.preventDefault();
 
-  getFilterAndSubtypeInfo(keyword).then(({ filter, subtype }) => {
+  getFilterAndSubtypeInfo().then(({ filter, subtype }) => {
+    const keyword = searchInput.value.trim();
     const page = 1;
     performSearch(keyword, filter, subtype, page);
   });
