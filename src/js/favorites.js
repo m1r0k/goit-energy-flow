@@ -41,7 +41,6 @@ function showPage(pageNumber) {
   });
 }
 
-search.js
 if (window.location.pathname.endsWith('/favorites.html')) {
   favoritesList = document.querySelector('.favorites-list');
   displayFavorites();
