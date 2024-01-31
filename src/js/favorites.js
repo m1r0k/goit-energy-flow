@@ -41,9 +41,46 @@ function showPage(pageNumber) {
   });
 }
 
+search.js
+if (window.location.pathname.endsWith('/favorites.html')) {
+  favoritesList = document.querySelector('.favorites-list');
+  displayFavorites();
+}
+
+const removeFromFavoritesBtn = document.querySelectorAll('.workout-trash-btn');
+
+  if (removeFromFavoritesBtn) {
+    removeFromFavoritesBtn.addEventListener('click', removeFavoritesClickHandler);
+  }
+   function removeFavoritesClickHandler(e) {
+     e.preventDefault();
+
+     let favouriteId = e.target.getAttribute('data-id');
+
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+    const index = favorites.findIndex((exercise) => {
+      return String(exercise._id) === String(favouriteId);
+    });
+
+    console.log(index);
+
+    if (index !== -1) {
+      favorites.splice(index, 1);
+      localStorage.setItem('favorites', JSON.stringify(favorites));
+
+      let elementToRemove = document.querySelector('.workout-card[data-favourite-id="' + favouriteId + '"]');
+
+      elementToRemove.remove();
+    }
+  };
+
+
+
 if (window.location.pathname === '/favorites.html') {
   displayFavorites();
 }
+
 
 function displayFavorites() {
   const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
