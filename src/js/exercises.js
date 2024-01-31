@@ -172,7 +172,7 @@ function renderCards(card) {
             <p class="workout-rating">${rating}</p>
             <img 
             class="workout-rating-icon"
-              href="${star}" />
+              src="${star}" />
           </div>
           <button
             class="workout-start-button"
@@ -182,13 +182,13 @@ function renderCards(card) {
             Start
              <img 
               class="workout-icon-start"
-             href="${arrow}" />
+             src="${arrow}" />
           </button>
         </div>
         <div class="workout-name-wrapper">
            <img 
             class="workout-icon-man"
-            href="${man}" />
+            src="${man}" />
           <p class="workout-name">${name}</p>
         </div>
         
