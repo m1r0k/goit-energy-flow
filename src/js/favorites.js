@@ -86,12 +86,12 @@ if (window.location.pathname === '/favorites.html') {
 function displayFavorites() {
   const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
   
-  const messageInfoBlock = document.querySelector('.message-info');
-  if (favorites.length > 0) {
-    messageInfoBlock.style.display = 'none';
-  } else {
-    messageInfoBlock.style.display = 'block';
-  }
+const messageInfoBlock = document.querySelectorAll('.message-info');
+if (favorites.length > 0) {
+ messageInfoBlock.style.display = 'none';
+} else {
+ messageInfoBlock.style.display = 'block';
+}
 
     if (favorites.length === 0) {
     favoritesList.innerHTML = `
