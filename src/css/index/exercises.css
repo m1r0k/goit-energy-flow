@@ -76,7 +76,6 @@
 .exercises-list {
   display: flex;
   flex-wrap: wrap;
-
   gap: 20px 0;
   margin-bottom: 20px;
 }
@@ -92,6 +91,12 @@
   border: 1px solid rgba(246, 246, 246, 0.3);
   background-position: center;
   cursor: pointer;
+  box-shadow: 5px 5px 10px #1b191933;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.exercises-item:hover {
+  transform: scale(1.025);
 }
 
 .text-wrapper {
@@ -214,6 +219,7 @@
 .workout-list {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
 }
 
@@ -223,6 +229,12 @@
   padding: 16px;
   width: 295px;
   height: 165px;
+  box-shadow: 5px 5px 10px #1b191933;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.workout-item:hover {
+  transform: scale(1.025);
 }
 
 .workout-header {
