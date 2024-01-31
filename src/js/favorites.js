@@ -1,9 +1,11 @@
-/*let favoritesList;
+import { renderExercise } from './modal';
+let exList;
+let favoritesList;
 let paginationButtons;
 
 const itemsPerPage = 6;
-if (window.location.pathname === './src/favorites.html') {
-  favoritesList = document.querySelector('.workout-item');
+if (window.location.pathname === '/favorites.html') {
+  favoritesList = document.querySelector('.favorites-list');
   paginationButtons = document.querySelectorAll(
     '.favorites-pagination-block button'
   );
@@ -21,7 +23,7 @@ function showPage(pageNumber) {
   const startIndex = (pageNumber - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
-  const items = favoritesList.querySelectorAll('.workout-list');
+  const items = favoritesList.querySelectorAll('.workout-card');
   items.forEach((item, index) => {
     if (index >= startIndex && index < endIndex) {
       item.style.display = 'block';
@@ -37,22 +39,18 @@ function showPage(pageNumber) {
       button.classList.remove('active-btn');
     }
   });
-}*/
+}
 
-let favoritesList;
-
-if (window.location.pathname.endsWith('/favorites.html')) {
+if (window.location.pathname === '/favorites.html') {
   favoritesList = document.querySelector('.favorites-list');
   displayFavorites();
 }
 
-const removeFromFavoritesBtns = document.querySelectorAll('.workout-trash-btn');
+ const removeFromFavoritesBtn = document.querySelector('.workout-trash-btn');
 
-if (removeFromFavoritesBtns) {
-  removeFromFavoritesBtns.forEach(function(btn) {
-    btn.addEventListener('click', removeFavoritesClickHandler);
-  });
-}
+  if (removeFromFavoritesBtn) {
+    removeFromFavoritesBtn.addEventListener('click', removeFavoritesClickHandler);
+  }
    function removeFavoritesClickHandler(e) {
      e.preventDefault();
 
@@ -74,29 +72,32 @@ if (removeFromFavoritesBtns) {
 
       elementToRemove.remove();
     }
-  };
+  }
 
 
 function displayFavorites() {
   const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
-  if (favorites.length === 0) {
+  const messageInfoBlock = document.querySelectorAll('.message-info');
+  if (favorites.length > 0) {
+    messageInfoBlock.style.display = 'none';
+  } else {
+    messageInfoBlock.style.display = 'block';
+  }
+
+    if (favorites.length === 0) {
     favoritesList.innerHTML = `
-      <div class="message-info">
-        <div class="message-info-block">
-          <img class="message-info-svg" src="./images/favorites/dumbbell.jpg" alt="dumbbell" />
-          <p class="message-info-text">
-            It appears that you haven't added any exercises to your favorites yet. To get
-            started, you can add exercises that you like to your favorites for easier
-            access in the future.
-          </p>
-        </div>
+      <div class="message-info-block">
+        <img class="message-info-svg" src="./images/favorites/dumbbell.jpg" alt="dumbbell" />
+        <p class="message-info-text">
+          It appears that you haven't added any exercises to your favorites yet. To get
+          started, you can add exercises that you like to your favorites for easier
+          access in the future.
+        </p>
       </div>
     `;
   } else {
-
     favoritesList.innerHTML = favorites.map(exercise => `
-
       <div class="workout-card" data-favourite-id="${exercise._id}">
             <div class="workout-header">
                 <div class="workout-header-wrapper">
@@ -131,5 +132,49 @@ function displayFavorites() {
             </div>
             </div>
     `).join('');
+
+  }
+}
+/  Start  /
+
+exList.addEventListener('click', onCardClick);
+
+function onCardClick(e) {
+  let exSubtype = e.target.dataset.name;
+  let exFilter = e.target.dataset.filter;
+
+  if (exFilter === 'bodyparts') {
+    exFilter = 'bodypart';
+  }
+
+  if (e.target.nodeName === 'UL') {
+    return;
+  }
+
+  exForm.classList.remove('visually-hidden');
+  span.classList.remove('visually-hidden');
+  secondSpan.textContent = exSubtype;
+
+  exList.innerHTML = '';
+  exPagination.innerHTML = '';
+
+  getExercisesCards(exFilter, exSubtype).then(
+    ({ data: { results, totalPages } }) => {
+      exList.insertAdjacentHTML('beforeend', renderCards(results));
+
+      const starBtn = document.querySelectorAll('.workout-start-button');
+      starBtn.forEach(btn =>
+        btn.addEventListener('click', () => {
+          renderExercise(btn.dataset.id);
+        })
+      );
+
+      renderPagBtn(totalPages);
+      exPagination.firstChild.classList.add('active-pag-btn');
+      exList.removeEventListener('click', onCardClick);
+    }
+  );
+  if (innerWidth >= 768 && innerWidth < 1440) {
+    exHeader.style.marginBottom = '55px';
   }
 }
