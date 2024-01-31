@@ -10,7 +10,7 @@ if (window.location.pathname === '/favorites.html') {
     '.favorites-pagination-block button'
   );
   showPage(1);
-
+  
   paginationButtons.forEach(button => {
     button.addEventListener('click', () => {
       const pageNumber = parseInt(button.textContent);
@@ -41,16 +41,18 @@ function showPage(pageNumber) {
   });
 }
 
-if (window.location.pathname === '/favorites.html') {
+if (window.location.pathname.endsWith('/favorites.html')) {
   favoritesList = document.querySelector('.favorites-list');
   displayFavorites();
 }
 
- const removeFromFavoritesBtn = document.querySelector('.workout-trash-btn');
+const removeFromFavoritesBtns = document.querySelectorAll('.workout-trash-btn');
 
-  if (removeFromFavoritesBtn) {
-    removeFromFavoritesBtn.addEventListener('click', removeFavoritesClickHandler);
-  }
+if (removeFromFavoritesBtns) {
+  removeFromFavoritesBtns.forEach(function(btn) {
+    btn.addEventListener('click', removeFavoritesClickHandler);
+  });
+}
    function removeFavoritesClickHandler(e) {
      e.preventDefault();
 
@@ -72,18 +74,24 @@ if (window.location.pathname === '/favorites.html') {
 
       elementToRemove.remove();
     }
-  }
+  };
+
+
+
+if (window.location.pathname === '/favorites.html') {
+  displayFavorites();
+}
 
 
 function displayFavorites() {
   const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-
-  const messageInfoBlock = document.querySelectorAll('.message-info');
-  if (favorites.length > 0) {
-    messageInfoBlock.style.display = 'none';
-  } else {
-    messageInfoBlock.style.display = 'block';
-  }
+  
+const messageInfoBlock = document.querySelectorAll('.message-info');
+if (favorites.length > 0) {
+ messageInfoBlock.style.display = 'none';
+} else {
+ messageInfoBlock.style.display = 'block';
+}
 
     if (favorites.length === 0) {
     favoritesList.innerHTML = `
@@ -97,7 +105,7 @@ function displayFavorites() {
       </div>
     `;
   } else {
-    favoritesList.innerHTML = favorites.map(exercise => `
+ favoritesList.innerHTML = favorites.map(exercise => `
       <div class="workout-card" data-favourite-id="${exercise._id}">
             <div class="workout-header">
                 <div class="workout-header-wrapper">
@@ -132,7 +140,7 @@ function displayFavorites() {
             </div>
             </div>
     `).join('');
-
+    
   }
 }
 
