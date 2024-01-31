@@ -1,5 +1,9 @@
+import star from '../images/svg/icon-star.svg';
+import arrow from '../images/svg/icon-arrow.svg';
+import man from '../images/svg/icon-man.svg';
 import { filterExercises, getExercisesCards } from './api';
-import axios from 'axios'; 
+import axios from 'axios';
+import { renderExercise } from './modal';
 const btnFilterList = document.querySelector('.btn-wrapper');
 const exFilterBtn = document.querySelectorAll('.exercises-btn-filter');
 const exForm = document.querySelector('.exercises-form');
@@ -13,6 +17,7 @@ let query = 'Muscles';
 
 filterExercises(query).then(({ data: { results, totalPages } }) => {
   exFilterBtn[0].classList.add('is-active');
+
   exList.insertAdjacentHTML('beforeend', renderFilterItems(results));
   renderPagBtn(totalPages);
 });
@@ -36,7 +41,7 @@ function onFiltersBtnClick(e) {
 
   button.classList.add('is-active');
   query = button.textContent;
-
+  exList.addEventListener('click', onCardClick);
   filterExercises(query).then(({ data: { results, totalPages } }) => {
     exList.innerHTML = '';
     exList.insertAdjacentHTML('beforeend', renderFilterItems(results));
@@ -71,10 +76,20 @@ function onCardClick(e) {
   getExercisesCards(exFilter, exSubtype).then(
     ({ data: { results, totalPages } }) => {
       exList.insertAdjacentHTML('beforeend', renderCards(results));
+
+      const starBtn = document.querySelectorAll('.workout-start-button');
+      starBtn.forEach(btn =>
+        btn.addEventListener('click', () => {
+          renderExercise(btn.dataset.id);
+        })
+      );
+
       renderPagBtn(totalPages);
       exPagination.firstChild.classList.add('active-pag-btn');
+      exList.removeEventListener('click', onCardClick);
     }
   );
+
   if (innerWidth >= 768 && innerWidth < 1440) {
     exHeader.style.marginBottom = '55px';
   }
@@ -84,7 +99,7 @@ exPagination.addEventListener('click', onPagBtnClick);
 
 function onPagBtnClick(e) {
   let page = e.target.textContent;
-  //   let name = span.textContent;
+
   if (e.target.nodeName !== 'BUTTON') {
     return;
   }
@@ -113,7 +128,7 @@ function renderFilterItems(data) {
         >
         
           <p class="exercises-name" >${name}</p>
-          <p class="exercises-text">${filter}</p>
+          <p class="exercises-text" >${filter}</p>
           
         </li>`
     )
@@ -148,43 +163,32 @@ function fetchEx(name, page) {
 function renderCards(card) {
   return card
     .map(
-      ({ name, rating, burnedCalories, target, bodyPart, time }) => `<li
+      ({ name, rating, burnedCalories, target, bodyPart, time, _id }) => `<li
           class="workout-item"
           <div class="workout-card">    
       <div class="workout-header">
           <div class="workout-header-wrapper">
             <p class="workout-title">workout</p>
             <p class="workout-rating">${rating}</p>
-              <svg
-              class="workout-rating-icon"
-              width="18"
-              height="18"
-            >
-              <use href="./images/icons.svg#icon-star"></use>
-            </svg>
+            <img 
+            class="workout-rating-icon"
+              src="${star}" />
           </div>
           <button
             class="workout-start-button"
+            data-id = "${_id}"
             type="button"
           >
             Start
-            <svg
+             <img 
               class="workout-icon-start"
-              width="14"
-              height="14"
-            >
-              <use href="./images/icons.svg#icon-arrow"></use>
-            </svg>
+             src="${arrow}" />
           </button>
         </div>
         <div class="workout-name-wrapper">
-          <svg
+           <img 
             class="workout-icon-man"
-            width="24"
-            height="24"
-          >
-            <use href="./images/icons.svg#icon-man"></use>
-          </svg>
+            src="${man}" />
           <p class="workout-name">${name}</p>
         </div>
         
@@ -213,7 +217,10 @@ function renderCards(card) {
 }
 
 
+}
+
 // пошук
+
 function getFilterAndSubtypeInfo(keyword) {
   return filterExercises(keyword).then(response => {
     console.log(response);
@@ -221,11 +228,17 @@ function getFilterAndSubtypeInfo(keyword) {
         filter: response.data.filter,
         subtype: response.data.subtype
         
+
+function getFilterAndSubtypeInfo() {
+  return axios.get('filterInfo')
+    .then(response => {
+      return {
+        filter: response.data.filter,
+
       };
     })
     .catch(error => {
       console.error('Error fetching filter and subtype info:', error);
-   });  
 }
 //   return axios.get('https://energyflow.b.goit.study/api/filterInfo')
 //     .then(response => {
@@ -239,14 +252,12 @@ function getFilterAndSubtypeInfo(keyword) {
 //     });
 // }
 
-// function onexFormSubmit(e) {
-//   e.preventDefault();
-//   let searchInput = document.querySelector('.exercises-input');
-//   const keyword = searchInput.value.trim();
+function onexFormSubmit(e) {
+  e.preventDefault();
 
-  getFilterAndSubtypeInfo(keyword).then(({ filter, subtype }) => {
+  getFilterAndSubtypeInfo().then(({ filter, subtype }) => {
+    const keyword = searchInput.value.trim();
     const page = 1;
-
     performSearch(keyword, filter, subtype, page);
   });
 
@@ -277,4 +288,3 @@ function fetchEx(name, page) {
       console.error('Error fetching exercises:', error);
     });
 }
-
