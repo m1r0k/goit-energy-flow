@@ -46,11 +46,13 @@ if (window.location.pathname.endsWith('/favorites.html')) {
   displayFavorites();
 }
 
-const removeFromFavoritesBtn = document.querySelectorAll('.workout-trash-btn');
+const removeFromFavoritesBtns = document.querySelectorAll('.workout-trash-btn');
 
-  if (removeFromFavoritesBtn) {
-    removeFromFavoritesBtn.addEventListener('click', removeFavoritesClickHandler);
-  }
+if (removeFromFavoritesBtns) {
+  removeFromFavoritesBtns.forEach(function(btn) {
+    btn.addEventListener('click', removeFavoritesClickHandler);
+  });
+}
    function removeFavoritesClickHandler(e) {
      e.preventDefault();
 
