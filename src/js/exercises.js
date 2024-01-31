@@ -121,15 +121,15 @@ function renderFilterItems(data) {
           style="
           background:linear-gradient(0deg, rgba(16, 16, 16, 0.70) 0%, rgba(16, 16, 16, 0.70) 100%), url(${imgUrl});
           background-size: cover;
-  background-repeat: no-repeat; 
+  background-repeat: no-repeat;
           "
           data-name = "${name}"
           data-filter = "${filter.toLowerCase().split(' ').join('')}"
         >
-        
+
           <p class="exercises-name" >${name}</p>
           <p class="exercises-text" >${filter}</p>
-          
+
         </li>`
     )
     .join('');
@@ -165,12 +165,12 @@ function renderCards(card) {
     .map(
       ({ name, rating, burnedCalories, target, bodyPart, time, _id }) => `<li
           class="workout-item"
-          <div class="workout-card">    
+          <div class="workout-card">
       <div class="workout-header">
           <div class="workout-header-wrapper">
             <p class="workout-title">workout</p>
             <p class="workout-rating">${rating}</p>
-            <img 
+            <img
             class="workout-rating-icon"
               src="${star}" />
           </div>
@@ -180,18 +180,18 @@ function renderCards(card) {
             type="button"
           >
             Start
-             <img 
+             <img
               class="workout-icon-start"
              src="${arrow}" />
           </button>
         </div>
         <div class="workout-name-wrapper">
-           <img 
+           <img
             class="workout-icon-man"
             src="${man}" />
           <p class="workout-name">${name}</p>
         </div>
-        
+
         <div class="workout-inform-wrapper">
 
         <p class="workout-calories">
@@ -203,33 +203,52 @@ function renderCards(card) {
             Body part:
             <span class="body-part">${bodyPart}</span>
           </p>
-        
+
           <p class="workout-target">
             Target: <span class="target">${target}</span>
           </p>
-        
+
           </div>
           </div>
-            
+
       `
     )
     .join('');
-
 }
 
-// пошук
+// пошук //
+
+// function getFilterAndSubtypeInfo(keyword) {
+//   return filterExercises(keyword).then(response => {
+//     return {
+//       filter: response.data.filter,
+//       subtype: response.data.subtype
+//     }
+//   });
+// }
+
 function getFilterAndSubtypeInfo() {
   return axios.get('filterInfo')
     .then(response => {
       return {
         filter: response.data.filter,
-        subtype: response.data.subtype
+
       };
     })
     .catch(error => {
       console.error('Error fetching filter and subtype info:', error);
     });
-}
+//   return axios.get('https://energyflow.b.goit.study/api/filterInfo')
+//     .then(response => {
+//       return {
+//         filter: response.data.filter,
+//         subtype: response.data.subtype
+//       };
+//     })
+//     .catch(error => {
+//       console.error('Error fetching filter and subtype info:', error);
+//     });
+ }
 
 function onexFormSubmit(e) {
   e.preventDefault();
