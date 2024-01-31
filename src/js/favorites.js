@@ -41,12 +41,12 @@ function showPage(pageNumber) {
 
 let favoritesList;
 
-if (window.location.pathname === '/favorites.html') {
+if (window.location.pathname.endsWith('/favorites.html')) {
   favoritesList = document.querySelector('.favorites-list');
   displayFavorites();
 }
 
- const removeFromFavoritesBtn = document.querySelector('.workout-trash-btn');
+const removeFromFavoritesBtn = document.querySelectorAll('.workout-trash-btn');
 
   if (removeFromFavoritesBtn) {
     removeFromFavoritesBtn.addEventListener('click', removeFavoritesClickHandler);
