@@ -1,6 +1,7 @@
 import heart from '../images/svg/icon-heart.svg'
 import iziToast from "izitoast";
 import { getExercise } from './api'
+import { renderReview } from './review';
 
 
 const backDrop = document.querySelector('.backdrop');
@@ -18,6 +19,8 @@ export async function renderExercise(_id) {
   const exerciseModalData = await getExercise(_id).then(res => res.data);
 
   backDrop.innerHTML = makeExerciseCard(exerciseModalData);
+
+  localStorage.setItem('ratingClose', JSON.stringify(exerciseModalData._id));
 
   // ADD TO FAVORITES //
 
@@ -64,6 +67,7 @@ export async function renderExercise(_id) {
 
   function closeModal() {
     backDrop.innerHTML = '';
+    localStorage.removeItem('ratingClose');
     backDrop.classList.add('visually-hidden');
     addToFavoritesBtn.removeEventListener('click', addToFavoritesClickHandler);
     closeBtn.removeEventListener('click', closeModal);
@@ -90,6 +94,7 @@ export async function renderExercise(_id) {
   };
 
   backDrop.addEventListener('click', backdropClickHandler);
+  openReview();
 };
 
 function makeExerciseCard({
@@ -190,6 +195,11 @@ function checkExerciseIsFavorite(_id) {
           <img src="${heart}" class="modal-btn-favorites-svg" />
         </div>`
   }
+}
+
+function openReview() {
+  const reviewBtn = document.querySelector('.modal-give-rating');
+  reviewBtn.addEventListener('click', renderReview, { once: true });
 }
 
 function capitalizeFirstLetter(word) {

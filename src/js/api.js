@@ -86,6 +86,7 @@ export async function leaveReview(id, rate, email, review) {
   }, {
     headers: {
       'Content-Type': 'application/json',
+      Accept: "application/json"
     }
   });
 }
