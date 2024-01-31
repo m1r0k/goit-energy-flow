@@ -41,18 +41,16 @@ function showPage(pageNumber) {
   });
 }
 
-if (window.location.pathname.endsWith('/favorites.html')) {
+if (window.location.pathname === '/favorites.html') {
   favoritesList = document.querySelector('.favorites-list');
   displayFavorites();
 }
 
-const removeFromFavoritesBtns = document.querySelectorAll('.workout-trash-btn');
+ const removeFromFavoritesBtn = document.querySelector('.workout-trash-btn');
 
-if (removeFromFavoritesBtns) {
-  removeFromFavoritesBtns.forEach(function(btn) {
-    btn.addEventListener('click', removeFavoritesClickHandler);
-  });
-}
+  if (removeFromFavoritesBtn) {
+    removeFromFavoritesBtn.addEventListener('click', removeFavoritesClickHandler);
+  }
    function removeFavoritesClickHandler(e) {
      e.preventDefault();
 
@@ -74,7 +72,7 @@ if (removeFromFavoritesBtns) {
 
       elementToRemove.remove();
     }
-  };
+  }
 
 
 
@@ -87,6 +85,14 @@ function displayFavorites() {
   const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
   
   const messageInfoBlock = document.querySelector('.message-info');
+  if (favorites.length > 0) {
+    messageInfoBlock.style.display = 'none';
+  } else {
+    messageInfoBlock.style.display = 'block';
+  }
+
+
+  const messageInfoBlock = document.querySelectorAll('.message-info');
   if (favorites.length > 0) {
     messageInfoBlock.style.display = 'none';
   } else {
@@ -106,9 +112,9 @@ function displayFavorites() {
     `;
   } else {
     favoritesList.innerHTML = favorites.map(exercise => `
-      <li class="favorites-item">
-        <div class="workout-card-wrapper">
-          <div class="workout-card">
+
+      <div class="workout-card" data-favourite-id="${exercise._id}">
+
             <div class="workout-header">
               <div class="workout-header-wrapper">
                 <p class="workout-title" >Workout</p>
@@ -143,10 +149,11 @@ function displayFavorites() {
         </div>
       </li>
     `).join('');
-    
+
   }
 }
-  
+/  Start  /
+
 
 exList.addEventListener('click', onCardClick);
 
@@ -160,6 +167,35 @@ function onCardClick(e) {
 
   if (e.target.nodeName === 'UL') {
     return;
+
+  }
+
+  exForm.classList.remove('visually-hidden');
+  span.classList.remove('visually-hidden');
+  secondSpan.textContent = exSubtype;
+
+  exList.innerHTML = '';
+  exPagination.innerHTML = '';
+
+  getExercisesCards(exFilter, exSubtype).then(
+    ({ data: { results, totalPages } }) => {
+      exList.insertAdjacentHTML('beforeend', renderCards(results));
+
+      const starBtn = document.querySelectorAll('.workout-start-button');
+      starBtn.forEach(btn =>
+        btn.addEventListener('click', () => {
+          renderExercise(btn.dataset.id);
+        })
+      );
+
+      renderPagBtn(totalPages);
+      exPagination.firstChild.classList.add('active-pag-btn');
+      exList.removeEventListener('click', onCardClick);
+    }
+  );
+  if (innerWidth >= 768 && innerWidth < 1440) {
+    exHeader.style.marginBottom = '55px';
+
   }
 
   exForm.classList.remove('visually-hidden');

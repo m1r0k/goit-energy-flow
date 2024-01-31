@@ -1,7 +1,7 @@
 import star from '../images/svg/icon-star.svg';
 import arrow from '../images/svg/icon-arrow.svg';
 import man from '../images/svg/icon-man.svg';
-import { filterExercises, getExercisesCards } from './api';
+import { filterExercises, getExercises, getExercisesCards } from './api';
 import axios from 'axios';
 import { renderExercise } from './modal';
 const btnFilterList = document.querySelector('.btn-wrapper');
@@ -285,45 +285,39 @@ function renderCards(card) {
 
 // пошук //
 
-// function getFilterAndSubtypeInfo(keyword) {
-//   return filterExercises(keyword).then(response => {
-//     return {
-//       filter: response.data.filter,
-//       subtype: response.data.subtype
-//     }
-//   });
-// }
-
 function getFilterAndSubtypeInfo() {
-  return axios.get('filterInfo')
-    .then(response => {
-      return {
-        filter: response.data.filter,
 
-      };
-    })
-    .catch(error => {
-      console.error('Error fetching filter and subtype info:', error);
-    });
-//   return axios.get('https://energyflow.b.goit.study/api/filterInfo')
-//     .then(response => {
-//       return {
-//         filter: response.data.filter,
-//         subtype: response.data.subtype
-//       };
-//     })
-//     .catch(error => {
-//       console.error('Error fetching filter and subtype info:', error);
-//     });
+  /* @FIXME: get current filter settings ,
+     then we can simplify call
+     from getExercises into getExercisesCards in performExcerciseSearch to */
+
+  return Promise.resolve({
+    filter: 'muscles',
+    subtype: 'triceps'
+  });
  }
 
 function onexFormSubmit(e) {
   e.preventDefault();
 
   getFilterAndSubtypeInfo().then(({ filter, subtype }) => {
+    let searchInput = document.querySelector('.exercises-input');
     const keyword = searchInput.value.trim();
     const page = 1;
-    performSearch(keyword, filter, subtype, page);
+
+    let bodyparts = null;
+    let muscles = null;
+    let equiment = null;
+
+    if (filter === 'bodyparts') {
+      bodyparts = subtype;
+    } else if (filter === 'muscles') {
+      muscles = subtype;
+    } else if (filter === 'equiment') {
+      equiment = subtype;
+    }
+
+    performExcerciseSearch(bodyparts, muscles, equiment, keyword, page);
   });
 }
 
@@ -336,4 +330,33 @@ function performSearch(keyword, filter, subtype, page) {
     renderPagBtn(totalPages, page);
     exForm.classList.add('visually-hidden');
   });
+
 }
+
+function performExcerciseSearch(bodyparts, muscles, equiment, keyword, page) {
+  getExercises(bodyparts, muscles, equiment, keyword, page).then(({ data: { results, totalPages } }) => {
+    exList.innerHTML = '';
+
+    exList.insertAdjacentHTML('beforeend', renderCards(results));
+    renderPagBtn(totalPages);
+    exForm.classList.add('visually-hidden');
+  });
+}
+
+function fetchEx(name, page) {
+  return fetch(`https://energyflow.b.goit.study/api/filters?filter=${name}&page=${page}&limit=12`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(({ results }) => {
+      exList.innerHTML = '';
+      exList.insertAdjacentHTML('beforeend', renderFilterItems(results));
+    })
+    .catch(error => {
+      console.error('Error fetching exercises:', error);
+    });
+}
+
