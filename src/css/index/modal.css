@@ -12,6 +12,7 @@
   transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
     visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 1;
+  overflow: scroll;
   visibility: visible;
   pointer-events: auto;
 }
@@ -76,11 +77,9 @@
 
 .modal-video {
   border-radius: 12px;
-  background: linear-gradient(
-      0deg,
+  background: linear-gradient(0deg,
       rgba(27, 27, 27, 0.2) 0%,
-      rgba(27, 27, 27, 0.2) 100%
-    ),
+      rgba(27, 27, 27, 0.2) 100%),
     url(<path-to-image>),
     lightgray -7.072px -25.893px / 107.482% 121.729% no-repeat;
   margin-bottom: 20px;
@@ -110,11 +109,11 @@
 }
 
 @media (min-width: 768px) {
-.wrapper-info {
-display: flex;
-flex-direction: column;
-width: 324px;
-}
+  .wrapper-info {
+    display: flex;
+    flex-direction: column;
+    width: 324px;
+  }
 }
 
 .modal-title {
@@ -214,7 +213,7 @@ width: 324px;
   color: #1b1b1b;
   font-size: 14px;
   font-style: normal;
-  font-weight:500;
+  font-weight: 500;
   line-height: 1.2;
 }
 
@@ -244,6 +243,7 @@ width: 324px;
   display: flex;
   gap: 8px;
   border-radius: 30px;
+  width: 295px;
   background: #7e847f;
   border: none;
   padding: 12px 83px;
@@ -279,6 +279,7 @@ width: 324px;
 @media (min-width: 768px) {
   .modal-btn-favorites {
     font-size: 16px;
+    width: fit-content;
     margin-bottom: 0px;
     padding: 12px 24px;
   }
@@ -289,6 +290,7 @@ width: 324px;
   border: 1px solid #1b1b1b;
   padding: 12px 107px;
   color: #1b1b1b;
+  width: 295px;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -304,6 +306,7 @@ width: 324px;
 
 @media (min-width: 768px) {
   .modal-give-rating {
+    width: 141px;
     padding: 12px 24px;
     font-size: 16px;
   }
