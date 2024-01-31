@@ -1,3 +1,4 @@
+import heart from '../images/svg/icon-heart.svg'
 import iziToast from "izitoast";
 import { getExercise } from './api'
 
@@ -99,9 +100,7 @@ function makeExerciseCard({
 
   const stars = Array.from({ length: 5 }, (_, starIndex) => `
         <li>
-          <svg class="modal-rating-stars-svg" width="18" height="18">
-            <use href="./images/icons.svg#icon-star"></use>
-          </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13"><path d="M6.049.927c.3-.921 1.603-.921 1.902 0l.845 2.6a1 1 0 0 0 .951.692h2.735c.969 0 1.371 1.24.588 1.809l-2.213 1.607a1 1 0 0 0-.363 1.118l.845 2.601c.3.921-.755 1.688-1.539 1.118l-2.212-1.607a1 1 0 0 0-1.176 0L4.2 12.472c-.784.57-1.838-.197-1.539-1.118l.845-2.6a1 1 0 0 0-.363-1.119L.93 6.028c-.783-.57-.38-1.81.588-1.81h2.735a1 1 0 0 0 .95-.69l.846-2.6Z"/></svg>
         </li>
       `).map((star, starIndex) => {
     if (starIndex < parsedRating) {
@@ -115,7 +114,7 @@ function makeExerciseCard({
     <div>
       <button class="modal-btn-close" type="button">
         <svg class="modal-btn-close-svg" width="28" height="28">
-          <use href="./images/icons.svg#icon-close" aria-label="icon-close"></use>
+         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.833 8.167 8.167 19.833m0-11.666 11.666 11.666"/></svg>
         </svg>
       </button>
     </div>
@@ -160,6 +159,9 @@ function makeExerciseCard({
       <button class="modal-btn-favorites" type="button">
         ${checkExerciseIsFavorite(_id)}
       </button>
+      <button class="modal-give-rating" type="button">
+      Give a rating
+      </button>
     </div>
   </div>
       `;
@@ -172,15 +174,11 @@ function checkExerciseIsFavorite(_id) {
 
   if (index === -1) {
     return `Add to favorites <div>
-          <svg class="modal-btn-favorites-svg">
-            <use href="./images/icons.svg#icon-heart" aria-label="icon-heart"></use>
-          </svg>
+            <img src="${heart}" class="modal-btn-favorites-svg" />
         </div>`
   } else {
     return `Remove from <div>
-          <svg class="modal-btn-favorites-svg">
-            <use href="./images/icons.svg#icon-heart" aria-label="icon-heart"></use>
-          </svg>
+          <img src="${heart}" class="modal-btn-favorites-svg" />
         </div>`
   }
 }
