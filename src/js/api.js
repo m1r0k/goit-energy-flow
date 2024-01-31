@@ -40,20 +40,25 @@ export async function getExercises(bodyparts, muscles, equipment, keyword) {
 }
 
 // взяти одину вправу за айді
-export async function getExercise(id) {
-  return await axios(`${BASE_URL}exercises`, {
+export async function getExercise(_id) {
+  return await axios(`${BASE_URL}exercises/${_id}`, {
     method: 'get',
-    params: {
-      id,
-    },
   });
 }
 
 // отримати цититу
 export async function getQuote() {
-  return await axios(`${BASE_URL}quote`, {
-    method: 'get',
-  });
+  try {
+    const response = await fetch("https://energyflow.b.goit.study/api/quote");
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching quote:", error);
+    throw error;
+  }
 }
 
 // підписатися на розсилку
@@ -69,4 +74,19 @@ export async function subscribe(email) {
       },
     }
   );
+}
+
+// відправити відгук
+
+export async function leaveReview(id, rate, email, review) {
+  await axios.patch(`${BASE_URL}exercises/${id}/rating`, {
+    rate,
+    email,
+    review
+  }, {
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: "application/json"
+    }
+  });
 }
