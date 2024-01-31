@@ -15,12 +15,26 @@
 
 }
 
+.workout-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+  }
+
+  
+
+
 .favorites-title {
     color: #1B1B1B;
     font-size: 32px;
     font-weight: 400;
     line-height: 32px;
     letter-spacing: -0.64px;
+    padding-right: 187px;
+    margin-bottom: 20px;
     
 }
 .workout-card {
@@ -196,6 +210,12 @@
      font-size: 14px;
      font-weight: 400;
      line-height: 1.28;
+
+ }
+
+ .quote-background-wrapper {
+    border-radius: 30px;
+background: #FFF;
  }
 
 @media screen and (min-width: 768px) {
@@ -246,6 +266,13 @@
       line-height: 1.33;
   }
 
+  .workout-list {
+    gap: 20px 14px;
+  }
+
+
+
+
 }
 @media screen and (min-width: 1440px) {
      .favorites-container {
@@ -258,7 +285,9 @@
         width: 424px;
         
     }
-    
+    .workout-list {
+        gap: 28px 20px;
+      }
         
 }
 
