@@ -27,7 +27,7 @@ export async function filterExercises(value, page) {
 }
 
 // отримати вправи
-export async function getExercises(bodyparts, muscles, equipment, keyword, page) {
+export async function getExercises(bodyparts, muscles, equipment, keyword) {
   return await axios(`${BASE_URL}exercises`, {
     method: 'get',
     params: {
@@ -36,7 +36,6 @@ export async function getExercises(bodyparts, muscles, equipment, keyword, page)
       equipment,
       keyword,
       limit: 9,
-      page: page
     },
   });
 }
