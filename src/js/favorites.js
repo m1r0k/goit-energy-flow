@@ -131,6 +131,7 @@ function displayFavorites() {
   bindFavouriteRemoval();
 }
 /* Start */
+
 if(exList) {
   exList.addEventListener('click', onCardClick);
 }
