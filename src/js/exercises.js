@@ -15,11 +15,13 @@ const exHeader = document.querySelector('.exercises-header');
 
 let query = 'Muscles';
 
-filterExercises(query).then(({ data: { results, totalPages } }) => {
+let allPages = 0;
+
+filterExercises(query).then(({ data: { results, totalPages, page } }) => {
   exFilterBtn[0].classList.add('is-active');
 
   exList.insertAdjacentHTML('beforeend', renderFilterItems(results));
-  renderPagBtn(totalPages);
+  renderPagBtn(totalPages, page);
 });
 
 btnFilterList.addEventListener('click', onFiltersBtnClick);
@@ -42,11 +44,11 @@ function onFiltersBtnClick(e) {
   button.classList.add('is-active');
   query = button.textContent;
   exList.addEventListener('click', onCardClick);
-  filterExercises(query).then(({ data: { results, totalPages } }) => {
+  filterExercises(query).then(({ data: { results, totalPages, page } }) => {
     exList.innerHTML = '';
     exList.insertAdjacentHTML('beforeend', renderFilterItems(results));
 
-    renderPagBtn(totalPages);
+    renderPagBtn(totalPages, page);
 
     exForm.classList.add('visually-hidden');
   });
@@ -55,49 +57,83 @@ function onFiltersBtnClick(e) {
 exList.addEventListener('click', onCardClick);
 
 function onCardClick(e) {
-  let exSubtype = e.target.dataset.name;
-  let exFilter = e.target.dataset.filter;
+  if (e.target.nodeName != 'UL') {
+    let exSubtype = e.target.closest('li').dataset.name;
+    let exFilter = e.target.closest('li').dataset.filter;
 
-  if (exFilter === 'bodyparts') {
-    exFilter = 'bodypart';
-  }
-
-  if (e.target.nodeName === 'UL') {
-    return;
-  }
-
-  exForm.classList.remove('visually-hidden');
-  span.classList.remove('visually-hidden');
-  secondSpan.textContent = exSubtype;
-
-  exList.innerHTML = '';
-  exPagination.innerHTML = '';
-
-  getExercisesCards(exFilter, exSubtype).then(
-    ({ data: { results, totalPages } }) => {
-      exList.insertAdjacentHTML('beforeend', renderCards(results));
-
-      const starBtn = document.querySelectorAll('.workout-start-button');
-      starBtn.forEach(btn =>
-        btn.addEventListener('click', () => {
-          renderExercise(btn.dataset.id);
-        })
-      );
-
-      renderPagBtn(totalPages);
-      exPagination.firstChild.classList.add('active-pag-btn');
-      exList.removeEventListener('click', onCardClick);
+    if (exFilter === 'bodyparts') {
+      exFilter = 'bodypart';
     }
-  );
 
-  if (innerWidth >= 768 && innerWidth < 1440) {
-    exHeader.style.marginBottom = '55px';
+    if (e.target.nodeName === 'UL') {
+      return;
+    }
+
+    exForm.classList.remove('visually-hidden');
+    span.classList.remove('visually-hidden');
+    secondSpan.textContent = exSubtype;
+
+    exList.innerHTML = '';
+    exPagination.innerHTML = '';
+
+    getExercisesCards(exFilter, exSubtype).then(
+      ({ data: { results, totalPages, page } }) => {
+        exList.insertAdjacentHTML('beforeend', renderCards(results));
+
+        const startBtn = document.querySelectorAll('.workout-start-button');
+        startBtn.forEach(btn =>
+          btn.addEventListener('click', () => {
+            renderExercise(btn.dataset.id);
+          }, { once: true })
+        );
+
+        renderPagBtn(totalPages, page);
+
+        exPagination.removeEventListener('click', onPagFilterBtnClick);
+        exPagination.addEventListener('click', onPagExBtnClick);
+
+        allPages = totalPages;
+
+        exPagination.firstChild.classList.add('active-pag-btn');
+        exList.removeEventListener('click', onCardClick);
+      }
+
+    );
+
+    if (innerWidth >= 768 && innerWidth < 1440) {
+      exHeader.style.marginBottom = '55px';
+    }
   }
 }
 
-exPagination.addEventListener('click', onPagBtnClick);
+function onPagExBtnClick(e) {
+  let page = e.target.textContent;
 
-function onPagBtnClick(e) {
+  if (e.target.nodeName !== 'BUTTON') {
+    return;
+  }
+  const activePagBtn = document.querySelector('.active-pag-btn');
+  if (activePagBtn) {
+    activePagBtn.classList.remove('active-pag-btn');
+  }
+  e.target.classList.add('active-pag-btn');
+  const keyword = exForm.querySelector('input').value.trim();
+
+  nextPage(allPages, page);
+  getExercisesCards(query.toLowerCase(), secondSpan.textContent, page, keyword).then(res => {
+    exList.innerHTML = '';
+    exList.insertAdjacentHTML('beforeend', renderCards(res.data.results));
+
+    const startBtn = document.querySelectorAll('.workout-start-button');
+    startBtn.forEach(btn =>
+      btn.addEventListener('click', () => {
+        renderExercise(btn.dataset.id);
+      })
+    );
+  });
+}
+
+function onPagFilterBtnClick(e) {
   let page = e.target.textContent;
 
   if (e.target.nodeName !== 'BUTTON') {
@@ -109,10 +145,15 @@ function onPagBtnClick(e) {
   }
   e.target.classList.add('active-pag-btn');
 
-  fetchEx(query, page);
+  filterExercises(query, page).then(res => {
+
+    exList.innerHTML = '';
+    exList.insertAdjacentHTML('beforeend', renderFilterItems(res.data.results));
+  });
 }
 
 function renderFilterItems(data) {
+  exPagination.addEventListener('click', onPagFilterBtnClick);
   return data
     .sort((a, b) => a.name.localeCompare(b.name))
     .map(
@@ -121,56 +162,88 @@ function renderFilterItems(data) {
           style="
           background:linear-gradient(0deg, rgba(16, 16, 16, 0.70) 0%, rgba(16, 16, 16, 0.70) 100%), url(${imgUrl});
           background-size: cover;
-  background-repeat: no-repeat; 
+  background-repeat: no-repeat;
           "
           data-name = "${name}"
           data-filter = "${filter.toLowerCase().split(' ').join('')}"
         >
-        
+
           <p class="exercises-name" >${name}</p>
           <p class="exercises-text" >${filter}</p>
-          
+
         </li>`
     )
     .join('');
 }
 
-function renderPagBtn(totalPages) {
-  const buttons = Array(totalPages)
-    .fill()
-    .map(
-      (_, idx) =>
-        `<button class = "exercises-pagination-btn" type = "button">${idx + 1
-        }</button>`
-    )
-    .join('');
+function nextPage(totalPages, page) {
+  const maxDisplayedPages = 5;
+
+  let startIdx = Math.max(1, page - Math.floor(maxDisplayedPages / 2));
+  let endIdx = Math.min(startIdx + maxDisplayedPages - 1, totalPages);
+
+  if (endIdx - startIdx + 1 < maxDisplayedPages) {
+    startIdx = Math.max(1, endIdx - maxDisplayedPages + 1);
+  }
+
+  const buttonsPage = Array.from({ length: endIdx - startIdx + 1 }, (_, idx) => {
+    const pageNum = startIdx + idx;
+
+    return pageNum === Number(page)
+      ? `<button class="exercises-pagination-btn active-pag-btn" type="button">${pageNum}</button>`
+      : `<button class="exercises-pagination-btn" type="button">${pageNum}</button>`;
+  }).join('');
+
+  exPagination.innerHTML = '';
+  exPagination.insertAdjacentHTML('beforeend', buttonsPage);
+}
+
+
+function renderPagBtn(totalPages, page) {
+  let buttons = ''
+
+  if (totalPages > 5) {
+    buttons = [page - 2, page - 1, page, page + 1, page + 2]
+      .fill(page, 3, 4)
+      .map(
+        (_, idx) =>
+          `<button class = "exercises-pagination-btn" type = "button">${idx + 1
+          }</button>`
+      )
+      .join('');
+
+  } else {
+    buttons = Array(totalPages)
+      .fill()
+      .map(
+        (_, idx) =>
+          `<button class = "exercises-pagination-btn" type = "button">${idx + 1
+          }</button>`
+      )
+      .join('');
+  }
+
   exPagination.innerHTML = '';
   exPagination.insertAdjacentHTML('beforeend', buttons);
-  exPagination.firstChild.classList.add('active-pag-btn');
+  const checkActive = Array.from(exPagination.querySelectorAll('.exercises-pagination-btn')).some(
+    (elem) => elem.classList.contains('active-pag-btn'));
+
+  if (!checkActive) {
+    exPagination.firstChild.classList.add('active-pag-btn');
+  }
 }
-/*
-function fetchEx(name, page) {
-  return fetch(
-    `https://energyflow.b.goit.study/api/filters?filter=${name}&page=${page}&limit=12`
-  )
-    .then(res => res.json())
-    .then(({ results }) => {
-      exList.innerHTML = '';
-      exList.insertAdjacentHTML('beforeend', renderFilterItems(results));
-    });
-}
-*/
+
 function renderCards(card) {
   return card
     .map(
       ({ name, rating, burnedCalories, target, bodyPart, time, _id }) => `<li
-          class="workout-item"
-          <div class="workout-card">    
+          class="workout-item">
+          <div class="workout-card">
       <div class="workout-header">
           <div class="workout-header-wrapper">
             <p class="workout-title">workout</p>
             <p class="workout-rating">${rating}</p>
-            <img 
+            <img
             class="workout-rating-icon"
               src="${star}" />
           </div>
@@ -180,18 +253,18 @@ function renderCards(card) {
             type="button"
           >
             Start
-             <img 
+             <img
               class="workout-icon-start"
              src="${arrow}" />
           </button>
         </div>
         <div class="workout-name-wrapper">
-           <img 
+           <img
             class="workout-icon-man"
             src="${man}" />
           <p class="workout-name">${name}</p>
         </div>
-        
+
         <div class="workout-inform-wrapper">
 
         <p class="workout-calories">
@@ -203,67 +276,59 @@ function renderCards(card) {
             Body part:
             <span class="body-part">${bodyPart}</span>
           </p>
-        
+
           <p class="workout-target">
             Target: <span class="target">${target}</span>
           </p>
-        
+
           </div>
           </div>
-            
+</li>
       `
     )
     .join('');
-
 }
 
-// пошук
-function getFilterAndSubtypeInfo() {
-  return axios.get('filterInfo')
-    .then(response => {
-      return {
-        filter: response.data.filter,
-        subtype: response.data.subtype
-      };
-    })
-    .catch(error => {
-      console.error('Error fetching filter and subtype info:', error);
-    });
+// пошук //
+
+function getFilterAndSubtypeInfo(filter, name, page, keyword) {
+  getExercisesCards(filter, name, page, keyword).then(response => {
+
+    if (String(response.data.results) === '') {
+      exList.innerHTML = `
+      <li class="workout-item-no-results">
+  <p class="workout-no-results">
+    Unfortunately, <span class="workout-no-results-span">no results</span> were found. You may want to consider other
+    search options to find the exercise you are looking
+    for. Our range is wide and you have the opportunity to find more options that suit your needs.
+  </p>
+</li>`
+      exPagination.classList.add('visually-hidden');
+    } else {
+      exPagination.classList.remove('visually-hidden');
+      exList.innerHTML = '';
+      exList.insertAdjacentHTML('beforeend', renderCards(response.data.results));
+    }
+
+
+  });
 }
 
 function onexFormSubmit(e) {
   e.preventDefault();
 
-  getFilterAndSubtypeInfo().then(({ filter, subtype }) => {
-    const keyword = searchInput.value.trim();
-    const page = 1;
-    performSearch(keyword, filter, subtype, page);
-  });
+  let filter = document.querySelector('.exercises-btn-filter.is-active').textContent.toLocaleLowerCase();
+
+  if (filter === "body parts") {
+    filter = 'bodypart';
+  }
+
+
+  const nowPage = document.querySelector('.exercises-pagination-btn.active-pag-btn').textContent;
+  const keyword = exForm.querySelector('input').value.trim();
+
+  getFilterAndSubtypeInfo(filter, secondSpan.textContent.toLowerCase(), nowPage, keyword);
+  exForm.reset();
 }
 
 exForm.addEventListener('submit', onexFormSubmit);
-
-function performSearch(keyword, filter, subtype, page) {
-  filterExercises(keyword, filter, subtype, page).then(({ data: { results, totalPages } }) => {
-    exList.innerHTML = '';
-    exList.insertAdjacentHTML('beforeend', renderFilterItems(results));
-    renderPagBtn(totalPages);
-    exForm.classList.add('visually-hidden');
-  });
-}
-function fetchEx(name, page) {
-  return fetch(`https://energyflow.b.goit.study/api/filters?filter=${name}&page=${page}&limit=12`)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(({ results }) => {
-      exList.innerHTML = '';
-      exList.insertAdjacentHTML('beforeend', renderFilterItems(results));
-    })
-    .catch(error => {
-      console.error('Error fetching exercises:', error);
-    });
-}

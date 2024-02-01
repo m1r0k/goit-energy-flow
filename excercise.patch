@@ -1,0 +1,130 @@
+diff --git a/src/js/exercises.js b/src/js/exercises.js
+index 80e1f58..12118e9 100644
+--- a/src/js/exercises.js
++++ b/src/js/exercises.js
+@@ -121,15 +121,15 @@ function renderFilterItems(data) {
+           style="
+           background:linear-gradient(0deg, rgba(16, 16, 16, 0.70) 0%, rgba(16, 16, 16, 0.70) 100%), url(${imgUrl});
+           background-size: cover;
+-  background-repeat: no-repeat; 
++  background-repeat: no-repeat;
+           "
+           data-name = "${name}"
+           data-filter = "${filter.toLowerCase().split(' ').join('')}"
+         >
+-        
++
+           <p class="exercises-name" >${name}</p>
+           <p class="exercises-text" >${filter}</p>
+-          
++
+         </li>`
+     )
+     .join('');
+@@ -165,12 +165,12 @@ function renderCards(card) {
+     .map(
+       ({ name, rating, burnedCalories, target, bodyPart, time, _id }) => `<li
+           class="workout-item"
+-          <div class="workout-card">    
++          <div class="workout-card">
+       <div class="workout-header">
+           <div class="workout-header-wrapper">
+             <p class="workout-title">workout</p>
+             <p class="workout-rating">${rating}</p>
+-            <img 
++            <img
+             class="workout-rating-icon"
+               src="${star}" />
+           </div>
+@@ -180,18 +180,18 @@ function renderCards(card) {
+             type="button"
+           >
+             Start
+-             <img 
++             <img
+               class="workout-icon-start"
+              src="${arrow}" />
+           </button>
+         </div>
+         <div class="workout-name-wrapper">
+-           <img 
++           <img
+             class="workout-icon-man"
+             src="${man}" />
+           <p class="workout-name">${name}</p>
+         </div>
+-        
++
+         <div class="workout-inform-wrapper">
+ 
+         <p class="workout-calories">
+@@ -203,31 +203,29 @@ function renderCards(card) {
+             Body part:
+             <span class="body-part">${bodyPart}</span>
+           </p>
+-        
++
+           <p class="workout-target">
+             Target: <span class="target">${target}</span>
+           </p>
+-        
++
+           </div>
+           </div>
+-            
++
+       `
+     )
+     .join('');
+ }
+ 
+-
+-}
+-
+ // пошук
+ 
+-function getFilterAndSubtypeInfo(keyword) {
+-  return filterExercises(keyword).then(response => {
+-    console.log(response);
+-      return {
+-        filter: response.data.filter,
+-        subtype: response.data.subtype
+-        
++// function getFilterAndSubtypeInfo(keyword) {
++//   return filterExercises(keyword).then(response => {
++//     return {
++//       filter: response.data.filter,
++//       subtype: response.data.subtype
++//     }
++//   });
++// }
+ 
+ function getFilterAndSubtypeInfo() {
+   return axios.get('filterInfo')
+@@ -239,7 +237,7 @@ function getFilterAndSubtypeInfo() {
+     })
+     .catch(error => {
+       console.error('Error fetching filter and subtype info:', error);
+-}
++    });
+ //   return axios.get('https://energyflow.b.goit.study/api/filterInfo')
+ //     .then(response => {
+ //       return {
+@@ -250,7 +248,7 @@ function getFilterAndSubtypeInfo() {
+ //     .catch(error => {
+ //       console.error('Error fetching filter and subtype info:', error);
+ //     });
+-// }
++ }
+ 
+ function onexFormSubmit(e) {
+   e.preventDefault();
+@@ -260,7 +258,7 @@ function onexFormSubmit(e) {
+     const page = 1;
+     performSearch(keyword, filter, subtype, page);
+   });
+-
++}
+ 
+ exForm.addEventListener('submit', onexFormSubmit);
+ 
