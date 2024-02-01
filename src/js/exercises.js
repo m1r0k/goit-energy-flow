@@ -84,7 +84,7 @@ function onCardClick(e) {
         startBtn.forEach(btn =>
           btn.addEventListener('click', () => {
             renderExercise(btn.dataset.id);
-          })
+          }, { once: true })
         );
 
         renderPagBtn(totalPages, page);
@@ -107,6 +107,7 @@ function onCardClick(e) {
 }
 
 function onPagExBtnClick(e) {
+  debugger
   let page = e.target.textContent;
 
   if (e.target.nodeName !== 'BUTTON') {
@@ -123,7 +124,15 @@ function onPagExBtnClick(e) {
     exList.innerHTML = '';
     exList.insertAdjacentHTML('beforeend', renderCards(res.data.results));
 
+    const startBtn = document.querySelectorAll('.workout-start-button');
+    startBtn.forEach(btn =>
+      btn.addEventListener('click', () => {
+        renderExercise(btn.dataset.id);
+      })
+    );
   });
+
+
 
 }
 
@@ -305,17 +314,17 @@ function getFilterAndSubtypeInfo() {
     .catch(error => {
       console.error('Error fetching filter and subtype info:', error);
     });
-//   return axios.get('https://energyflow.b.goit.study/api/filterInfo')
-//     .then(response => {
-//       return {
-//         filter: response.data.filter,
-//         subtype: response.data.subtype
-//       };
-//     })
-//     .catch(error => {
-//       console.error('Error fetching filter and subtype info:', error);
-//     });
- }
+  //   return axios.get('https://energyflow.b.goit.study/api/filterInfo')
+  //     .then(response => {
+  //       return {
+  //         filter: response.data.filter,
+  //         subtype: response.data.subtype
+  //       };
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching filter and subtype info:', error);
+  //     });
+}
 
 function onexFormSubmit(e) {
   e.preventDefault();
