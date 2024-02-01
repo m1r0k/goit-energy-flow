@@ -131,14 +131,10 @@ function displayFavorites() {
   bindFavouriteRemoval();
 }
 /* Start */
+
 if(exList) {
   exList.addEventListener('click', onCardClick);
 }
-
-/ Start /
-if (window.location.pathname === '/favorites.html') {
-}
-exList.addEventListener('click', onCardClick);
 
 function onCardClick(e) {
  let exSubtype = e.target.dataset.name;
