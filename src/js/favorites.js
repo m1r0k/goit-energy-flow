@@ -40,12 +40,12 @@ if (window.location.pathname === '/favorites.html') {
 }
 function displayFavorites() {
  const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
- const messageInfoBlock = document.querySelector('.message-info');
- if (favorites.length > 0) {
-  messageInfoBlock.style.display = 'none';
- } else {
-  messageInfoBlock.style.display = 'block';
- }
+//  const messageInfoBlock = document.querySelector('.message-info');
+//  if (favorites.length > 0) {
+//   messageInfoBlock.style.display = 'none';
+//  } else {
+//   messageInfoBlock.style.display = 'block';
+//  }
   if (favorites.length === 0) {
   favoritesList.innerHTML = `
    <div class="message-info-block">
@@ -99,6 +99,8 @@ function displayFavorites() {
  }
 }
 / Start /
+if (window.location.pathname === '/favorites.html') {
+}
 exList.addEventListener('click', onCardClick);
 function onCardClick(e) {
  let exSubtype = e.target.dataset.name;
