@@ -127,7 +127,6 @@ function sendReview(ratingEmail, ratingComment, ratingForm, ratingNumber) {
 
             renderExercise(JSON.parse(localStorage.getItem('ratingClose')));
         } catch (error) {
-            console.log(error);
             iziToast.show({
                 message: 'Sorry, something goes wrong',
                 messageColor: '#f7f7fc',
