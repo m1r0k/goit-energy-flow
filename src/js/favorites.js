@@ -1,7 +1,13 @@
 import { renderExercise } from './modal';
-let exList;
+import star from './../images/svg/icon-star.svg';
+import trash from './../images/svg/icon-trash.svg';
+import man from './../images/svg/icon-man.svg';
+import arrow from './../images/svg/icon-arrow.svg';
+
 let favoritesList;
 let paginationButtons;
+const exList = document.querySelector('.favorites-list');
+const exForm = document.querySelector('.exercises-form');
 const itemsPerPage = 6;
 if (window.location.pathname.endsWith('/favorites.html')) {
  favoritesList = document.querySelector('.favorites-list');
@@ -97,25 +103,23 @@ function displayFavorites() {
        <div class="workout-header-wrapper">
         <p class="workout-title" >Workout</p>
         <button class="workout-trash-btn" id="workout-trash-btn" type="button" data-id="${exercise._id}">
-         <svg class="workout-icon-trash" id="workout-icon-trash" width="16" height="16">
-          <use href="./images/icons.svg#icon-trash" data-id="${exercise._id}"></use>
-         </svg>
+         <img
+            class="workout-icon-trash" id="workout-icon-trash-${exercise._id}" data-id="${exercise._id}" width="16" height="16"
+            src="${trash}" 
+            />
         </button>
         <p class="workout-rating" id="workout-rating">4.0</p>
-        <svg class="workout-rating-icon" id="workout-rating-icon" width="18" height="18">
-         <use href="./images/icons.svg#icon-star"></use>
-        </svg>
+       <img src="${star}" class="workout-rating-icon" id="workout-rating-icon-${exercise._id}" width="18" height="18" 
+       />
        </div>
-       <button class="workout-start-button" id="workout-start-button" type="button">Start
-        <svg class="workout-icon-start" id="workout-icon-start" width="14" height="14">
-         <use href="./images/icons.svg#icon-arrow"></use>
-        </svg>
+       <button class="workout-start-button" id="workout-start-button" type="button" data-id="${exercise._id}">Start
+         <img
+            class="workout-icon-start" id="workout-icon-start-${exercise._id}" width="14" height="14 "
+            src="${arrow}"/>
        </button>
       </div>
       <div class="workout-name-wrapper">
-       <svg class="workout-icon-man" id="workout-icon-man" width="24" height="24">
-        <use href="./images/icons.svg#icon-man"></use>
-       </svg>
+       <img src="${man}" class="workout-icon-man" id="workout-icon-man-${exercise._id}" width="16" height="16" />
        <p class="workout-name" id="workout-name">${exercise.name}</p>
       </div>
       <div class="workout-inform-wrapper">
@@ -132,39 +136,10 @@ function displayFavorites() {
 }
 /* Start */
 
-if(exList) {
-  exList.addEventListener('click', onCardClick);
-}
-
-function onCardClick(e) {
- let exSubtype = e.target.dataset.name;
- let exFilter = e.target.dataset.filter;
- if (exFilter === 'bodyparts') {
-  exFilter = 'bodypart';
- }
- if (e.target.nodeName === 'UL') {
-  return;
- }
- exForm.classList.remove('visually-hidden');
- span.classList.remove('visually-hidden');
- secondSpan.textContent = exSubtype;
- exList.innerHTML = '';
- exPagination.innerHTML = '';
- getExercisesCards(exFilter, exSubtype).then(
-  ({ data: { results, totalPages } }) => {
-   exList.insertAdjacentHTML('beforeend', renderCards(results));
    const starBtn = document.querySelectorAll('.workout-start-button');
    starBtn.forEach(btn =>
     btn.addEventListener('click', () => {
      renderExercise(btn.dataset.id);
     })
    );
-   renderPagBtn(totalPages);
-   exPagination.firstChild.classList.add('active-pag-btn');
-   exList.removeEventListener('click', onCardClick);
-  }
- );
- if (innerWidth >= 768 && innerWidth < 1440) {
-  exHeader.style.marginBottom = '55px';
- }
-}
+
