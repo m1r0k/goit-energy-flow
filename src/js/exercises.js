@@ -91,7 +91,7 @@ function onCardClick(e) {
         startBtn.forEach(btn =>
           btn.addEventListener('click', () => {
             renderExercise(btn.dataset.id);
-          }, { once: true })
+          })
         );
 
         renderPagBtn(totalPages, page);

@@ -29,8 +29,8 @@
 }
 
 .rating-close-btn-icon {
-    width: 12px;
-    height: 12px;
+    width: 24px;
+    height: 24px;
 
     transition: stroke 250ms linear;
 
@@ -182,8 +182,8 @@
     }
 
     .rating-close-btn-icon {
-        width: 14px;
-        height: 14px;
+        width: 28px;
+        height: 28px;
     }
 
     /* stars */

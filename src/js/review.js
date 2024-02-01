@@ -13,9 +13,9 @@ export function renderReview() {
     <div class="rating">
 
         <button type="button" class="rating-close-btn">
-            <svg class="rating-close-btn-icon">
-                <use href="./images/icons.svg#icon-close"></use>
-            </svg>
+             <svg class="rating-close-btn-icon" width="28" height="28" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.833 8.167 8.167 19.833m0-11.666 11.666 11.666"/>
+      </svg>
         </button>
 
         <form action="post" class="rating-form">
