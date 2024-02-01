@@ -2,7 +2,6 @@ import star from '../images/svg/icon-star.svg';
 import arrow from '../images/svg/icon-arrow.svg';
 import man from '../images/svg/icon-man.svg';
 import { filterExercises, getExercisesCards } from './api';
-import axios from 'axios';
 import { renderExercise } from './modal';
 const btnFilterList = document.querySelector('.btn-wrapper');
 const exFilterBtn = document.querySelectorAll('.exercises-btn-filter');
@@ -308,9 +307,12 @@ function getFilterAndSubtypeInfo(filter, name, page, keyword) {
       exPagination.classList.remove('visually-hidden');
       exList.innerHTML = '';
       exList.insertAdjacentHTML('beforeend', renderCards(response.data.results));
+      exList.addEventListener('click', (event) => {
+        if (event.target.closest('.workout-start-button')) {
+          renderExercise(event.target.closest('.workout-start-button').dataset.id);
+        }
+      });
     }
-
-
   });
 }
 

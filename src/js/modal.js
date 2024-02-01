@@ -37,8 +37,6 @@ export async function renderExercise(_id) {
       return String(exercise._id) === String(exerciseModalData._id);
     });
 
-    console.log(index);
-
     if (index !== -1) {
       favorites.splice(index, 1);
       localStorage.setItem('favorites', JSON.stringify(favorites));
@@ -114,11 +112,11 @@ function makeExerciseCard({
     <svg style="fill: rgba(126, 132, 127, 0.20);" xmlns="http://www.w3.org/2000/svg" width="14" height="13"><path d="M6.049.927c.3-.921 1.603-.921 1.902 0l.845 2.6a1 1 0 0 0 .951.692h2.735c.969 0 1.371 1.24.588 1.809l-2.213 1.607a1 1 0 0 0-.363 1.118l.845 2.601c.3.921-.755 1.688-1.539 1.118l-2.212-1.607a1 1 0 0 0-1.176 0L4.2 12.472c-.784.57-1.838-.197-1.539-1.118l.845-2.6a1 1 0 0 0-.363-1.119L.93 6.028c-.783-.57-.38-1.81.588-1.81h2.735a1 1 0 0 0 .95-.69l.846-2.6Z"/></svg>
   </li>
 `).map((star, starIndex) => {
-  if (starIndex < parsedRating) {
-    return star.replace('<svg', `<svg style="fill: #eea10c;" title="${formattedRating}"`);
-  }
-  return star;
-}).join('');
+    if (starIndex < parsedRating) {
+      return star.replace('<svg', `<svg style="fill: #eea10c;" title="${formattedRating}"`);
+    }
+    return star;
+  }).join('');
 
 
   return `
@@ -203,5 +201,5 @@ function openReview() {
 }
 
 function capitalizeFirstLetter(word) {
-    return word.charAt(0).toUpperCase() + word.slice(1);
+  return word.charAt(0).toUpperCase() + word.slice(1);
 }
