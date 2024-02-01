@@ -117,9 +117,10 @@ function onPagExBtnClick(e) {
     activePagBtn.classList.remove('active-pag-btn');
   }
   e.target.classList.add('active-pag-btn');
+  const keyword = exForm.querySelector('input').value.trim();
 
   nextPage(allPages, page);
-  getExercisesCards(query.toLowerCase(), secondSpan.textContent, page).then(res => {
+  getExercisesCards(query.toLowerCase(), secondSpan.textContent, page, keyword).then(res => {
     exList.innerHTML = '';
     exList.insertAdjacentHTML('beforeend', renderCards(res.data.results));
 
@@ -130,9 +131,6 @@ function onPagExBtnClick(e) {
       })
     );
   });
-
-
-
 }
 
 function onPagFilterBtnClick(e) {
@@ -239,7 +237,7 @@ function renderCards(card) {
   return card
     .map(
       ({ name, rating, burnedCalories, target, bodyPart, time, _id }) => `<li
-          class="workout-item"
+          class="workout-item">
           <div class="workout-card">
       <div class="workout-header">
           <div class="workout-header-wrapper">
@@ -285,7 +283,7 @@ function renderCards(card) {
 
           </div>
           </div>
-
+</li>
       `
     )
     .join('');
@@ -293,55 +291,44 @@ function renderCards(card) {
 
 // пошук //
 
-// function getFilterAndSubtypeInfo(keyword) {
-//   return filterExercises(keyword).then(response => {
-//     return {
-//       filter: response.data.filter,
-//       subtype: response.data.subtype
-//     }
-//   });
-// }
+function getFilterAndSubtypeInfo(filter, name, page, keyword) {
+  getExercisesCards(filter, name, page, keyword).then(response => {
 
-function getFilterAndSubtypeInfo() {
-  return axios.get('filterInfo')
-    .then(response => {
-      return {
-        filter: response.data.filter,
+    if (String(response.data.results) === '') {
+      exList.innerHTML = `
+      <li class="workout-item-no-results">
+  <p class="workout-no-results">
+    Unfortunately, <span class="workout-no-results-span">no results</span> were found. You may want to consider other
+    search options to find the exercise you are looking
+    for. Our range is wide and you have the opportunity to find more options that suit your needs.
+  </p>
+</li>`
+      exPagination.classList.add('visually-hidden');
+    } else {
+      exPagination.classList.remove('visually-hidden');
+      exList.innerHTML = '';
+      exList.insertAdjacentHTML('beforeend', renderCards(response.data.results));
+    }
 
-      };
-    })
-    .catch(error => {
-      console.error('Error fetching filter and subtype info:', error);
-    });
-  //   return axios.get('https://energyflow.b.goit.study/api/filterInfo')
-  //     .then(response => {
-  //       return {
-  //         filter: response.data.filter,
-  //         subtype: response.data.subtype
-  //       };
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching filter and subtype info:', error);
-  //     });
+
+  });
 }
 
 function onexFormSubmit(e) {
   e.preventDefault();
 
-  getFilterAndSubtypeInfo().then(({ filter, subtype }) => {
-    const keyword = searchInput.value.trim();
-    const page = 1;
-    performSearch(keyword, filter, subtype, page);
-  });
+  let filter = document.querySelector('.exercises-btn-filter.is-active').textContent.toLocaleLowerCase();
+
+  if (filter === "body parts") {
+    filter = 'bodypart';
+  }
+
+
+  const nowPage = document.querySelector('.exercises-pagination-btn.active-pag-btn').textContent;
+  const keyword = exForm.querySelector('input').value.trim();
+
+  getFilterAndSubtypeInfo(filter, secondSpan.textContent.toLowerCase(), nowPage, keyword);
+  exForm.reset();
 }
 
 exForm.addEventListener('submit', onexFormSubmit);
-
-function performSearch(keyword, filter, subtype, page) {
-  filterExercises(keyword, filter, subtype, page).then(({ data: { results, totalPages, page } }) => {
-    exList.innerHTML = '';
-    exList.insertAdjacentHTML('beforeend', renderFilterItems(results));
-    renderPagBtn(totalPages, page);
-    exForm.classList.add('visually-hidden');
-  });
-}
