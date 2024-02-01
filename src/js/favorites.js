@@ -3,7 +3,7 @@ let exList;
 let favoritesList;
 let paginationButtons;
 const itemsPerPage = 6;
-if (window.location.pathname === '/favorites.html') {
+if (window.location.pathname.endsWith('/favorites.html')) {
  favoritesList = document.querySelector('.favorites-list');
  paginationButtons = document.querySelectorAll(
   '.favorites-pagination-block button'
@@ -35,7 +35,38 @@ function showPage(pageNumber) {
   }
  });
 }
-if (window.location.pathname === '/favorites.html') {
+
+function bindFavouriteRemoval() {
+  const removeFromFavoritesBtns = document.querySelectorAll('.workout-trash-btn');
+
+  if (removeFromFavoritesBtns) {
+    removeFromFavoritesBtns.forEach(function(btn) {
+      btn.addEventListener('click', removeFavoritesClickHandler);
+    });
+  }
+}
+function removeFavoritesClickHandler(e) {
+  e.preventDefault();
+
+  let favouriteId = e.target.getAttribute('data-id');
+
+  let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+  const index = favorites.findIndex((exercise) => {
+    return String(exercise._id) === String(favouriteId);
+  });
+
+  if (index !== -1) {
+    favorites.splice(index, 1);
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+
+    let elementToRemove = document.querySelector('.favorites-item[data-favourite-id="' + favouriteId + '"]');
+
+    elementToRemove.remove();
+  }
+};
+
+if (window.location.pathname.endsWith('/favorites.html')) {
  displayFavorites();
 }
 function displayFavorites() {
@@ -59,15 +90,15 @@ function displayFavorites() {
   `;
  } else {
   favoritesList.innerHTML = favorites.map(exercise => `
-   <li class="favorites-item">
+   <li class="favorites-item" data-favourite-id="${exercise._id}">
     <div class="workout-card-wrapper">
      <div class="workout-card">
       <div class="workout-header">
        <div class="workout-header-wrapper">
         <p class="workout-title" >Workout</p>
-        <button class="workout-trash-btn" id="workout-trash-btn" type="button">
+        <button class="workout-trash-btn" id="workout-trash-btn" type="button" data-id="${exercise._id}">
          <svg class="workout-icon-trash" id="workout-icon-trash" width="16" height="16">
-          <use href="./images/icons.svg#icon-trash"></use>
+          <use href="./images/icons.svg#icon-trash" data-id="${exercise._id}"></use>
          </svg>
         </button>
         <p class="workout-rating" id="workout-rating">4.0</p>
@@ -88,20 +119,27 @@ function displayFavorites() {
        <p class="workout-name" id="workout-name">${exercise.name}</p>
       </div>
       <div class="workout-inform-wrapper">
-       <p class="workout-calories" id="workout-calories">Burned calories: <span class="number-calories" id="number-calories">312&#160;&#8260;&#160;3&#160;min</span></p>
-       <p class="workout-body-part" id="workout-body-part">Body part: <span class="body-part" id="body-part">Waist</span></p>
-       <p class="workout-target" id="workout-target">Target: <span class="target" id="target">Abs</span></p>
+       <p class="workout-calories" id="workout-calories">Burned calories: <span class="number-calories" id="number-calories">${exercise.burnedCalories}&#160;&#8260;&#160;${exercise.time}&#160;min</span></p>
+       <p class="workout-body-part" id="workout-body-part">Body part: <span class="body-part" id="body-part">${exercise.bodyPart}</span></p>
+       <p class="workout-target" id="workout-target">Target: <span class="target" id="target">${exercise.target}</span></p>
       </div>
      </div>
     </div>
    </li>
   `).join('');
  }
+  bindFavouriteRemoval();
 }
+/* Start */
+if(exList) {
+  exList.addEventListener('click', onCardClick);
+}
+
 / Start /
 if (window.location.pathname === '/favorites.html') {
 }
 exList.addEventListener('click', onCardClick);
+
 function onCardClick(e) {
  let exSubtype = e.target.dataset.name;
  let exFilter = e.target.dataset.filter;
