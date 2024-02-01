@@ -107,7 +107,6 @@ function onCardClick(e) {
 }
 
 function onPagExBtnClick(e) {
-  debugger
   let page = e.target.textContent;
 
   if (e.target.nodeName !== 'BUTTON') {
