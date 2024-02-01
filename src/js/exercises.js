@@ -16,6 +16,14 @@ let query = 'Muscles';
 
 let allPages = 0;
 
+// var exercisesBtns = document.getElementsByClassName('exercisesBtnFilter');
+
+// for (var i = 0; i < exercisesBtns.length; i++) {
+//     exercisesBtns[i].addEventListener('click', function() {
+//         console.log('Click on element exercisesBtnFilter');
+//     });
+// }
+
 filterExercises(query).then(({ data: { results, totalPages, page } }) => {
   exFilterBtn[0].classList.add('is-active');
 
