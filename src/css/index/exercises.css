@@ -310,6 +310,10 @@
   margin-right: 16px;
   width: 24px;
   height: 24px;
+
+  background-color: var(--dark-accent-color);
+  padding: 5px;
+  border-radius: 50%;
 }
 
 .workout-name {
