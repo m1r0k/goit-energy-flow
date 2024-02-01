@@ -21,10 +21,9 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
-
-  }
-
-  
+    max-height: 620px;
+    overflow: auto;
+    }
 
 
 .favorites-title {
