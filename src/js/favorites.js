@@ -3,6 +3,7 @@ import star from './../images/svg/icon-star.svg';
 import trash from './../images/svg/icon-trash.svg';
 import man from './../images/svg/icon-man.svg';
 import arrow from './../images/svg/icon-arrow.svg';
+import dumbbell from './../images/favorites/dumbbell.jpg';
 
 let favoritesList;
 let paginationButtons;
@@ -69,6 +70,7 @@ function removeFavoritesClickHandler(e) {
     let elementToRemove = document.querySelector('.favorites-item[data-favourite-id="' + favouriteId + '"]');
 
     elementToRemove.remove();
+    displayFavorites();
   }
 };
 
@@ -86,7 +88,7 @@ function displayFavorites() {
   if (favorites.length === 0) {
   favoritesList.innerHTML = `
    <div class="message-info-block">
-    <img class="message-info-svg" src="./images/favorites/dumbbell.jpg" alt="dumbbell" />
+    <img class="message-info-svg" src="${dumbbell}" alt="dumbbell"/>
     <p class="message-info-text">
      It appears that you haven't added any exercises to your favorites yet. To get
      started, you can add exercises that you like to your favorites for easier
