@@ -12,7 +12,6 @@
   transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
     visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 1;
-  overflow: scroll;
   visibility: visible;
   pointer-events: auto;
 }
@@ -24,12 +23,16 @@
   background: #f6f6f6;
   transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
   padding: 40px 20px;
+  overflow-y: auto;
+  max-height: 97vh;
 }
 
 @media (min-width: 768px) {
   .modal-window {
     width: 716px;
     padding: 40px;
+    max-height: 100vh;
+    overflow-y: hidden;
   }
 }
 
@@ -77,9 +80,11 @@
 
 .modal-video {
   border-radius: 12px;
-  background: linear-gradient(0deg,
+  background: linear-gradient(
+      0deg,
       rgba(27, 27, 27, 0.2) 0%,
-      rgba(27, 27, 27, 0.2) 100%),
+      rgba(27, 27, 27, 0.2) 100%
+    ),
     url(<path-to-image>),
     lightgray -7.072px -25.893px / 107.482% 121.729% no-repeat;
   margin-bottom: 20px;
@@ -235,7 +240,13 @@
     margin-top: 32px;
     display: flex;
     gap: 7px;
-    justify-content: flex-end;
+    margin-left: 291px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .modal-btns {
+    margin-left: 306px;
   }
 }
 
@@ -243,7 +254,6 @@
   display: flex;
   gap: 8px;
   border-radius: 30px;
-  width: 295px;
   background: #7e847f;
   border: none;
   padding: 12px 83px;
@@ -279,7 +289,6 @@
 @media (min-width: 768px) {
   .modal-btn-favorites {
     font-size: 16px;
-    width: fit-content;
     margin-bottom: 0px;
     padding: 12px 24px;
   }
@@ -290,7 +299,6 @@
   border: 1px solid #1b1b1b;
   padding: 12px 107px;
   color: #1b1b1b;
-  width: 295px;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -306,7 +314,6 @@
 
 @media (min-width: 768px) {
   .modal-give-rating {
-    width: 141px;
     padding: 12px 24px;
     font-size: 16px;
   }
